@@ -1,16 +1,25 @@
 # life-graph
 人生グラフ
 
-## 起動方法
- - docker
+### docker起動方法
+```
 cd docker
 docker-compose up -d
+```
 
- - api
+### api起動方法
+```
 cd api
 mvn spring-boot:run
-※mvn: command not foundとなる人は、「brew install maven」
+```
+※ mvn: command not found となる人は、
+```
+brew install maven
+```
 
- - vue
+### vue起動方法
+```
 cd vue
-npm install && npm run serve
+npm install
+npm run serve
+```
