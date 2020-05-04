@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --port 8081",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint:css": "stylelint \"src/**/*.vue\" --fix"
   },
   "dependencies": {
     "vue": "^2.6.11",
@@ -25,6 +26,10 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.0.0",
+    "stylelint-scss": "^3.17.1",
     "vue-template-compiler": "^2.6.11"
   },
   "gitHooks": {
@@ -33,6 +38,7 @@
   "lint-staged": {
     "*.{js,jsx,vue}": [
       "vue-cli-service lint",
+      "stylelint \"src/**/*.vue\" --fix",
       "git add"
     ]
   }
