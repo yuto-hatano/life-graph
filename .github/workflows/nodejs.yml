@@ -1,0 +1,58 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cd vue && npm ci
+    - run: cd vue && npm run build --if-present
+    - run: cd vue && npm run lint
+    - run: cd vue && npm run lint:css
+    - run: cd vue && npm test
+
+    - name: Slack Notification Success
+      if: success()
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_CHANNEL: notification
+        SLACK_USERNAME: build-check-teamX
+        SLACK_ICON_EMOJI: ':man-gesturing-ok:'
+        SLACK_MESSAGE: |
+          Node Build Succeeded. :michopa: :lgtm:
+          PR URL : ${{ github.event.pull_request.html_url }}
+        SLACK_TITLE: TeamX Node Build Result
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - name: Slack Notification Failure
+      if: failure()
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_CHANNEL: notification
+        SLACK_USERNAME: build-check-teamX
+        SLACK_ICON_EMOJI: ':man-gesturing-ng:'
+        SLACK_COLOR: '#ff0000'
+        SLACK_MESSAGE: |
+          Node Build Failed. :michopa: :lgtm:
+          PR URL : ${{ github.event.pull_request.html_url }}
+        SLACK_TITLE: TeamX Node Build Result
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
