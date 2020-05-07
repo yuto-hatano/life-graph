@@ -17,6 +17,10 @@ mvn spring-boot:run
 brew install maven
 ```
 
+### api debug起動方法
+・eclipseを起動
+・「ApiApplication.java」を選択し、「Debug As...」の「Java Application」を選択しデバッグ起動
+
 ### vue起動方法
 ```
 cd vue
