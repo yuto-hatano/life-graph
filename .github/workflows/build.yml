@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Life Graph CI
 
 on:
   pull_request:
@@ -30,18 +30,27 @@ jobs:
     - run: cd vue && npm run lint:css
     - run: cd vue && npm test
 
-    - name: Slack Notification Success
-      if: success()
+    - name: Slack Notification Failure
+      if: failure()
       uses: rtCamp/action-slack-notify@master
       env:
         SLACK_CHANNEL: notification
         SLACK_USERNAME: build-check-teamX
-        SLACK_ICON_EMOJI: ':man-gesturing-ok:'
+        SLACK_ICON_EMOJI: ':man-gesturing-ng:'
+        SLACK_COLOR: '#ff0000'
         SLACK_MESSAGE: |
-          Node Build Succeeded. :michopa: :lgtm:
+          Node Build Failed. :sawajiri_erika: :bugkana2:
           PR URL : ${{ github.event.pull_request.html_url }}
         SLACK_TITLE: TeamX Node Build Result
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn -B package --file api/pom.xml
 
     - name: Slack Notification Failure
       if: failure()
@@ -52,7 +61,7 @@ jobs:
         SLACK_ICON_EMOJI: ':man-gesturing-ng:'
         SLACK_COLOR: '#ff0000'
         SLACK_MESSAGE: |
-          Node Build Failed. :michopa: :lgtm:
+          Java Build Failed. :sawajiri_erika: :bugkana2:
           PR URL : ${{ github.event.pull_request.html_url }}
-        SLACK_TITLE: TeamX Node Build Result
+        SLACK_TITLE: TeamX Java Build Result
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
