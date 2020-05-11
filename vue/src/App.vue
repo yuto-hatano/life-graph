@@ -1,16 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">
-        Home
-      </router-link> |
-      <router-link to="/about">
-        About
-      </router-link>
-    </div>
-    <router-view />
+    <Login />
+    <Header />
+    <Top />
+    <Register />
+    <Search />
+    <Reference />
+    <Footer />
   </div>
 </template>
+
+<script>
+import Header from './components/Header.vue'
+import Login from './components/Login.vue'
+import  Top from './components/Top.vue'
+import Register from './components/Register.vue'
+import Reference from './components/Reference.vue'
+import Search from './components/Search.vue'
+import Footer from './components/Footer.vue'
+
+</script>
 
 <style>
 #app {
