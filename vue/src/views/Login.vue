@@ -1,7 +1,7 @@
-<template>
-  <div id="loginSection">
+<!-- <template>
+  <!-- <div id="loginSection">
     <form id="login">
-      <!-- action=""には送信ボタンを押した後に移動するページのURLを記入 -->
+      action=""には送信ボタンを押した後に移動するページのURLを記入
       <h1>LOGIN</h1>
       <div id="input">
         <input id="id" type="text" placeholder="ID" autofocus required>
@@ -11,11 +11,11 @@
         <input id="submit" type="submit" value="Enter">
       </div>
     </form>
-  </div>
-</template>
+  </div> -->
+<!-- // </template> -->
 
-<style>
-#loginSection {
+<!-- <style> -->
+<!-- /* #loginSection {
   background-color:#e5f3f3;
   width: 100%;
   height: auto;
@@ -56,7 +56,7 @@ h1:after {
 }
 
 h1:before {
-    /* background-image: linear-gradient(right, #777, #fff); */
+    background-image: linear-gradient(right, #777, #fff);
     left: 0;
 }
 
@@ -87,5 +87,5 @@ h1:before {
 
   cursor: pointer;
   font-size: 1em;
-}
-</style>;
+} */ -->
+<!-- </style> -->
