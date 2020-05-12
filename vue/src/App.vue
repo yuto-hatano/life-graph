@@ -10,6 +10,29 @@
   </div>
 </template>
 
+<script>
+
+import Login from './views/Login.vue'
+import Header from './views/Header.vue'
+import Top from './views/Top.vue'
+import Register from './views/Register.vue'
+import Search from './views/Search.vue'
+import Reference from './views/Reference.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Login,
+    Header,
+    Top,
+    Register,
+    Search,
+    Reference
+  }
+}
+
+</script>
+
 <style>
 #app {
   color: #2c3e50;
