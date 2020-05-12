@@ -34,11 +34,14 @@
 
   #header-right{
     text-align: right;
+  }
 
+  #user-name{
+    padding-right: 100px
   }
   .btn_top,.btn_logout{
     width: 100px;
-    height: 30pxx;
+    height: 30px;
     font-size: 20px;
   }
 </style>
