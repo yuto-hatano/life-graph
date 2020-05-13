@@ -77,7 +77,6 @@ background:none;
 color:#666;
 border:none;
 font-size:28px;/*アイコンサイズ*/
-/* border-top: solid 1px #666; */
 padding: 6px 8px;
 background-color: #dddddd;
 }
@@ -100,7 +99,6 @@ background-color: #dddddd;
   color:#666;
   border:none;
   font-size:26px;/*アイコンサイズ*/
-  /* border-top: solid 1px #666; */
   padding: 6px 9px;
   background-color: #dddddd;
 }
