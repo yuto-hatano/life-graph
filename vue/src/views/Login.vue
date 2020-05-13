@@ -3,8 +3,8 @@
     <form id="login" action="http://localhost:8081/Top">
       <h1>LOGIN</h1>
       <div id="input">
-        <font-awesome-icon id="icon_id" icon="user" />
-        <input id="id" type="text" placeholder="ID" autofocus required>
+        <font-awesome-icon id="icon_email" icon="envelope" />
+        <input id="email" type="email" placeholder="メールアドレス" autofocus required>
         <font-awesome-icon id="icon_lock" icon="lock" />
         <input id="password" type="password" placeholder="Password" required>
       </div>
@@ -69,19 +69,19 @@ h1:before {
   position: relative;
 }
 
-#icon_id {
+#icon_email {
 position:absolute;
-left:9px;/*アイコン左右の位置調整*/
+left:8px;/*アイコン左右の位置調整*/
 top:25px;
 background:none;
 color:#666;
 border:none;
 font-size:28px;/*アイコンサイズ*/
-padding: 6px 8px;
+padding: 6px 7px;
 background-color: #dddddd;
 }
 
-#id {
+#email {
   padding: 10px ;
   display: block;
   width: 100%;
