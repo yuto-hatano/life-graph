@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-  @RequestMapping(value = "/login", method = RequestMethod.GET)
+  @RequestMapping(value = "/signin", method = RequestMethod.GET)
   public ResponseEntity<String> login() {
     return ResponseEntity.ok("OK");
   }
