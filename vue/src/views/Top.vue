@@ -3,13 +3,16 @@
     <h1 class="title">
       Life Graph
     </h1>
-    <div class="botton">
+    <h2 class="message">
+      The most important thing is to enjoy your life – to be happy – it’s all that matters.
+    </h2>
+    <div class="button">
       <a href="./register" class="btn-square-pop">登録</a>
       <a href="./search" class="btn-square-pop">検索</a>
       <!-- <button class="register_botton" onclick="location.href='./register'">登録</button>
       <button class="search_botton" onclick="location.href='./search'">検索</button> -->
     </div>
-    <div>
+    <!-- <div>
       <button class="register_botton" onclick="location.href='./register'">
         登録
       </button>
@@ -23,17 +26,43 @@
       </router-link>
       <router-link id="search" to="/search">
         検索
-      </router-link>
+      </router-link> -->
+    <!-- </div> -->
+    <div>
+      <Chart />
     </div>
   </div>
 </template>
 
-<style scoped>
-.title {
-  font-size: 60pt;
+<script>
+
+import Chart from '../components/Chart.vue'
+
+export default {
+  components: {
+    Chart
+  }
 }
 
-.botton{
+</script>
+
+<style scoped>
+.title {
+  font-family: 'Roboto Slab', serif;
+  font-size: 60pt;
+  padding: 50px;
+}
+
+.message {
+  font-family: 'Lato', sans-serif;
+  font-style: italic;
+  background-color: #ffda65;
+  color: white;
+  font-size: 15pt;
+  height: 25px;
+}
+
+.button{
   background-color: #e5f3f3;
   height: 60px;
 }
