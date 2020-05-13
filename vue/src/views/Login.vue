@@ -50,7 +50,7 @@ h1:before {
   content: "";
   height: 1px;
   position: absolute;
-  top: 23px;
+  top: 21px;
   width: 200px;
 }
 
