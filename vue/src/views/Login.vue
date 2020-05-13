@@ -1,10 +1,12 @@
 <template>
   <div id="loginSection">
-    <form id="login">
+    <form id="login" action="./Top">
       <h1>LOGIN</h1>
       <div id="input">
-        <input id="id" type="text" placeholder="&#xf2bd;ID" autofocus required>
-        <input id="password" type="password" placeholder="&#xf084;Password" required>
+        <font-awesome-icon id="icon_id" icon="user" />
+        <input id="id" type="text" placeholder="ID" autofocus required>
+        <font-awesome-icon id="icon_lock" icon="lock" />
+        <input id="password" type="password" placeholder="Password" required>
       </div>
       <div id="action">
         <input id="submit" type="submit" value="Enter">
@@ -38,7 +40,7 @@ h1 {
   color: #666;
   margin: 20px 0 ;
   letter-spacing: 4px;
-  font: normal 40px/1 Verdana, Helvetica;
+  font: normal 40px/1 Helvetica, Arial, sans-serif;
   position: relative;
 }
 
@@ -62,27 +64,59 @@ h1:before {
 
 #input {
   width: 70%;
-  padding:25px 12px 15px 12px;
+  padding:25px 12px 15px 50px;
   margin: 0 auto;
+  position: relative;
 }
 
-#id,#password {
-  padding: 8px 10px ;
-  display: block;
-  width: 100%;
-  font-size: 1em;
-  font-weight: 300;
+#icon_id {
+position:absolute;
+left:10px;/*アイコン左右の位置調整*/
+top:25px;
+background:none;
+color:#666;
+border:none;
+font-size:28px;/*アイコンサイズ*/
+/* border-top: solid 1px #666; */
+padding: 6px 8px;
+background-color: #dddddd;
 }
 
 #id {
+  padding: 10px ;
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 400;
+  border: solid 1px #666;
   margin-bottom: 13px;
-  font-family: FontAwesome;
+}
+
+#icon_lock {
+  position:absolute;
+  left:10px;/*アイコン左右の位置調整*/
+  top:78px;
+  background:none;
+  color:#666;
+  border:none;
+  font-size:26px;/*アイコンサイズ*/
+  /* border-top: solid 1px #666; */
+  padding: 6px 9px;
+  background-color: #dddddd;
+}
+
+#password {
+  padding: 9px 10px ;
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 400;
+  border: solid 1px #666;
 }
 
 #action {
   width: 200px;
   margin-left: auto;
-  font-family: FontAwesome;
 }
 
 #submit {
