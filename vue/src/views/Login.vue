@@ -1,6 +1,6 @@
 <template>
   <div id="loginSection">
-    <form id="login" action="./Top">
+    <form id="login" action="http://localhost:8081/Top">
       <h1>LOGIN</h1>
       <div id="input">
         <font-awesome-icon id="icon_id" icon="user" />
@@ -71,7 +71,7 @@ h1:before {
 
 #icon_id {
 position:absolute;
-left:10px;/*アイコン左右の位置調整*/
+left:9px;/*アイコン左右の位置調整*/
 top:25px;
 background:none;
 color:#666;
@@ -93,7 +93,7 @@ background-color: #dddddd;
 
 #icon_lock {
   position:absolute;
-  left:10px;/*アイコン左右の位置調整*/
+  left:9px;/*アイコン左右の位置調整*/
   top:78px;
   background:none;
   color:#666;
