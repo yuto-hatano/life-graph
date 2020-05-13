@@ -1,6 +1,12 @@
 <template>
   <div class="header">
-    <button class="btn_top" onclick="location.href='./home'">
+    <!-- <a class ="btn_top">
+      <router-link class="btn_top" to="/top" tag="button" >
+        TOP
+      </router-link>
+    </a> -->
+    <!-- 以下のように描画されます -->
+    <button class="btn_top">
       TOP
     </button>
     <ul class="header_right">
@@ -14,7 +20,7 @@
       </li>
       <li>
         <router-link to="/login">
-          <button class="btn_logout" onclick="location.href='./login'">
+          <button class="btn_logout">
             ログアウト
           </button>
         </router-link>
@@ -47,7 +53,7 @@ export default {
   .header_right{
     text-align: right;
     width: 100%;
-    top:0;
+    top: 15px;
     position: absolute;
     margin-top: 0;
   }
@@ -65,24 +71,22 @@ export default {
     margin-top: 0;
   }
 
+  .btn_top,.btn_logout{
+      width: 100px;
+      height: 50px;
+    }
+
   .btn_logout{
-    display: inline-block;
     position: relative;
-    top:-10px;
+    top: -10px;
     right:30px;
   }
 
   .btn_top{
     position: absolute;
-    display: block;
-    /* margin :auto,auto,0,0; */
-    top: 13px;
+    top: 5px;
     left: 20px;
     margin-right: 20px;
   }
 
-  .btn_top,.btn_logout{
-    width: 100px;
-    height: 50px;
-  }
 </style>
