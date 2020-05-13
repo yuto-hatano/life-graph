@@ -1,47 +1,92 @@
 <template>
-  <div id="header">
-    <div id="header-left">
-      <button class="btn_top"
-              href="top"
-      >
+  <div class="header">
+    <!-- <a class ="btn_top">
+      <router-link class="btn_top" to="/top" tag="button" >
         TOP
-      </button>
-    </div>
-    <div id="header-right">
-      <div id="username">
-        username
-      </div>
-      <button class="btn_logout"
-              href="login"
-      >
-        LOGOUT
-      </button>
-    </div>
+      </router-link>
+    </a> -->
+    <!-- 以下のように描画されます -->
+    <button class="btn_top">
+      TOP
+    </button>
+    <ul class="header_right">
+      <li>
+        <h5 class="username">
+          {{ user_name }}
+        </h5>
+        <h5 class="authority">
+          {{ authority }}
+        </h5>
+      </li>
+      <li>
+        <router-link to="/login">
+          <button class="btn_logout">
+            ログアウト
+          </button>
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
+<script>
+export default {
+  data () {
+    return {
+      user_name: 'Kana Sekiguchi',
+      authority: 'Owner'
+    }
+  }
+}
+</script>
+
 <style scoped>
-  #header{
-    height: 50px;
-    background-color: gray;
+  .header{
+    position: relative;
+    margin-top: 0;
+    display:block;
+    width:100%;
+    height: 60px;
+    background-color: #e6e6e6;
   }
 
-  #header-left{
-    text-align: left;
-    padding-top: 10px;
-    padding-left: 10px
-  }
-
-  #header-right{
+  .header_right{
     text-align: right;
+    width: 100%;
+    top: 15px;
+    position: absolute;
+    margin-top: 0;
   }
 
-  #user-name{
-    padding-right: 100px
+  .header_right li{
+    display:inline-block;
+    margin-right: 40px;
   }
+
+  .username{
+    margin-bottom: 0;
+  }
+
+  .authority{
+    margin-top: 0;
+  }
+
   .btn_top,.btn_logout{
-    width: 100px;
-    height: 30px;
-    font-size: 20px;
+      width: 100px;
+      height: 50px;
+    }
+
+  .btn_logout{
+    position: relative;
+    top: -10px;
+    right:30px;
   }
+
+  .btn_top{
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    margin-right: 20px;
+  }
+
 </style>

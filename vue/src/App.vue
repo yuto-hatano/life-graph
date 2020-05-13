@@ -68,4 +68,7 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;300&display=swap');
 </style>
