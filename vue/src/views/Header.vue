@@ -1,47 +1,88 @@
 <template>
-  <div id="header">
-    <div id="header-left">
-      <button class="btn_top"
-              href="top"
-      >
-        TOP
-      </button>
-    </div>
-    <div id="header-right">
-      <div id="username">
-        username
-      </div>
-      <button class="btn_logout"
-              href="login"
-      >
-        LOGOUT
-      </button>
-    </div>
+  <div class="header">
+    <button class="btn_top" onclick="location.href='./home'">
+      TOP
+    </button>
+    <ul class="header_right">
+      <li>
+        <h5 class="username">
+          {{ user_name }}
+        </h5>
+        <h5 class="authority">
+          {{ authority }}
+        </h5>
+      </li>
+      <li>
+        <router-link to="/login">
+          <button class="btn_logout" onclick="location.href='./login'">
+            ログアウト
+          </button>
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
+<script>
+export default {
+  data () {
+    return {
+      user_name: 'Kana Sekiguchi',
+      authority: 'Owner'
+    }
+  }
+}
+</script>
+
 <style scoped>
-  #header{
-    height: 50px;
-    background-color: gray;
+  .header{
+    position: relative;
+    margin-top: 0;
+    display:block;
+    width:100%;
+    height: 60px;
+    background-color: #e6e6e6;
   }
 
-  #header-left{
-    text-align: left;
-    padding-top: 10px;
-    padding-left: 10px
-  }
-
-  #header-right{
+  .header_right{
     text-align: right;
+    width: 100%;
+    top:0;
+    position: absolute;
+    margin-top: 0;
   }
 
-  #user-name{
-    padding-right: 100px
+  .header_right li{
+    display:inline-block;
+    margin-right: 40px;
   }
+
+  .username{
+    margin-bottom: 0;
+  }
+
+  .authority{
+    margin-top: 0;
+  }
+
+  .btn_logout{
+    display: inline-block;
+    position: relative;
+    top:-10px;
+    right:30px;
+  }
+
+  .btn_top{
+    position: absolute;
+    display: block;
+    /* margin :auto,auto,0,0; */
+    top: 13px;
+    left: 20px;
+    margin-right: 20px;
+  }
+
   .btn_top,.btn_logout{
     width: 100px;
-    height: 30px;
-    font-size: 20px;
+    height: 50px;
   }
 </style>
