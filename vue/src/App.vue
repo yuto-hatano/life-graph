@@ -1,12 +1,26 @@
 <template>
   <div id="app">
-    <Login />
-    <Header />
-    <Top />
-    <Register />
-    <Search />
-    <Reference />
-    <Footer />
+    <div id="nav">
+      <router-link to="/Login">
+        Login
+      </router-link>|
+      <router-link to="/Header">
+        Header
+      </router-link>|
+      <router-link to="/Top">
+        Top
+      </router-link>|
+      <router-link to="/Register">
+        Register
+      </router-link>|
+      <router-link to="/Search">
+        Search
+      </router-link>|
+      <router-link to="/Reference">
+        Reference
+      </router-link>
+    </div>
+    <router-view />
   </div>
 </template>
 
@@ -21,7 +35,7 @@ import Reference from './views/Reference.vue'
 
 export default {
   name: 'App',
-  components: {
+  views: {
     Login,
     Header,
     Top,
