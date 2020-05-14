@@ -51,12 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll();
   }
 }
-
-//  databaseとの関連付け
+//  databaseとの関連付け※データベース後に整理
 //  @Autowired
 //  public void configure(AuthenticationManagerBuilder auth) throws Exception{
 //    auth
 //        .jdbcAuthentication()
 //          .dataSource(dataSource)
-//          .
+//          .usersByUsernameQuery(
+//              "select adress as loginId,password,")
+//
 //}}
