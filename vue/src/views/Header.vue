@@ -1,14 +1,11 @@
 <template>
   <div class="header">
-    <!-- <a class ="btn_top">
-      <router-link class="btn_top" to="/top" tag="button" >
+    <router-link to="/top">
+      <button class="btn_top">
         TOP
-      </router-link>
-    </a> -->
-    <!-- 以下のように描画されます -->
-    <button class="btn_top">
-      TOP
-    </button>
+      </button>
+    </router-link>
+
     <ul class="header_right">
       <li>
         <h5 class="username">
@@ -21,7 +18,7 @@
       <li>
         <router-link to="/login">
           <button class="btn_logout">
-            ログアウト
+            LOGOUT
           </button>
         </router-link>
       </li>
@@ -61,6 +58,7 @@ export default {
   .header_right li{
     display:inline-block;
     margin-right: 40px;
+    z-index:0;
   }
 
   .username{
@@ -87,6 +85,7 @@ export default {
     top: 5px;
     left: 20px;
     margin-right: 20px;
+    z-index:1;
   }
 
 </style>
