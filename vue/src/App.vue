@@ -42,6 +42,9 @@ export default {
     Register,
     Search,
     Reference
+  },
+  mounted () {
+    this.$store.dispatch('chartData')
   }
 }
 
