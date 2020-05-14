@@ -1,12 +1,51 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/Login">
+        Login
+      </router-link>|
+      <router-link to="/Header">
+        Header
+      </router-link>|
+      <router-link to="/Top">
+        Top
+      </router-link>|
+      <router-link to="/Register">
+        Register
+      </router-link>|
+      <router-link to="/Search">
+        Search
+      </router-link>|
+      <router-link to="/Reference">
+        Reference
+      </router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+
+import Login from './views/Login.vue'
+import Header from './views/Header.vue'
+import Top from './views/Top.vue'
+import Register from './views/Register.vue'
+import Search from './views/Search.vue'
+import Reference from './views/Reference.vue'
+
+export default {
+  name: 'App',
+  views: {
+    Login,
+    Header,
+    Top,
+    Register,
+    Search,
+    Reference
+  }
+}
+
+</script>
 
 <style>
 #app {
@@ -29,4 +68,7 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;300&display=swap');
 </style>
