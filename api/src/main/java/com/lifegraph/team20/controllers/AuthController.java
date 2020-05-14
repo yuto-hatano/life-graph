@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 //モダンブラウザでは別のサイトにアクセスしようとすると、
-//アクセス許可の確認をするようになっているようです。
+//アクセス許可の確認をするようになっている。
 //これはサイトをまたいだアクセス、Cross-Origin Resource Sharing (CORS)と言う.
-//その対策CrossOriginアノテーションをつける
+//その対策にCrossOriginアノテーションをつける
 @CrossOrigin(origins = "*", maxAge = 3600)
 //RestControllerではViewに遷移せず、メソッドの戻り値がそのままレスポンスコンテンツになる。
 @RestController
