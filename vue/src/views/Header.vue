@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <router-link to="/top" @click.native="clickEvent()">
+    <router-link to="/top">
       <button class="btn_top">
         TOP
       </button>
@@ -58,6 +58,7 @@ export default {
   .header_right li{
     display:inline-block;
     margin-right: 40px;
+    z-index:0;
   }
 
   .username{
@@ -84,6 +85,7 @@ export default {
     top: 5px;
     left: 20px;
     margin-right: 20px;
+    z-index:1;
   }
 
 </style>
