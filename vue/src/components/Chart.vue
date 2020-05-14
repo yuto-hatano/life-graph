@@ -10,12 +10,12 @@ export default {
       datacollection: {
         // Data to be represented on x-axis
         // 年齢
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+        labels: [],
         datasets: [
           {
             // Data to be represented on y-axis
             // 値（スコア）
-            data: [0, 50, -20, 70, 70, 100, 60, 60, 40, 50, 60, 80, 30, 20, 50, 50, 60, 70, 90, 60, 50, 90],
+            data: [],
             label: 'Data One',
             borderColor: '#FFA500',
             pointBackgroundColor: '#FF4500',
@@ -71,8 +71,8 @@ export default {
     }
   },
   mounted () {
-    this.getYears()
-    this.getScore()
+    this.setYears()
+    this.setScore()
     this.renderChart(this.datacollection, this.options)
   },
   // mounted () {
@@ -80,14 +80,21 @@ export default {
   //   this.renderChart(this.datacollection, this.options)
   // }
   methods: {
-    getYears () {
-      const age = this.$store.getters.graphYears[0]
-      this.data.labels = age
+    setYears () {
+      const years = []
+      this.$store.state.contents.forEach((Years) => {
+        years.push(Years.years)
+      })
+      this.datacollection.labels = years
     },
-    getScore () {
-      const score = this.$store.getters.graphScore[1]
-      this.data.datasets[0].data = score
+    setScore () {
+      const score = []
+      this.$store.state.contents.forEach((Score) => {
+        score.push(Score.score)
+      })
+      this.datacollection.datasets[0].data = score
     }
   }
+
 }
 </script>
