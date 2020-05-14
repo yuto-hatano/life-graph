@@ -23,7 +23,6 @@
 hs_err_pid*
 
 # original
-.DS_Store
+*.DS_Store
 /.metadata/
 /.recommenders/
-/Servers/
