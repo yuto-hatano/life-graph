@@ -1,5 +1,8 @@
 <template>
   <div class="topSection">
+    <div>
+      <Header />
+    </div>
     <h1 class="title">
       Life Graph
     </h1>
@@ -37,9 +40,11 @@
 <script>
 
 import Chart from '../components/Chart.vue'
+import Header from '../views/Header.vue'
 
 export default {
   components: {
+    Header,
     Chart
   }
 }
