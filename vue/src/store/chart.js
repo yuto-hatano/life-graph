@@ -1,21 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
 
 Vue.use(Vuex)
 
-const config = {
-  headers: {
-    'Access-Control-Allow-Origin': '*'
-  }
-}
-
-export default new Vuex.Store({
+export default {
   state: {
-    account: {
-      // TODO: delete because of test
-      login: 'ng'
-    },
     contents: [
       {
         years: 0,
@@ -133,60 +123,15 @@ export default new Vuex.Store({
     loaded: false
   },
   mutations: {
-    // TODO: delete because of test
-    setLogin (state, payload) {
-      state.login = payload.login
-    },
     loadDone (state, payload) {
       state.loaded = payload.loading
       state.loaded = true
     }
   },
   actions: {
-    // TODO: delete because of test
-    fetchLogin ({ commit }) {
-      const url = '/api/auth/login'
-      axios.get(url, config).then((res) => {
-        commit('setLogin', res.data)
-      })
-    },
     load ({ commit }) {
       const loading = ['DONE']
       commit('loadDone', { loading })
     }
   }
-})
-
-// mutations: {
-//   lifeGraph: function (state, chart) {
-//     state.chart = chart
-//     state.loaded = true
-//   }
-// },
-
-// actions: {
-//   getChart: function ({ commit }) {
-//     commit('chartData')
-//   }
-// }
-
-// getters: {
-//   graphYears: (state) => (index) => {
-//     const graphYearsArray = []
-//     if (state.chart[index]) {
-//       state.chart[index].chart.forEach((Years) => {
-//         graphYearsArray.push(Years.years)
-//       })
-//     }
-//     return graphYearsArray
-//   },
-//   graphScore: (state) => (index) => {
-//     const graphScoreArray = []
-//     if (state.chart[index]) {
-//       state.chart[index].chart.forEach((Score) => {
-//         graphScoreArray.push(Score.score)
-//       })
-//     }
-//     return graphScoreArray
-//   }
-// }
+}
