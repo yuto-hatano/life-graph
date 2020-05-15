@@ -20,6 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lifegraph.team20.models.ERole;
+import com.lifegraph.team20.models.Role;
+import com.lifegraph.team20.models.User;
+import com.lifegraph.team20.payload.request.LoginRequest;
+import com.lifegraph.team20.payload.request.SignupRequest;
+import com.lifegraph.team20.payload.response.JwtResponse;
+import com.lifegraph.team20.payload.response.MessageResponse;
+import com.lifegraph.team20.repository.RoleRepository;
+import com.lifegraph.team20.repository.UserRepository;
+import com.lifegraph.team20.security.jwt.JwtUtils;
+import com.lifegraph.team20.security.services.UserDetailsImpl;
+
 //モダンブラウザでは別のサイトにアクセスしようとすると、
 //アクセス許可の確認をするようになっている。
 //これはサイトをまたいだアクセス、Cross-Origin Resource Sharing (CORS)と言う.
