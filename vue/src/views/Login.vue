@@ -1,6 +1,6 @@
 <template>
   <div id="loginSection">
-    <form id="login" action="http://localhost:8081/Top">
+    <form id="login" action="/Top">
       <h1>LOGIN</h1>
       <div id="input">
         <font-awesome-icon id="icon_email" icon="envelope" />
@@ -15,6 +15,16 @@
     </form>
   </div>
 </template>
+
+<script>
+// export default {
+//   data() {
+//     return {
+
+//     }
+//   }
+// }
+</script>
 
 <style scoped>
 #loginSection {
@@ -130,6 +140,7 @@ background-color: #dddddd;
   position: relative;
   top: 2px;
 }
+
 #signUp {
   color: #4699ca;
   cursor: pointer;
