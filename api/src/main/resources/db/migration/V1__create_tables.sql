@@ -25,7 +25,9 @@ CREATE TABLE `parent_graphs` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) ,
-  UNIQUE KEY (`user_id`)
+  UNIQUE KEY (`user_id`),
+  FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `parent_graphs` (
@@ -45,7 +47,8 @@ CREATE TABLE `child_graphs` (
   `score` int NOT NULL,
   `comment` varchar(4255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`parent_id`,`age`)
+  FOREIGN KEY(`parent_id`)
+  REFERENCES `parent_graphs` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `child_graphs` (
@@ -58,3 +61,5 @@ INSERT INTO `child_graphs` (
   (3, 15, 50, 'bbbbbbb'),
   (2, 14, -20, 'ccccccc'),
   (2, 22, -90, 'ccccccc');
+
+ALTER TABLE `child_graphs` ADD CONSTRAINT UNIQUE (`parent_id`,`age`);
