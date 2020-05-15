@@ -7,7 +7,7 @@ export default {
   extends: Line,
   data () {
     return {
-      datacollection: {
+      data: {
         // Data to be represented on x-axis
         // 年齢
         labels: [],
@@ -28,6 +28,21 @@ export default {
       },
       // Chart.js options that controls the appearance of the chart
       options: {
+        tooltips: {
+          // 元のやつ出さない
+          enabled: false,
+          // ここにカスタムしたものをつめる
+          custom: []
+          // ホバー時の動作（ツールチップ）
+          // カーソルが合ったときに全ての値が表示される「near set」と迷い中
+        //   callbacks: {
+        //     afterbody: function (data) {
+        //       var commentText = ['コメント１', 'コメント２', 'コメント3', 'コメント4', 'コメント5', 'コメント6', 'コメント7', 'コメント8', 'コメント9', 'コメント10', 'コメント11', 'コメント12', 'コメント13', 'コメント14', 'コメント15', 'コメント16', 'コメント17', 'コメント18', 'コメント19', 'コメント20', 'コメント21', 'コメント22', 'コメント23']
+        //       return commentText
+        //     }
+        //   }
+        // },
+        },
         scales: {
           // y軸
           yAxes: [{
@@ -52,28 +67,33 @@ export default {
         legend: {
           // 凡例
           display: false
-        },
-        tooltips: {
-          // ホバー時の動作（ツールチップ）
-          // カーソルが合ったときに全ての値が表示される「near set」と迷い中
-          mode: 'point',
-          label: function (data) {
-            var commentText = ['コメント１', 'コメント２', 'コメント3', 'コメント4']
-            return commentText
-          }
-        },
-        responsive: true,
-        // 元のcanvasのサイズを保つか保たないのか
-        maintainAspectRatio: false,
-        // 値にnullがあっても自然となるように埋めてくれる
-        spanGaps: true
-      }
+        }
+        // tooltips: {
+        //   comment: [],
+        // ホバー時の動作（ツールチップ）
+        // カーソルが合ったときに全ての値が表示される「near set」と迷い中
+        // mode: 'point'
+        //   callbacks: {
+        //     afterbody: function (data) {
+        //       var commentText = ['コメント１', 'コメント２', 'コメント3', 'コメント4', 'コメント5', 'コメント6', 'コメント7', 'コメント8', 'コメント9', 'コメント10', 'コメント11', 'コメント12', 'コメント13', 'コメント14', 'コメント15', 'コメント16', 'コメント17', 'コメント18', 'コメント19', 'コメント20', 'コメント21', 'コメント22', 'コメント23']
+        //       return commentText
+        //     }
+        //   }
+        // },
+      },
+      responsive: true,
+      // 元のcanvasのサイズを保つか保たないのか
+      maintainAspectRatio: false,
+      // 値にnullがあっても自然となるように埋めてくれる
+      spanGaps: true
+
     }
   },
   mounted () {
     this.setYears()
     this.setScore()
-    this.renderChart(this.datacollection, this.options)
+    this.setComment()
+    this.renderChart(this.data, this.options)
   },
   // mounted () {
   //   // renderChart function renders the chart with the datacollection and options object.
@@ -82,19 +102,101 @@ export default {
   methods: {
     setYears () {
       const years = []
-      this.$store.state.contents.forEach((Years) => {
+      this.$store.state.chart.contents.map((Years) => {
         years.push(Years.years)
       })
-      this.datacollection.labels = years
+      this.data.labels = years
     },
     setScore () {
       const score = []
-      this.$store.state.contents.forEach((Score) => {
+      this.$store.state.chart.contents.map((Score) => {
         score.push(Score.score)
       })
-      this.datacollection.datasets[0].data = score
+      this.data.datasets[0].data = score
+    },
+    // functionの中からは直接storeに保存できない？
+    // dataの中では定義できないので、ここで定義する？
+    setComment () {
+      const comment = []
+      this.$store.state.chart.contents.map((Comment) => {
+        comment.push(Comment.comment)
+      })
+      this.options.tooltips.custom = function (tooltipModel) {
+        // ツールチップ要素
+        // サイトから持ってきた(https://misc.0o0o.org/chartjs-doc-ja/configuration/tooltip.html#%E5%A4%96%E9%83%A8%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%83%84%E3%83%BC%E3%83%AB%E3%83%81%E3%83%83%E3%83%97)
+        var tooltipEl = document.getElementById('chartjs-tooltip')
+
+        // 最初のレンダリング時に要素を作成する
+        if (!tooltipEl) {
+          tooltipEl = document.createElement('div')
+          tooltipEl.id = 'chartjs-tooltip'
+          tooltipEl.innerHTML = '<table></table>'
+          document.body.appendChild(tooltipEl)
+        }
+
+        // ツールチップがない場合は非表示
+        if (tooltipModel.opacity === 0) {
+          tooltipEl.style.opacity = 0
+          return
+        }
+
+        // キャレット(ツールチップが指し示すもの)の位置を設定する
+        tooltipEl.classList.remove('above', 'below', 'no-transform')
+        if (tooltipModel.yAlign) {
+          tooltipEl.classList.add(tooltipModel.yAlign)
+        } else {
+          tooltipEl.classList.add('no-transform')
+        }
+
+        function getBody (bodyItem) {
+          return bodyItem.lines
+        }
+
+        // テキストを設定する
+        if (tooltipModel.body) {
+          var titleLines = tooltipModel.title
+          var com = comment
+          var bodyLines = tooltipModel.body.map(getBody)
+          var innerHtml = '<thead>'
+
+          titleLines.forEach(function (years) {
+            var comNum = years - 1
+            innerHtml += '<tr><th>' + years + '歳' + '</th></tr>'
+            bodyLines.forEach(function (body, i) {
+              var colors = tooltipModel.labelColors[i]
+              var style = 'background:' + colors.backgroundColor
+              style += '; border-color:' + colors.borderColor
+              style += '; border-width: 2px'
+              var span = '<span style="' + style + '"></span>'
+              if (com[comNum] !== null) {
+                innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>' + 'コメント：' + com[comNum]
+              } else {
+                innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>'
+              }
+            })
+          })
+          innerHtml += '</tbody>'
+          var tableRoot = tooltipEl.querySelector('table')
+          tableRoot.innerHTML = innerHtml
+        }
+
+        // `this` はツールチップ全体です
+        var position = this._chart.canvas.getBoundingClientRect()
+
+        // 表示、配置、およびフォントスタイルの設定
+        tooltipEl.style.opacity = 1
+        tooltipEl.style.position = 'absolute'
+        tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
+        tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
+        tooltipEl.style.backgroundColor = 'rgba(225, 225, 229, 0.8)'
+        tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
+        tooltipEl.style.fontSize = tooltipModel.bodyFontSize
+        tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
+        tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px'
+        tooltipEl.style.pointerEvents = 'none'
+      }
     }
   }
-
 }
+
 </script>

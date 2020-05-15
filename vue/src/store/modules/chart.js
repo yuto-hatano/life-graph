@@ -116,6 +116,11 @@ export default {
         years: 21,
         score: 80,
         comment: 'コメント22'
+      },
+      {
+        years: 22,
+        score: 90,
+        comment: 'コメント23'
       }
     ],
     // chart: [],
