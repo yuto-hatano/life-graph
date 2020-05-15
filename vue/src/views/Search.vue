@@ -14,7 +14,7 @@
             <input id="search_name" v-model="user" type="text" placeholder="ユーザー名">
           </ol>
           <ol>
-            <input id="search_day" type="date" >
+            <input id="search_day" type="date">
           </ol>
           <ol>
             <button id="submit" @click="active">
@@ -47,8 +47,8 @@
               </td>
               <td>
                 <router-link to="'/Reference/' + user.id" tag="button" class="button">
-                参照
-              </router-link>
+                  参照
+                </router-link>
               </td>
             </tr>
           </table>
