@@ -1,42 +1,104 @@
 <template>
   <div id="registerSection">
+    <div>
+      <Header />
+    </div>
     <h1>Life Graph</h1>
-    <form action="">
-      <fieldset id="input">
-        <table id="field">
-          <tr>
-            <th scope="row">
-              年齢
-            </th>
-            <td>
-              <input id="age" type="text" autofocus required>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              スコア
-            </th>
-            <td>
-              <input id="score" type="text" autofocus required>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              コメント
-            </th>
-            <td>
-              <textarea id="comment" cols="30" rows="5" placeholder="内容を入力してください。" />
-            </td>
-          </tr>
-        </table>
-      </fieldset>
-      <fieldset id="action">
-        <input id="reset" type="reset" value="クリア">
-        <input id="submit" type="submit" value="登録">
-      </fieldset>
-    </form>
+    <div id="input">
+      <table id="field">
+        <tr>
+          <th scope="row">
+            <label for="age">年齢</label>
+          </th>
+          <td>
+            <input id="age" v-model="age" type="number" autofocus required>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <label for="score">スコア</label>
+          </th>
+          <td>
+            <input id="score" v-model="score" type="number" autofocus required>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <label for="comment">コメント</label>
+          </th>
+          <td>
+            <textarea id="comment" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" />
+          </td>
+        </tr>
+      </table>
+      <div id="action">
+        <button id="reset" @click="reset">
+          クリア
+        </button>
+        <button id="submit" @click="add">
+          登録
+        </button>
+      </div>
+    </div>
+    <!-- <div id="action">
+      <button id="reset" @click="reset">
+        クリア
+      </button>
+      <button id="submit" @click="add">
+        登録
+      </button>
+    </div> -->
+    <div id="chart">
+      <Chart />
+    </div>
   </div>
 </template>
+
+<script>
+import Header from '../views/Header.vue'
+import Chart from '../components/Chart.vue'
+
+export default {
+  name: 'Register',
+  components: {
+    Header,
+    Chart
+  },
+
+  data () {
+    return {
+      age: '',
+      score: '',
+      comment: ''
+    }
+  },
+
+  computed: {
+    loaded () {
+      return this.$store.state.loaded
+    }
+  },
+
+  methods: {
+    reset () {
+      this.age = ''
+      this.score = ''
+      this.comment = ''
+      // 入力がリセットされるかテスト
+      // console.clear(this.age)
+      // console.clear(this.score)
+      // console.clear(this.comment)
+    },
+    add () {
+      // 入力が反映されてるかテスト
+      // console.log(this.age)
+      // console.log(this.score)
+      // console.log(this.comment)
+    }
+  }
+
+}
+</script>
 
 <style scoped>
 
@@ -50,13 +112,13 @@ h1 {
 #input {
   border: 1px solid #434a52;
   width: 60%;
-  margin: 25px auto;
+  margin: 50px auto;
   background-color: #fffcf5;
 }
 
 #field {
   width: 60%;
-  margin: 45px auto;
+  margin: 45px auto 20px auto;
   background-color: #fff;
 }
 
@@ -77,7 +139,8 @@ td {
 }
 
 #action {
-  margin-left: 30%;
+  margin-left: 40%;
+  margin-bottom: 30px;
 }
 
 #reset {
@@ -107,5 +170,10 @@ td {
   box-shadow: none;
   position: relative;
   top: 2px;
+}
+
+#chart {
+  width: 60%;
+  margin: 100px auto;
 }
 </style>
