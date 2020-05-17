@@ -1,5 +1,8 @@
 <template>
   <div class="topSection">
+    <div>
+      <Header />
+    </div>
     <h1 class="title">
       Life Graph
     </h1>
@@ -9,27 +12,12 @@
     <div class="button">
       <a href="./register" class="btn-square-pop">登録</a>
       <a href="./search" class="btn-square-pop">検索</a>
-      <!-- <button class="register_botton" onclick="location.href='./register'">登録</button>
-      <button class="search_botton" onclick="location.href='./search'">検索</button> -->
     </div>
-    <!-- <div>
-      <button class="register_botton" onclick="location.href='./register'">
-        登録
-      </button>
-      <button class="search_botton" onclick="location.href='./search'">
-        検索
-      </button>
-    </div>
-    <div class="nav">
-      <router-link id="register" to="/register">
-        登録
-      </router-link>
-      <router-link id="search" to="/search">
-        検索
-      </router-link> -->
-    <!-- </div> -->
     <div id="Graph">
       <Chart />
+    </div>
+    <div class="edit_button">
+      <a href="./reference" class="btn-square-pop">編集</a>
     </div>
   </div>
 </template>
@@ -37,9 +25,11 @@
 <script>
 
 import Chart from '../components/Chart.vue'
+import Header from '../views/Header.vue'
 
 export default {
   components: {
+    Header,
     Chart
   }
 }
@@ -114,5 +104,9 @@ export default {
   margin: 0 auto;
   padding-top: 50pt;
   padding-bottom: 10pt;
+}
+
+.edit_button{
+  padding-left: 500px;
 }
 </style>
