@@ -11,12 +11,16 @@
         </p>
         <ul>
           <ol>
-            <input id="search_name" v-model="user" type="text" placeholder="ユーザー名">
+            <input id="search_name" v-model="searchUser" type="text" placeholder="ユーザー名">
           </ol>
           <ol>
-            <input id="search_day" type="date">
+            <input id="search_day" v-model="serchDay" type="date">
+            <input id="search_day" v-model="serchDay" type="date">
           </ol>
           <ol>
+             <button id="clear" @click="clear">
+              クリア
+            </button>
             <button id="submit" @click="active">
               検索
             </button>
@@ -27,31 +31,42 @@
         <p id="serch_tittle">
           検索結果
         </p>
-        <div v-if="isActive">
+        <div>
           <table id="table">
             <tr>
-              <th>ユーザー名</th>
-              <th>登録日時</th>
-              <th>更新日時</th>
+              <th :class="sortedClass('name')" @click="sortBy('name')">
+                ユーザー名
+              </th>
+              <th :class="sortedClass('created_at')" @click="sortBy('created_at')">
+                登録日時
+              </th>
+              <th :class="sortedClass('updated_at')" @click="sortBy('updated_at')">
+                更新日時
+              </th>
               <th>参照</th>
             </tr>
-            <tr v-for="user in users" :key="user.id">
-              <td>
-                {{ user.name }}
-              </td>
-              <td>
-                {{ user.created_at }}
-              </td>
-              <td>
-                {{ user.updated_at }}
-              </td>
-              <td>
-                <router-link to="'/Reference/' + user.id" tag="button" class="button">
-                  参照
-                </router-link>
-              </td>
-            </tr>
+            <tbody v-if="isActive">
+              <tr v-for="user in eventedAction" :key="user.id">
+                <td>
+                  {{ user.name }}
+                </td>
+                <td>
+                  {{ user.created_at }}
+                </td>
+                <td>
+                  {{ user.updated_at }}
+                </td>
+                <td>
+                  <router-link to="'/Reference/' + user.id" tag="button" class="button">
+                    参照
+                  </router-link>
+                </td>
+              </tr>
+            </tbody>
           </table>
+          <div v-if="isActive">
+            <button id="reset" @click="resetting()">リセット</button>
+          </div>
         </div>
       </div>
     </div>
@@ -88,12 +103,72 @@ export default {
           created_at: '2020/05/02',
           updated_at: '2020/05/11'
         }
-      ]
+      ],
+      sort: {
+        key: '',
+        isAct: false
+      },
+      searchUser: '',
+      searchDay: ''
     }
   },
+
+  computed: {
+    eventedAction () {
+      let list = this.users.slice()
+
+      if (this.sort.key) {
+        list.sort((a, b) => {
+          a = a[this.sort.key]
+          b = b[this.sort.key]
+          return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+        })
+      }
+
+      if (this.searchUser) {
+        list = list.filter(element => {
+          return Object.keys(element).some(key => {
+            if (key === 'name') {
+              return element[key].indexOf(this.searchUser) > -1
+            }
+          })
+        })
+      }
+
+      if (this.searchDay) {
+        list = list.filter(element => {
+          return Object.keys(element).some(key => {
+            if (key === 'updated_at') {
+              return element[key].indexOf(this.searchDay) > -1
+            }
+          })
+        })
+      }
+      return list
+    }
+  },
+
   methods: {
     active () {
       this.isActive = true
+    },
+    clear () {
+      this.searchUser = ''
+      this.searchDay = ''
+    },
+    sortedClass (key) {
+      return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
+    },
+    sortBy (key) {
+      this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false
+      this.sort.key = key
+    },
+    resetting () {
+      this.sort.key = ''
+      this.sort.isAsc = false
+      this.searchUser = ''
+      this.searchDay = ''
+      this.isActive = false
     }
   }
 }
@@ -129,10 +204,14 @@ h1 {
 }
 
 #search_day {
-  width: 50%;
+  width: 20%;
   margin-top: 20px ;
   font-size: 1em;
   padding: 5px 0;
+}
+
+#clear {
+  font-size: 1em;
 }
 
 #submit {
@@ -156,15 +235,26 @@ h1 {
   width: 70%;
 }
 
+th.sorted.desc::after{
+    display: inline-block;
+    content: '▼';
+}
+
+th.sorted.asc::after{
+    display: inline-block;
+    content: '▲';
+}
+
 th {
   padding: 10px 10px;
+  cursor: pointer;
 }
 
 td {
   padding: 5px 20px;
 }
 
-.button {
-  font-size: 0.8em;
+#reset {
+  font-size: 1em;
 }
 </style>
