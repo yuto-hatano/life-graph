@@ -8,6 +8,7 @@ export default {
   data () {
     return {
       data: {
+        // datacollecrionだとmountedがだめだった...dataに変更
         // Data to be represented on x-axis
         // 年齢
         labels: [],
@@ -16,7 +17,6 @@ export default {
             // Data to be represented on y-axis
             // 値（スコア）
             data: [],
-            label: 'Data One',
             borderColor: '#FFA500',
             pointBackgroundColor: '#FF4500',
             borderWidth: 1.5,
@@ -31,7 +31,16 @@ export default {
         tooltips: {
           // 元のやつ出さない
           enabled: false,
+          // callbacks: {
+          //   label: (labels, data) => {
+          //     const { label } =
+          //     data.datasets[labels.datasetsIndex]
+          //     const value = labels.value.eplace('null', '')
+          //     return value && `${label}: ${value}`
+          //   }
+          // },
           // ここにカスタムしたものをつめる
+          // 多分最後表示されず困ってたのは、customで定義しているのに、tooltipをちゃんと入れ込めていなかったから・・・？
           custom: []
           // ホバー時の動作（ツールチップ）
           // カーソルが合ったときに全ての値が表示される「near set」と迷い中
@@ -43,6 +52,11 @@ export default {
         //   }
         // },
         },
+        // 元のcanvasのサイズを保つか保たないのか（おそらく適用してくれていない）
+        // おそらく処理の順番の関係で適用されていなかったっぽい？位置こっちにずらしたらいけた
+        maintainAspectRatio: false,
+        // 値にnullがあっても自然となるように埋めてくれる(適用されていなかったみたいなので位置をずらしたらいけた)
+        spanGaps: true,
         scales: {
           // y軸
           yAxes: [{
@@ -81,31 +95,22 @@ export default {
         //   }
         // },
       },
-      responsive: true,
-      // 元のcanvasのサイズを保つか保たないのか
-      maintainAspectRatio: false,
-      // 値にnullがあっても自然となるように埋めてくれる
-      spanGaps: true
-
+      responsive: true
     }
   },
   mounted () {
-    this.setYears()
+    this.setAge()
     this.setScore()
     this.setComment()
     this.renderChart(this.data, this.options)
   },
-  // mounted () {
-  //   // renderChart function renders the chart with the datacollection and options object.
-  //   this.renderChart(this.datacollection, this.options)
-  // }
   methods: {
-    setYears () {
-      const years = []
+    setAge () {
+      const age = []
       this.$store.state.chart.contents.map((Years) => {
-        years.push(Years.years)
+        age.push(Years.age)
       })
-      this.data.labels = years
+      this.data.labels = age
     },
     setScore () {
       const score = []
@@ -159,15 +164,17 @@ export default {
           var bodyLines = tooltipModel.body.map(getBody)
           var innerHtml = '<thead>'
 
-          titleLines.forEach(function (years) {
-            var comNum = years - 1
-            innerHtml += '<tr><th>' + years + '歳' + '</th></tr>'
+          titleLines.forEach(function (age) {
+            // 何歳スタートか（x軸）
+            var comNum = age - 0
+            innerHtml += '<tr><th>' + age + '歳' + '</th></tr>'
             bodyLines.forEach(function (body, i) {
               var colors = tooltipModel.labelColors[i]
               var style = 'background:' + colors.backgroundColor
               style += '; border-color:' + colors.borderColor
               style += '; border-width: 2px'
               var span = '<span style="' + style + '"></span>'
+              // nullなら表示させないようにしてくれてるところ？
               if (com[comNum] !== null) {
                 innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>' + 'コメント：' + com[comNum]
               } else {
@@ -180,7 +187,7 @@ export default {
           tableRoot.innerHTML = innerHtml
         }
 
-        // `this` はツールチップ全体です
+        // `this` はツールチップ全体
         var position = this._chart.canvas.getBoundingClientRect()
 
         // 表示、配置、およびフォントスタイルの設定
@@ -188,7 +195,8 @@ export default {
         tooltipEl.style.position = 'absolute'
         tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
         tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
-        tooltipEl.style.backgroundColor = 'rgba(225, 225, 229, 0.8)'
+        // 背景色指定
+        tooltipEl.style.backgroundColor = 'rgba(240, 248, 255, 0.8)'
         tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
         tooltipEl.style.fontSize = tooltipModel.bodyFontSize
         tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
