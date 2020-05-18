@@ -1,4 +1,4 @@
-package com.lifegraph.team20.auth;
+package com.lifegraph.team20.controllers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.lifegraph.team20.models.SearchGraph;
 
 @RestController
 public class ApiSearchGraphController {

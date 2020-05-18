@@ -1,4 +1,4 @@
-package com.lifegraph.team20.auth;
+package com.lifegraph.team20.models;
 
 import java.sql.Timestamp;
 
