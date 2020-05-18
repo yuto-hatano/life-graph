@@ -182,7 +182,7 @@ export default {
               style += '; border-width: 2px'
               var span = '<span style="' + style + '"></span>'
               // nullなら表示させないようにしてくれてるところ？
-              console.log(com)
+              // console.log(com)
               if (com[comNum] !== null) {
                 innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>' + 'コメント：' + com[comNum]
               } else {
