@@ -1,5 +1,6 @@
 package com.lifegraph.team20.controllers;
 
+import java.security.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,6 +18,8 @@ import com.lifegraph.team20.models.SearchGraph;
 public class ApiSearchGraphController {
 
 	private static final String LikeName = "は";
+	private static final Timestamp StartDate = "2020-05-01 00:00:00";
+	private static final Timestamp FinishDate = "2020-06-01 00:00:00";
 
 	@RequestMapping(value = "/auth/search", method = RequestMethod.GET)
 //	メソッドや処理を関連づけるアノテーション
@@ -30,8 +33,13 @@ public class ApiSearchGraphController {
   //MySQLのデータを持ってくるライブラリ
   private JdbcTemplate jdbcTemplate;
 	private List<SearchGraph> SelectSearchGraph(){
+//		ここにif文をいれる
 		final String sql = "select name,user_id,updated_at from users inner join parent_graphs on users.id "
 				+ "= parent_graphs.user_id  where name like '%"+LikeName+"%'";
+		final String sql =" select name,user_id,updated_at from users inner join parent_graphs on users.id "
+				+ "= parent_graphs.user_id WHERE `updated_at` BETWEEN  '"
+				+ StartDate+"' AND '"+FinishDate+"'";
+
 //		sqlに"select ~"という文字列をいれる
 		return jdbcTemplate.query(sql, new RowMapper<SearchGraph>() {
 //			quelyの操作
