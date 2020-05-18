@@ -11,7 +11,7 @@
             <label for="age">年齢</label>
           </th>
           <td>
-            <input id="age" v-model="age" type="number" v-on:keyup.enter="changeContents" ref="editor">
+            <input id="age" ref="editor" v-model="age" type="number" @keyup.enter="changeContents">
           </td>
         </tr>
         <tr>
@@ -19,7 +19,7 @@
             <label for="score">スコア</label>
           </th>
           <td>
-            <input id="score" v-model="score" type="number" v-on:keyup.enter="changeContents" ref="editor">
+            <input id="score" ref="editor" v-model="score" type="number" @keyup.enter="changeContents">
           </td>
         </tr>
         <tr>
@@ -27,7 +27,7 @@
             <label for="comment">コメント</label>
           </th>
           <td>
-            <textarea id="comment" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" v-on:keyup.enter="changeContents" ref="editor" />
+            <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" @keyup.enter="changeContents" />
           </td>
         </tr>
       </table>
