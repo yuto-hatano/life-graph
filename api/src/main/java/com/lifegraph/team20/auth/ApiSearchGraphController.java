@@ -27,7 +27,7 @@ public class ApiSearchGraphController {
 	private JdbcTemplate jdbcTemplate;
 
 	private List<SearchGraph> SelectSearchGraph(){
-		final String sql = "select name,user_id,updated_at from users inner join parent_graphs on users.id = parent_graphs.user_id";
+		final String sql = "select name,user_id,updated_at from users inner join parent_graphs on users.id = parent_graphs.user_id  where name like '%は%'";
 //		sqlに"select ~"という文字列をいれる
 		return jdbcTemplate.query(sql, new RowMapper<SearchGraph>() {
 //			quelyの操作
