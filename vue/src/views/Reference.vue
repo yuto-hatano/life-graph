@@ -1,11 +1,16 @@
 <template>
-  <div class="topSection">
+  <div class="ReferenceSection">
     <div>
       <Header />
     </div>
     <h1 class="title">
       Life Graph
     </h1>
+    <div class="referenceName">
+      <div>
+        {{ reference_name }}
+      </div>
+    </div>
     <div id="Graph">
       <Chart />
     </div>
@@ -24,6 +29,11 @@ export default {
   components: {
     Header,
     Chart
+  },
+  data () {
+    return {
+      reference_name: 'Kana Sekiguchi'
+    }
   }
 }
 
@@ -59,6 +69,12 @@ export default {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
 
+.referenceName {
+  font-size: 20px;
+  margin-right: 380px;
+  padding-top: 50px;
+}
+
 .back_button {
   padding-left: 500px;
 }
@@ -66,7 +82,7 @@ export default {
 #Graph {
   width: 600px;
   margin: 0 auto;
-  padding-top: 50pt;
+  padding-top: 10pt;
   padding-bottom: 10pt;
 }
 
