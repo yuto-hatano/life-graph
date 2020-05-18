@@ -7,11 +7,11 @@ public class SearchGraph {
 	private int user_id;
 	private Timestamp updated_at;
 
-	public SearchGraph(String string, int int1, Timestamp timestamp) {
-		// TODO Timestampの型定義ができんで自動生成したからいらんかも
-	}
+//	public searchGraph(String string, int int1, Timestamp timestamp) {
+//		// Timestampの型定義ができんで自動生成したからいらんかも
+//	}
 
-	public void Sample(String name, int user_id ,Timestamp updated_at) {
+	public SearchGraph( String name, int user_id ,Timestamp updated_at) {
 		this.setName(name);
 		this.setId(user_id);
 		this.setAt(updated_at);
@@ -30,7 +30,7 @@ public class SearchGraph {
 	}
 
 	public void setId(int Id) {
-		this.user_id = user_id;
+		this.user_id = Id;
 	}
 
 	public Timestamp getAt() {

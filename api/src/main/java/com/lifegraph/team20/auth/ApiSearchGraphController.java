@@ -16,9 +16,9 @@ public class ApiSearchGraphController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 //	メソッドや処理を関連づけるアノテーション
-	public List<SearchGraph>searchGraph(){
-		List<SearchGraph> SearchGraphs = selectSearchGraph();
-//		l.33のselectSearchGraphsを呼び出す
+	public List<SearchGraph>SearchGraphs(){
+		List<SearchGraph> SearchGraphs = SelectSearchGraph();
+//		l.29のselectSearchGraphを呼び出す
 		return SearchGraphs;
 	}
 
@@ -26,7 +26,7 @@ public class ApiSearchGraphController {
 	//MySQLのデータを持ってくるライブラリ
 	private JdbcTemplate jdbcTemplate;
 
-	private List<SearchGraph> selectSearchGraph(){
+	private List<SearchGraph> SelectSearchGraph(){
 		final String sql = "select name,user_id,updated_at from users inner join parent_graphs on users.id = parent_graphs.user_id";
 //		sqlに"select ~"という文字列をいれる
 		return jdbcTemplate.query(sql, new RowMapper<SearchGraph>() {
@@ -42,23 +42,26 @@ public class ApiSearchGraphController {
 		});
 	}
 
-}
-
 //	public List<Map<String, Object>> uploadSearchGraph(List<SearchGraph> SearchGraphs) {
 //		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
 //	    Map<String, Object> map;
-//	    for (SearchGraph graph: SearchGraphs) {
+////	    for (SearchGraph graph: SearchGraphs) {
 ////	    	繰り返し行う
-//	    map.put("id", SearchGraphs.stream()
+//	    map = new HashMap<>();
+//	    map.put("name", SearchGraphs.stream());
+//    	map.put("user_id", SearchGraphs.stream());
+//    	map.put("update_at", SearchGraphs.stream());
 ////	    		DBのid
-//    			.filter(s -> s.getParentId()==graph.getId())
-//    			.collect(Collectors.toList()));
+////    			.filter(s -> s.getParentId()==graph.getId())
+////    			.collect(Collectors.toList()));
 ////	      map.put("name", entry.getKey());
 ////	      map.put("data", entry.getValue());
 //
 //	      dataList.add(map);
 ////	      mapの中身からdatalistにいれる
-//	    }
+////	    }
 //		return dataList;
 //	}
+
+}
 
