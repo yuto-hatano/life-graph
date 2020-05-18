@@ -129,9 +129,11 @@ export default {
     // functionの中からは直接storeに保存できない？
     // dataの中では定義できないので、ここで定義する？
     setComment () {
-      const comment = []
-      this.checkContents.map((Comment) => {
-        comment.push(Comment.comment)
+      const comments = []
+      this.checkContents.map((contents) => {
+        // 用意したcommentsという箱に、contents.ageという配列を持ったageと、contents.commentという配列を持った
+        // commentをObjectとしてpushする
+        comments.push({ age: contents.age, comment: contents.comment })
       })
       this.options.tooltips.custom = function (tooltipModel) {
         // ツールチップ要素
@@ -167,13 +169,13 @@ export default {
         // テキストを設定する
         if (tooltipModel.body) {
           var titleLines = tooltipModel.title
-          var com = comment
           var bodyLines = tooltipModel.body.map(getBody)
           var innerHtml = '<thead>'
 
           titleLines.forEach(function (age) {
             // 何歳スタートか（x軸）
-            var comNum = age - 0
+            // var comNum = age - 1
+            var comment = comments.find(contents => contents.age === age).comment
             innerHtml += '<tr><th>' + age + '歳' + '</th></tr>'
             bodyLines.forEach(function (body, i) {
               var colors = tooltipModel.labelColors[i]
@@ -183,8 +185,8 @@ export default {
               var span = '<span style="' + style + '"></span>'
               // nullなら表示させないようにしてくれてるところ？
               // console.log(com)
-              if (com[comNum] !== null) {
-                innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>' + 'コメント：' + com[comNum]
+              if (comment) {
+                innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>' + 'コメント：' + comment
               } else {
                 innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>'
               }
