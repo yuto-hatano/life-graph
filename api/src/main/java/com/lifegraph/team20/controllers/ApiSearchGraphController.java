@@ -18,7 +18,7 @@ public class ApiSearchGraphController {
 
 	private static final String LikeName = "は";
 
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/auth/search", method = RequestMethod.GET)
 //	メソッドや処理を関連づけるアノテーション
 	public List<SearchGraph>SearchGraphs(){
 		List<SearchGraph> SearchGraphs = SelectSearchGraph();
