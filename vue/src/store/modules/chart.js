@@ -1,142 +1,143 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-// import axios from 'axios'
+// import Vue from 'vue'
+// import Vuex from 'vuex'
+// // import axios from 'axios'
 
-Vue.use(Vuex)
+// Vue.use(Vuex)
 
 export default {
   state: {
     contents: [
+      // ０歳いるかなあ
       {
-        years: 0,
-        score: 20,
-        comment: 'コメント1'
-      },
-      {
-        years: 1,
-        score: 30,
-        comment: 'コメント2'
-      },
-      {
-        years: 2,
-        score: 10,
-        comment: 'コメント3'
-      },
-      {
-        years: 3,
-        score: 40,
-        comment: 'コメント4'
-      },
-      {
-        years: 4,
-        score: 20,
-        comment: 'コメント5'
-      },
-      {
-        years: 5,
-        score: 40,
-        comment: 'コメント6'
-      },
-      {
-        years: 6,
-        score: 10,
-        comment: 'コメント7'
-      },
-      {
-        years: 7,
-        score: 60,
-        comment: 'コメント8'
-      },
-      {
-        years: 8,
-        score: 20,
-        comment: 'コメント9'
-      },
-      {
-        years: 9,
-        score: 30,
-        comment: 'コメント10'
-      },
-      {
-        years: 10,
-        score: 40,
-        comment: 'コメント11'
-      },
-      {
-        years: 11,
-        score: 50,
-        comment: 'コメント12'
-      },
-      {
-        years: 12,
-        score: 20,
-        comment: 'コメント13'
-      },
-      {
-        years: 13,
-        score: 30,
-        comment: 'コメント14'
-      },
-      {
-        years: 14,
-        score: 10,
-        comment: 'コメント15'
-      },
-      {
-        years: 15,
-        score: 70,
-        comment: 'コメント16'
-      },
-      {
-        years: 16,
-        score: 20,
-        comment: 'コメント17'
-      },
-      {
-        years: 17,
-        score: 30,
-        comment: 'コメント18'
-      },
-      {
-        years: 18,
-        score: 10,
-        comment: 'コメント19'
-      },
-      {
-        years: 19,
-        score: 50,
-        comment: 'コメント20'
-      },
-      {
-        years: 20,
-        score: 10,
-        comment: 'コメント21'
-      },
-      {
-        years: 21,
-        score: 80,
-        comment: 'コメント22'
-      },
-      {
-        years: 22,
-        score: 90,
-        comment: 'コメント23'
+        age: '',
+        score: '',
+        comment: ''
       }
+      // {
+      //   age: 1,
+      //   score: -30,
+      //   comment: 'コメント2'
+      // },
+      // {
+      //   age: 2,
+      //   score: null,
+      //   comment: 'コメント3'
+      // },
+      // {
+      //   age: 3,
+      //   score: null,
+      //   comment: 'コメント4'
+      // },
+      // {
+      //   age: 4,
+      //   score: 20,
+      //   comment: null
+      // },
+      // {
+      //   age: 5,
+      //   score: 40,
+      //   comment: 'コメント6'
+      // },
+      // {
+      //   age: 6,
+      //   score: 10,
+      //   comment: null
+      // },
+      // {
+      //   age: 7,
+      //   score: 60,
+      //   comment: 'コメント8'
+      // },
+      // {
+      //   age: 8,
+      //   score: 20,
+      //   comment: 'コメント9'
+      // },
+      // {
+      //   age: 9,
+      //   score: 30,
+      //   comment: 'コメント10'
+      // },
+      // {
+      //   age: 10,
+      //   score: 40,
+      //   comment: 'コメント11'
+      // },
+      // {
+      //   age: 11,
+      //   score: 50,
+      //   comment: 'コメント12'
+      // },
+      // {
+      //   age: 12,
+      //   score: 20,
+      //   comment: 'コメント13'
+      // },
+      // {
+      //   age: 13,
+      //   score: 30,
+      //   comment: 'コメント14'
+      // },
+      // {
+      //   age: 14,
+      //   score: 10,
+      //   comment: null
+      // },
+      // {
+      //   age: 15,
+      //   score: 70,
+      //   comment: 'コメント16'
+      // },
+      // {
+      //   age: 16,
+      //   score: 20,
+      //   comment: 'コメント17'
+      // },
+      // {
+      //   age: 17,
+      //   score: 30,
+      //   comment: 'コメント18'
+      // },
+      // {
+      //   age: 18,
+      //   score: 10,
+      //   comment: 'コメント19'
+      // },
+      // {
+      //   age: 19,
+      //   score: 50,
+      //   comment: 'コメント20'
+      // },
+      // {
+      //   age: 20,
+      //   score: 10,
+      //   comment: 'コメント21'
+      // },
+      // {
+      //   age: 21,
+      //   score: 80,
+      //   comment: 'コメント22'
+      // },
+      // {
+      //   age: 22,
+      //   score: 90,
+      //   comment: 'コメント23'
+      // }
     ],
     // chart: [],
     load: false,
-    loaded: false
+    loaded: true
   },
   mutations: {
-    loadDone (state, payload) {
-      state.loaded = payload.loading
-      state.loaded = true
+    addContentMutation (state, content) {
+      // console.log('mutation')
+      state.contents.push(content)
     }
   },
   actions: {
-    load ({ commit }) {
-      const loading = ['DONE']
-      commit('loadDone', { loading })
+    addContent ({ commit }, content) {
+      // console.log('action')
+      commit('addContentMutation', content)
     }
   }
 }
