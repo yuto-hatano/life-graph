@@ -1,5 +1,8 @@
 <template>
   <div class="topSection">
+    <div>
+      <Header />
+    </div>
     <h1 class="title">
       Life Graph
     </h1>
@@ -9,27 +12,12 @@
     <div class="button">
       <a href="./register" class="btn-square-pop">登録</a>
       <a href="./search" class="btn-square-pop">検索</a>
-      <!-- <button class="register_botton" onclick="location.href='./register'">登録</button>
-      <button class="search_botton" onclick="location.href='./search'">検索</button> -->
     </div>
-    <!-- <div>
-      <button class="register_botton" onclick="location.href='./register'">
-        登録
-      </button>
-      <button class="search_botton" onclick="location.href='./search'">
-        検索
-      </button>
-    </div>
-    <div class="nav">
-      <router-link id="register" to="/register">
-        登録
-      </router-link>
-      <router-link id="search" to="/search">
-        検索
-      </router-link> -->
-    <!-- </div> -->
-    <div>
+    <div id="Graph">
       <Chart />
+    </div>
+    <div class="edit_button">
+      <a href="./reference" class="btn-square-pop">編集</a>
     </div>
   </div>
 </template>
@@ -37,9 +25,11 @@
 <script>
 
 import Chart from '../components/Chart.vue'
+import Header from '../views/Header.vue'
 
 export default {
   components: {
+    Header,
     Chart
   }
 }
@@ -74,9 +64,12 @@ export default {
   margin: 8px;
   text-decoration: none;
   color: #FFF;
-  background: #fd9535;/*背景色*/
-  border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
-  border-radius: 4px;/*角の丸み*/
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border-bottom: solid 2px #d27d00;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
 }
@@ -102,7 +95,18 @@ export default {
 }
 
 #search {
-  font-size:20pt;
+  font-size: 20pt;
   padding: 40px
+}
+
+#Graph {
+  width: 600px;
+  margin: 0 auto;
+  padding-top: 50pt;
+  padding-bottom: 10pt;
+}
+
+.edit_button{
+  padding-left: 500px;
 }
 </style>
