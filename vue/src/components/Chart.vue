@@ -98,23 +98,30 @@ export default {
       responsive: true
     }
   },
+  computed: {
+    checkContents () {
+      return this.$store.state.chart.contents
+    }
+  },
+
   mounted () {
     this.setAge()
     this.setScore()
     this.setComment()
     this.renderChart(this.data, this.options)
   },
+
   methods: {
     setAge () {
       const age = []
-      this.$store.state.chart.contents.map((Years) => {
+      this.checkContents.map((Years) => {
         age.push(Years.age)
       })
       this.data.labels = age
     },
     setScore () {
       const score = []
-      this.$store.state.chart.contents.map((Score) => {
+      this.checkContents.map((Score) => {
         score.push(Score.score)
       })
       this.data.datasets[0].data = score
@@ -123,7 +130,7 @@ export default {
     // dataの中では定義できないので、ここで定義する？
     setComment () {
       const comment = []
-      this.$store.state.chart.contents.map((Comment) => {
+      this.checkContents.map((Comment) => {
         comment.push(Comment.comment)
       })
       this.options.tooltips.custom = function (tooltipModel) {
@@ -175,6 +182,7 @@ export default {
               style += '; border-width: 2px'
               var span = '<span style="' + style + '"></span>'
               // nullなら表示させないようにしてくれてるところ？
+              console.log(com)
               if (com[comNum] !== null) {
                 innerHtml += '<tr><td>' + span + '満足度：' + body + ' ポイント' + '</td></tr>' + 'コメント：' + com[comNum]
               } else {

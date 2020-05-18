@@ -11,7 +11,7 @@
             <label for="age">年齢</label>
           </th>
           <td>
-            <input id="age" v-model="age" type="number" autofocus required>
+            <input id="age" v-model="age" type="number" v-on:keyup.enter="changeContents" ref="editor">
           </td>
         </tr>
         <tr>
@@ -19,7 +19,7 @@
             <label for="score">スコア</label>
           </th>
           <td>
-            <input id="score" v-model="score" type="number" autofocus required>
+            <input id="score" v-model="score" type="number" v-on:keyup.enter="changeContents" ref="editor">
           </td>
         </tr>
         <tr>
@@ -27,7 +27,7 @@
             <label for="comment">コメント</label>
           </th>
           <td>
-            <textarea id="comment" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" />
+            <textarea id="comment" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" v-on:keyup.enter="changeContents" ref="editor" />
           </td>
         </tr>
       </table>
@@ -36,19 +36,38 @@
           クリア
         </button>
         <button id="submit" @click="add">
-          登録
+          {{ changeButtonText }}
         </button>
       </div>
     </div>
-    <!-- <div id="action">
-      <button id="reset" @click="reset">
-        クリア
-      </button>
-      <button id="submit" @click="add">
-        登録
-      </button>
-    </div> -->
-    <div id="chart">
+    <div id="list">
+      <table>
+        <thead>
+          <tr>
+            <th>年齢</th>
+            <th>スコア</th>
+            <th>コメント</th>
+          </tr>
+        </thead>
+        <tbody v-if="isActive">
+          <tr v-for="content in contents" :key="content.age">
+            <td>{{ content.age }}</td>
+            <td>{{ content.score }}</td>
+            <td>{{ content.comment }}</td>
+            <button @click="edit(index)">
+              編集
+            </button>
+            <button @click="deleteContents(index)">
+              削除
+            </button>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button @click="update()">
+      更新
+    </button>
+    <div v-if="loaded" id="chart">
       <Chart />
     </div>
   </div>
@@ -67,17 +86,32 @@ export default {
 
   data () {
     return {
-      age: '',
-      score: '',
-      comment: ''
+      isActive: false,
+      contents: [
+        {
+          age: '',
+          score: '',
+          comment: ''
+        }
+      ],
+      load: true,
+      editIndex: -1
     }
   },
 
   computed: {
     loaded () {
-      return this.$store.state.loaded
+      return this.$store.state.chart.loaded
+    },
+    changeButtonText () {
+      return this.editIndex === -1 ? '追加' : '編集'
     }
   },
+  // computed: {
+  //   loaded () {
+  //     return this.$store.state.loaded
+  //   }
+  // },
 
   methods: {
     reset () {
@@ -90,13 +124,48 @@ export default {
       // console.clear(this.comment)
     },
     add () {
+      this.isActive = true
+      if (this.editIndex === -1) {
+        this.contents.push({ age: this.age, score: this.score, comment: this.comment })
+      } else {
+        this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment })
+      }
       // 入力が反映されてるかテスト
       // console.log(this.age)
       // console.log(this.score)
       // console.log(this.comment)
+      const content = {
+        age: this.age,
+        score: this.score,
+        comment: this.comment
+      }
+      this.$store.dispatch('addContent', content)
+    },
+
+    // submit () {
+    //   this.isActive = true
+    //   if (this.age === '') return
+    //   const content = {
+    //     age: this.age,
+    //     score: this.score,
+    //     comment: this.comment
+    //   }
+    //   this.content.push(content)
+    //   this.$store.dispatch('addContent', content)
+    //   this.age = ''
+    //   this.score = ''
+    //   this.comment = ''
+    // },
+    deleteContents (index) {
+      this.contents.splice(index, 1)
+    },
+    edit (index) {
+      this.editIndex = index
+      this.score = this.contents[index]
+      this.comment = this.contents[index]
+      this.$refs.editor.focus() // フォーカスを設定
     }
   }
-
 }
 </script>
 
@@ -172,8 +241,42 @@ td {
   top: 2px;
 }
 
+#list {
+  border: 1px solid #434a52;
+  width: 60%;
+  margin: 50px auto;
+  background-color: #fffcf5;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+table {
+  width: 60%;
+  margin: 45px auto 20px auto;
+  background-color: #fff;
+}
+
 #chart {
   width: 60%;
   margin: 100px auto;
+}
+
+#add {
+  cursor: pointer;
+  font-size: 1em;
+  background-color: #dddddd;
+  border-radius: 5px;
+  box-shadow: 1px 2px #dddddd;
+  margin: 20px auto;
+}
+
+#add:active {
+  box-shadow: none;
+  position: relative;
+  top: 2px;
 }
 </style>
