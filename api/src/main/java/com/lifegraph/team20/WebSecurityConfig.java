@@ -1,63 +1,66 @@
 package com.lifegraph.team20;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.lifegraph.team20.security.jwt.AuthEntryPointJwt;
+import com.lifegraph.team20.security.jwt.AuthTokenFilter;
+import com.lifegraph.team20.security.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+    // securedEnabled = true,
+    // jsr250Enabled = true,
+    prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+  @Autowired
+  UserDetailsServiceImpl userDetailsService;
+
+  @Autowired
+  private AuthEntryPointJwt unauthorizedHandler;
+
+  @Bean
+  public AuthTokenFilter authenticationJwtTokenFilter() {
+    return new AuthTokenFilter();
+  }
 
   @Override
-  public void configure(WebSecurity web) throws Exception {
-    //    各静的ファイルを認証不要にする
-    web.ignoring().antMatchers("/img/**", "/css/**", "/js/**", "/webjars/**");
+  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+  }
+
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
-        //    ログイン画面
-        .antMatchers("/Login")
-        //    全ユーザーアクセス可
-        .permitAll()
-        //    管理画面
-        .antMatchers("/auth/login**")
-        //    ADMIN権限者のみアクセス可能
-        .hasRole("ADMIN")
-        //    全てのURLリクエストは認証されているユーザーしかアクセスできない
+    http.cors().and().csrf().disable()
+        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+        .authorizeRequests().antMatchers("/auth/**").permitAll()
+        .antMatchers("/test/**").permitAll()
         .anyRequest().authenticated();
-    http.formLogin()
-        //    ログイン画面のURL
-        .loginPage("/Login")
-        //    ログイン処理をするURL→API？
-        .loginProcessingUrl("/signin")
-        .usernameParameter("loginID")
-        .passwordParameter("password")
-        //    ログイン成功時に遷移する画面のURL
-        .defaultSuccessUrl("/Top", false)
-        .permitAll()
-        .and()
-        .logout()
-        //    ログアウトのURL
-        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-        //    ログアウトにアクセスが来たらセッションIDを削除してログイン画面に遷移
-        .logoutSuccessUrl("/Login")
-        .deleteCookies("JSESSIONID")
-        .invalidateHttpSession(true)
-        .permitAll();
+
+    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 }
-//  databaseとの関連付け※データベース後に整理
-//  @Autowired
-//  public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//    auth
-//        .jdbcAuthentication()
-//          .dataSource(dataSource)
-//          .usersByUsernameQuery(
-//              "select adress as loginId,password,")
-//
-//}}
