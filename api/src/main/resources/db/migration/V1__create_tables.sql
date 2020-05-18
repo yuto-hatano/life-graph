@@ -1,23 +1,41 @@
 CREATE TABLE `users` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `mail_address` varchar(255) NOT NULL UNIQUE,
-  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
+  `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `authority` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`mail_address`)
+  UNIQUE KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` (
-  `mail_address`,
-  `name`,
-  `password`,
-  `authority`
+  `email`,
+  `username`,
+  `password`
 ) VALUES
-  ('taito.kudo@seattleconsulting.co.jp', '工藤', 'team', 1),
-  ('yuto.hatano@seattleconsulting.co.jp', 'はたちゃん', 'team', 1),
-  ('haruka.saito@seattleconsulting.co.jp', 'はるか', 'team', 1);
+  ('taito.kudo@seattleconsulting.co.jp', '工藤', 'team'),
+  ('yuto.hatano@seattleconsulting.co.jp', 'はたちゃん', 'team'),
+  ('haruka.saito@seattleconsulting.co.jp', 'はるか', 'team');
 
+CREATE TABLE `roles`(
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `user_roles`(
+  `user_id` bigint not null,
+  `role_id` int not null,
+  PRIMARY KEY (`user_id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8MB4;
+
+INSERT INTO `roles`(
+  `name`
+)VALUES
+('ROLE_USER'),
+('ROLE_MODERATOR'),
+('ROLE_ADMIN');
 
 CREATE TABLE `parent_graphs` (
   `id` bigint NOT NULL AUTO_INCREMENT,
