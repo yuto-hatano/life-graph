@@ -22,7 +22,9 @@ import com.lifegraph.team20.models.Parent;
 public class RefApiController {
 
 
-	@RequestMapping(value = "/ref", method = RequestMethod.GET)
+	private static final int ParentId = 2;
+
+	@RequestMapping(value = "/auth/ref", method = RequestMethod.GET)
 	 public List<Map<String, Object>> ref() {
 		List<Parent> graphs = selectParents();
 		List<Child> data = selectChilds();
@@ -35,7 +37,7 @@ public class RefApiController {
 	private JdbcTemplate jdbcTemplate;
 
 	public List<Child> selectChilds() {
-		final String sql = "select * from child_graphs";
+		final String sql = "select * from `child_graphs` where parent_id="+ParentId+";";
 
 		return jdbcTemplate.query(sql, new RowMapper<Child>() {
 			// Sampleの中にそれぞれのデータを入れている　
