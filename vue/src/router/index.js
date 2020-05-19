@@ -7,6 +7,9 @@ import Register from '../views/Register.vue'
 import Search from '../views/Search.vue'
 import Reference from '../views/Reference.vue'
 
+// store
+import Store from '@/store/index.js'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -53,6 +56,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token) {
+    next()
+  } else {
+    next('/login')
+  }
 })
 
 export default router
