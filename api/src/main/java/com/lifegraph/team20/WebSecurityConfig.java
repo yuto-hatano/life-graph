@@ -27,7 +27,6 @@ import com.lifegraph.team20.security.services.UserDetailsServiceImpl;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
-
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;
 
@@ -60,7 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests().antMatchers("/auth/**").permitAll()
         .antMatchers("/test/**").permitAll()
         .anyRequest().authenticated();
-
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 }
