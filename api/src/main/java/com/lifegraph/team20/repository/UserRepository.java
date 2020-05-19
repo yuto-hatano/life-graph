@@ -9,9 +9,9 @@ import com.lifegraph.team20.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-  Optional<User> findByUsername(String username);
+  Optional<User> findByemail(String email);
 
-  Boolean existsByUsername(String username);
+  Boolean existsByemail(String email);
 
   Boolean existsByEmail(String email);
 }
