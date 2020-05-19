@@ -17,7 +17,7 @@
       <Chart />
     </div>
     <div class="edit_button">
-      <a href="./reference" class="btn-square-pop">編集</a>
+      <a href="./register" class="btn-square-pop">編集</a>
     </div>
   </div>
 </template>
