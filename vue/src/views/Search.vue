@@ -9,23 +9,44 @@
         <p id="serch_tittle">
           グラフを検索
         </p>
-        <ul>
-          <ol>
-            <input id="search_name" v-model="searchUser" type="text" placeholder="ユーザー名">
-          </ol>
-          <ol>
-            <input id="search_day" v-model="serchDay" type="date">
-            <input id="search_day" v-model="serchDay" type="date">
-          </ol>
-          <ol>
-             <button id="clear" @click="clear">
+        <div v-if="isOpenSearch">
+          <button id="searchUserName" @click="searchUserName">
+            ユーザー名で検索
+          </button>
+          <button id="searchUpdate" @click="searchUpdate">
+            更新日時で検索
+          </button>
+        </div>
+        <div v-if="isOpenUser">
+          <input id="search_name" v-model="searchUser" type="text" placeholder="ユーザー名">
+          <div>
+            <button id="clear" @click="clear">
               クリア
+            </button>
+            <button id="return" @click="returnScreen">
+              戻る
             </button>
             <button id="submit" @click="active">
               検索
             </button>
-          </ol>
-        </ul>
+          </div>
+        </div>
+        <div v-if="isOpenUpdata">
+          <input id="search_From" v-model="updatedFrom" type="date">
+          <p>〜</p>
+          <input id="search_To" v-model="updatedTo" type="date">
+          <div>
+            <button id="clear" @click="clear">
+              クリア
+            </button>
+            <button id="return" @click="returnScreen">
+              戻る
+            </button>
+            <button id="submit" @click="active">
+              検索
+            </button>
+          </div>
+        </div>
       </div>
       <div id="output">
         <p id="serch_tittle">
@@ -65,7 +86,9 @@
             </tbody>
           </table>
           <div v-if="isActive">
-            <button id="reset" @click="resetting()">リセット</button>
+            <button id="reset" @click="resetting()">
+              リセット
+            </button>
           </div>
         </div>
       </div>
@@ -83,7 +106,12 @@ export default {
   },
   data () {
     return {
+      updatedFrom: null,
+      updatedTo: null,
       isActive: false,
+      isOpenUser: false,
+      isOpenUpdata: false,
+      isOpenSearch: true,
       users: [
         {
           id: 1,
@@ -149,12 +177,26 @@ export default {
   },
 
   methods: {
+    searchUserName () {
+      this.isOpenSearch = false
+      this.isOpenUser = true
+    },
+    searchUpdate () {
+      this.isOpenSearch = false
+      this.isOpenUpdata = true
+    },
     active () {
       this.isActive = true
     },
+    returnScreen () {
+      this.isOpenSearch = true
+      this.isOpenUpdata = false
+      this.isOpenUser = false
+    },
     clear () {
       this.searchUser = ''
-      this.searchDay = ''
+      this.updatedFrom = ''
+      this.updatedTo = ''
     },
     sortedClass (key) {
       return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
@@ -167,8 +209,12 @@ export default {
       this.sort.key = ''
       this.sort.isAsc = false
       this.searchUser = ''
-      this.searchDay = ''
+      this.updatedFrom = ''
+      this.updatedTo = ''
       this.isActive = false
+      this.isOpenUser = false
+      this.isOpenUpdata = false
+      this.isOpenSearch = true
     }
   }
 }
@@ -193,7 +239,22 @@ h1 {
 }
 
 #serch_tittle {
-  font-size: 20px;
+  font-size: 25px;
+  font: bold;
+}
+
+#searchUserName {
+  cursor: pointer;
+  margin: 40px 20px;
+  padding: 20px 20px;
+  font-size: 1em;
+}
+
+#searchUpdate {
+  cursor: pointer;
+  margin: 40px 20px;
+  padding: 20px 20px;
+  font-size: 1em;
 }
 
 #search_name {
@@ -203,9 +264,17 @@ h1 {
   padding: 5px 0;
 }
 
-#search_day {
+#search_From {
   width: 20%;
-  margin-top: 20px ;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  padding: 5px 0;
+}
+
+#search_To {
+  width: 20%;
+  margin-top: 10px;
   font-size: 1em;
   padding: 5px 0;
 }
@@ -214,9 +283,13 @@ h1 {
   font-size: 1em;
 }
 
+#return {
+  font-size: 1em;
+  margin: 20px 10% 20px 10%;
+}
+
 #submit {
   font-size: 1em;
-  margin: 20px 0 0 40%;
 }
 
 #output {
