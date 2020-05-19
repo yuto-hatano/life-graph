@@ -1,6 +1,6 @@
 <template>
   <div id="loginSection">
-    <form name="login" action="/Top" @submit.prevent="handleLogin">
+    <form name="login" action="auth/Top" @submit.prevent="handleLogin">
       <h1>LOGIN</h1>
       <div id="input">
         <font-awesome-icon id="icon_email" icon="envelope" />
@@ -36,9 +36,14 @@ export default {
       message: ''
     }
   },
-  computed () {
+  computed: {
+    loggedIn () {
+      return this.$store.state.auth.status.loggedIn
+    }
+  },
+  created () {
     if (this.loggedIn) {
-      this.$router.push('/Top')
+      this.$router.push('auth/Top')
     }
   },
   methods: {

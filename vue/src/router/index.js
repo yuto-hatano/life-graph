@@ -21,7 +21,7 @@ const routes = [
     component: Header
   },
   {
-    path: 'auth/top',
+    path: '/top',
     name: 'Top',
     component: Top
   },
