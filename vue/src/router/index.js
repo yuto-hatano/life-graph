@@ -59,10 +59,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token) {
-    next()
-  } else {
+  if (to.path !== '/login' && Store.state.auth.token === '') {
     next('/login')
+  } else {
+    next()
   }
 })
 

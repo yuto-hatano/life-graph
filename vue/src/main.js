@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VeeValidate from 'vee-validate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -10,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faEnvelope, faLock)
 
-Vue.use(VeeValidate)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 

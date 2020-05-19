@@ -19,6 +19,7 @@ export default {
       state.token = ''
     }
   },
+  // APIによるdataの受け渡し
   actions: {
     create ({ commit }, data) {
       const url = '/api/auth/login'

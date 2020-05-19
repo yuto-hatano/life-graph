@@ -4,12 +4,12 @@
       <h1>LOGIN</h1>
       <div id="input">
         <font-awesome-icon id="icon_email" icon="envelope" />
-        <input id="email" type="email" placeholder="メールアドレス" autofocus required>
+        <input v-model = "email" id="email" type="email" placeholder="メールアドレス" autofocus required>
         <font-awesome-icon id="icon_lock" icon="lock" />
         <input id="password" type="password" placeholder="Password" required>
       </div>
       <div id="action">
-        <input id="submit" type="submit" value="Enter">
+        <input v-model="password" id="submit" type="submit" value="Enter" @click="login()">
       </div>
       新規の方は<a id="signUp" href="">新規登録</a>
     </form>
@@ -17,13 +17,41 @@
 </template>
 
 <script>
-// export default {
-//   data() {
-//     return {
-
-//     }
-//   }
-// }
+export default {
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  computed: {
+    // isValidated () {
+    //   return Object.keys(this.fields).every(k => this.fields[k].validated) &&
+    //     Object.keys(this.fields).every(k => this.fields[k].valid)
+    // },
+    token () {
+      return this.$store.state.auth.token
+    }
+  },
+  watch: {
+    // tokenの状態を監視して、tokenが更新されたらtop画面に遷移する
+    token (newToken) {
+      this.$router.push('/top')
+    }
+  },
+  methods: {
+    login () {
+      // ログイン画面で入力したusernameとpasswordをAPIに渡す
+      this.$store.dispatch(
+        'auth/create',
+        {
+          email: this.email,
+          password: this.password
+        }
+      )
+    }
+  }
+}
 </script>
 
 <style scoped>
