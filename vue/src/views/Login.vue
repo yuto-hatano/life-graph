@@ -1,15 +1,23 @@
 <template>
   <div id="loginSection">
-    <form id="login" action="/Top">
+    <form name="login" action="/Top" @submit.prevent="handleLogin">
       <h1>LOGIN</h1>
       <div id="input">
         <font-awesome-icon id="icon_email" icon="envelope" />
-        <input id="email" type="email" placeholder="メールアドレス" autofocus required>
+        <label for="email" />
+        <input id="email" v-model="user.email"
+               v-validate="'required'" type="email" placeholder="メールアドレス"
+               autofocus required name="email"
+        >
         <font-awesome-icon id="icon_lock" icon="lock" />
-        <input id="password" type="password" placeholder="Password" required>
+        <labal for="password" />
+        <input id="password" v-model="user.password" v-validate="'required'" type="password"
+               placeholder="Password" required name="password"
+        >
       </div>
       <div id="action">
         <input id="submit" type="submit" value="Enter">
+        <span v-show="loading" class="spinner-border spinner-border-sm" />
       </div>
       新規の方は<a id="signUp" href="">新規登録</a>
     </form>
@@ -17,6 +25,49 @@
 </template>
 
 <script>
+import User from '../models/user'
+
+export default {
+  name: 'Login',
+  data () {
+    return {
+      user: new User('', ''),
+      loading: false,
+      message: ''
+    }
+  },
+  computed () {
+    if (this.loggedIn) {
+      this.$router.push('/Top')
+    }
+  },
+  methods: {
+    handleLogin () {
+      this.loading = true
+      this.$validator.validateAll().then(isValid => {
+        if (!isValid) {
+          this.loading = false
+          return
+        }
+
+        if (this.user.email && this.user.password) {
+          this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              this.$router.push('/Top')
+            },
+            error => {
+              this.loading = false
+              this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString()
+            }
+          )
+        }
+      })
+    }
+  }
+}
 // export default {
 //   data() {
 //     return {
@@ -34,7 +85,7 @@
   padding: 100px 0;
 }
 
-#login {
+form[name]login {
   width: 40%;
   border-top: 3px solid #434a52;
   border-bottom: 3px solid #434a52;
