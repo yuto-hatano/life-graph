@@ -8,21 +8,27 @@ import org.springframework.stereotype.Repository;
 public class ChildGraphRepository {
 
   @Autowired
-  //MySQLのデータを持ってくるライブラリ
+  // MySQLのデータを持ってくるライブラリ
   private static JdbcTemplate jdbcTemplate;
 
-  //ageが重複しているか確認したい
-  //リクエストできたageが同じユーザーのレコードに既に存在しているか
+  public Boolean existsByUserIdAndAge(long parentId, int age) {
+    final String sql = "select count(*) from child_graphs where parent_id = " + parentId + " age = " + age;
+    Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+    return 1 <= count;
+  }
+
+  // ageが重複しているか確認したい
+  // リクエストできたageが同じユーザーのレコードに既に存在しているか
   public static Integer selectChild(int age) {
     final String sql = "select count(*) from child_graphs where age = " + age;
     Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
     return count;
   }
 
-  //子テーブルにレコードを追加する
+  // 子テーブルにレコードを追加する
   public static void addChild(long id, int age, int score, String comment) {
-    final String sql = "insert into child_graphs (parent_id, age, score, comment) values ("
-        + id + "," + age + "," + score + ")";
+    final String sql = "insert into child_graphs (parent_id, age, score, comment) values (" + id + "," + age + ","
+        + score + ")";
 
   }
 }
