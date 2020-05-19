@@ -163,15 +163,6 @@ export default {
         })
       }
 
-      if (this.searchDay) {
-        list = list.filter(element => {
-          return Object.keys(element).some(key => {
-            if (key === 'updated_at') {
-              return element[key].indexOf(this.searchDay) > -1
-            }
-          })
-        })
-      }
       return list
     }
   },
