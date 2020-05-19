@@ -3,8 +3,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL UNIQUE,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY (`email`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` (
@@ -43,19 +42,16 @@ CREATE TABLE `parent_graphs` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) ,
-  UNIQUE KEY (`user_id`),
   FOREIGN KEY (`user_id`)
   REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `parent_graphs` (
-  `user_id`,
-  `created_at`,
-  `updated_at`
+  `user_id`
 ) VALUES
-  (3, cast( now() as date), cast( now() as datetime )),
-  (1, cast( now() as date), cast( now() as datetime )),
-  (2, cast( now() as date), cast( now() as datetime ));
+  (3),
+  (1),
+  (2);
 
 
 CREATE TABLE `child_graphs` (
@@ -81,3 +77,4 @@ INSERT INTO `child_graphs` (
   (2, 22, -90, 'ccccccc');
 
 ALTER TABLE `child_graphs` ADD CONSTRAINT UNIQUE (`parent_id`,`age`);
+ALTER TABLE `user_roles` ADD CONSTRAINT UNIQUE (`user_id`,`role_id`)
