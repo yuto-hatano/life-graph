@@ -1,6 +1,6 @@
 <template>
   <div id="loginSection">
-    <form name="login" action="auth/Top" @submit.prevent="handleLogin">
+    <form  id="login" name="login" action="auth/Top" @submit.prevent="handleLogin">
       <h1>LOGIN</h1>
       <div id="input">
         <font-awesome-icon id="icon_email" icon="envelope" />
@@ -90,7 +90,7 @@ export default {
   padding: 100px 0;
 }
 
-form[name]login {
+#login {
   width: 40%;
   border-top: 3px solid #434a52;
   border-bottom: 3px solid #434a52;
