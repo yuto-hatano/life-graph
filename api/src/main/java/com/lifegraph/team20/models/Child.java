@@ -1,4 +1,4 @@
-package com.lifegraph.team20.refapi;
+package com.lifegraph.team20.models;
 
 
 public class Child {
