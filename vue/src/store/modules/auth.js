@@ -20,12 +20,10 @@ export default {
   // APIによるdataの受け渡し
   actions: {
     create ({ commit }, data) {
-      console.log(data)
       const url = '/api/auth/login'
       Axios.post(url, data)
         .then(res => commit('create', res.data))
         .catch(err => err)
-      console.log('catch')
     }
     //   destroy ({ commit, dispatch }, data) {
     //     dispatch(
