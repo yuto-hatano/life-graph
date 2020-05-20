@@ -129,11 +129,15 @@ export default {
     // functionの中からは直接storeに保存できない？
     // dataの中では定義できないので、ここで定義する？
     setComment () {
-      const comments = []
-      this.checkContents.map((contents) => {
-        // 用意したcommentsという箱に、contents.ageという配列を持ったageと、contents.commentという配列を持った
-        // commentをObjectとしてpushする
-        comments.push({ age: contents.age, comment: contents.comment })
+      // 用意したcommentsという箱に、contents.ageという配列を持ったageと、contents.commentという配列を持った
+      // commentをObjectとしてpushする
+      // const comments = []
+      // this.checkContents.map((contents) => {
+      //   comments.push({ age: contents.age, comment: contents.comment })
+      // })
+      // ↓こっちの方が簡潔かつシンプル
+      const comments = this.checkContents.map((content) => {
+        return { age: content.age, comment: content.comment }
       })
       this.options.tooltips.custom = function (tooltipModel) {
         // ツールチップ要素
