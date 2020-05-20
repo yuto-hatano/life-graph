@@ -3,18 +3,16 @@ import Axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    tenant: '',
     userId: '',
     token: ''
   },
   mutations: {
     create (state, data) {
-      state.tenant = ''
-      state.token = data.token
-      state.userId = data.user_id
+      state.userId = data.id
+      state.token = data.accessToken
+      console.log(data)
     },
     destroy (state) {
-      state.tenant = ''
       state.userId = ''
       state.token = ''
     }
@@ -22,10 +20,12 @@ export default {
   // APIによるdataの受け渡し
   actions: {
     create ({ commit }, data) {
+      console.log(data)
       const url = '/api/auth/login'
-      Axios.post(url, data).then(res => commit('create', res.data))
+      Axios.post(url, data)
         .then(res => commit('create', res.data))
         .catch(err => err)
+      console.log('catch')
     }
     //   destroy ({ commit, dispatch }, data) {
     //     dispatch(

@@ -1,18 +1,18 @@
 <template>
   <div id="loginSection">
-    <form id="login" action="/Top">
-      <h1>LOGIN</h1>
-      <div id="input">
-        <font-awesome-icon id="icon_email" icon="envelope" />
-        <input v-model = "email" id="email" type="email" placeholder="メールアドレス" autofocus required>
-        <font-awesome-icon id="icon_lock" icon="lock" />
-        <input id="password" type="password" placeholder="Password" required>
-      </div>
-      <div id="action">
-        <input v-model="password" id="submit" type="submit" value="Enter" @click="login()">
-      </div>
-      新規の方は<a id="signUp" href="">新規登録</a>
-    </form>
+    <!-- <form id="login"> -->
+    <h1>LOGIN</h1>
+    <div id="input">
+      <font-awesome-icon id="icon_email" icon="envelope" />
+      <input id="email" v-model="email" type="email" placeholder="メールアドレス" autofocus required>
+      <font-awesome-icon id="icon_lock" icon="lock" />
+      <input id="password" v-model="password" type="password" placeholder="Password" required>
+    </div>
+    <div id="action">
+      <button id="submit" value="Enter" @click="login()" />
+    </div>
+    新規の方は<a id="signUp" href="">新規登録</a>
+    <!-- </form> -->
   </div>
 </template>
 
@@ -36,12 +36,13 @@ export default {
   watch: {
     // tokenの状態を監視して、tokenが更新されたらtop画面に遷移する
     token (newToken) {
+      debugger
       this.$router.push('/top')
     }
   },
   methods: {
     login () {
-      // ログイン画面で入力したusernameとpasswordをAPIに渡す
+      // ログイン画面で入力したemailとpasswordをAPIに渡す
       this.$store.dispatch(
         'auth/create',
         {

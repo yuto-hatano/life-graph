@@ -59,6 +59,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  debugger
   if (to.path !== '/login' && Store.state.auth.token === '') {
     next('/login')
   } else {
