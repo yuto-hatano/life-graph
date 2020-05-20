@@ -50,7 +50,7 @@
           </tr>
         </thead>
         <tbody v-if="isActive">
-          <tr v-for="content in contents" :key="content.age">
+          <tr v-for="(content,index) in contents" :key="index">
             <td>{{ content.age }}</td>
             <td>{{ content.score }}</td>
             <td>{{ content.comment }}</td>
@@ -64,9 +64,11 @@
         </tbody>
       </table>
     </div>
-    <button @click="update()">
-      更新
-    </button>
+    <router-link to="/Register">
+      <button @click="update()">
+        更新
+      </button>
+    </router-link>
     <div v-if="loaded" id="chart">
       <Chart />
     </div>
@@ -95,7 +97,7 @@ export default {
         }
       ],
       load: true,
-      editIndex: -1
+      editIndex: 0
     }
   },
 
@@ -107,33 +109,29 @@ export default {
       return this.editIndex === -1 ? '追加' : '編集'
     }
   },
-  // computed: {
-  //   loaded () {
-  //     return this.$store.state.loaded
-  //   }
-  // },
 
   methods: {
     reset () {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // 入力がリセットされるかテスト
-      // console.clear(this.age)
-      // console.clear(this.score)
-      // console.clear(this.comment)
     },
     add () {
       this.isActive = true
       if (this.editIndex === -1) {
         this.contents.push({ age: this.age, score: this.score, comment: this.comment })
+        this.age = ''
+        this.score = ''
+        this.comment = ''
+        // console.log('コンテンツ')
       } else {
         this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment })
+        this.age = ''
+        this.score = ''
+        this.comment = ''
+        this.editIndex = -1
       }
-      // 入力が反映されてるかテスト
-      // console.log(this.age)
-      // console.log(this.score)
-      // console.log(this.comment)
+
       const content = {
         age: this.age,
         score: this.score,
@@ -142,28 +140,16 @@ export default {
       this.$store.dispatch('addContent', content)
     },
 
-    // submit () {
-    //   this.isActive = true
-    //   if (this.age === '') return
-    //   const content = {
-    //     age: this.age,
-    //     score: this.score,
-    //     comment: this.comment
-    //   }
-    //   this.content.push(content)
-    //   this.$store.dispatch('addContent', content)
-    //   this.age = ''
-    //   this.score = ''
-    //   this.comment = ''
-    // },
-    deleteContents (index) {
-      this.contents.splice(index, 1)
-    },
     edit (index) {
       this.editIndex = index
-      this.score = this.contents[index]
-      this.comment = this.contents[index]
+      this.age = this.contents[index].age
+      this.score = this.contents[index].score
+      this.comment = this.contents[index].comment
       this.$refs.editor.focus() // フォーカスを設定
+    },
+
+    deleteContents (index) {
+      this.contents.splice(index, 1)
     }
   }
 }
