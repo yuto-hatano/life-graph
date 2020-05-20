@@ -10,14 +10,14 @@
       The most important thing is to enjoy your life – to be happy – it’s all that matters.
     </h2>
     <div class="button">
-      <a href="./register" class="btn-square-pop">登録</a>
-      <a href="./search" class="btn-square-pop">検索</a>
+      <router-link to='/Register/' class="btn-square-pop">登録</router-link>
+      <router-link to='/Search/' class="btn-square-pop">検索</router-link>
     </div>
     <div id="Graph">
       <Chart />
     </div>
     <div class="edit_button">
-      <a href="./register" class="btn-square-pop">編集</a>
+      <router-link to='/Register/' class="btn-square-pop">編集</router-link>
     </div>
   </div>
 </template>
