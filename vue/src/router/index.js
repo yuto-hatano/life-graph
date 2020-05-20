@@ -7,6 +7,9 @@ import Register from '../views/Register.vue'
 import Search from '../views/Search.vue'
 import Reference from '../views/Reference.vue'
 
+// store
+import Store from '@/store/index.js'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -53,6 +56,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login' && Store.state.auth.token === '') {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

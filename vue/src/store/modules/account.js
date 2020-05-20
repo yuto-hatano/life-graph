@@ -4,32 +4,26 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const config = {
-  headers: {
-    'Access-Control-Allow-Origin': '*'
-  }
-}
-
-export default new Vuex.Store({
+export default {
+  namespaced: true,
   state: {
-    account: {
-      // TODO: delete because of test
-      login: 'ng'
-    }
+    account: {}
   },
   mutations: {
-    // TODO: delete because of test
-    setLogin (state, payload) {
-      state.login = payload.login
+    setAccount (state, payload) {
+      state.account = payload
+    },
+    deleteAccount (state) {
+      state.account = ''
     }
   },
   actions: {
-    // TODO: delete because of test
-    fetchLogin ({ commit }) {
-      const url = '/api/auth/login'
-      axios.get(url, config).then((res) => {
-        commit('setLogin', res.data)
-      })
+    async fetchAccount ({ commit }, userId) {
+      // const authId = rootState.auth.userId
+      // 他のmoduleからstateを取得したいがうまく行かない、、
+      const url = '/api/auth/accounts/' + userId
+      await axios.get(url).then(res => commit('setAccount', res.data))
+        .catch(err => err)
     }
   }
-})
+}
