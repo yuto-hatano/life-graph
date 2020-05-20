@@ -10,7 +10,6 @@ export default {
     create (state, data) {
       state.userId = data.id
       state.token = data.accessToken
-      console.log(data)
     },
     destroy (state) {
       state.userId = ''

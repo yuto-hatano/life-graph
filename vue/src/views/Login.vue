@@ -36,7 +36,6 @@ export default {
   watch: {
     // tokenの状態を監視して、tokenが更新されたらtop画面に遷移する
     token (newToken) {
-      debugger
       this.$router.push('/top')
     }
   },
