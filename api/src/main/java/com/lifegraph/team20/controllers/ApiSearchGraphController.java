@@ -2,11 +2,11 @@ package com.lifegraph.team20.controllers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,40 +18,37 @@ import com.lifegraph.team20.models.SearchGraph;
 @RestController
 public class ApiSearchGraphController {
 
-//	private static final String like_name = "";
-//	private static final String start_date = "2020-05-01";
-//	private static final String finish_date = "2020-06-01";
+//	private static final String likeName = "";
+//	private static final String startDate = "2020-05-01";
+//	private static final String finishDate = "2020-06-01";
 
 //	メソッドや処理を関連づけるアノテーション
 	@GetMapping(value = "/auth/search")
 //	ResponseEntity<String> doPost(@RequestBody UploadForm body){
-		public  List<SearchGraph>SearchGraphs(@RequestParam("LikeName") Optional<String>like_name,
-				@RequestParam("StartDate") Optional<Timestamp>start_date,
-				@RequestParam("FinishDate") Optional<Timestamp>finish_date){
+		public  ResponseEntity<List<SearchGraph>> SearchGraphs(@RequestParam("likeName") Optional<String>likeName,
+				@RequestParam("startDate") Optional<String>startDate,
+				@RequestParam("finishDate") Optional<String>finishDate){
 //		Optional:その値がnullかもしれないことを表現するクラス
 //				URLが叩かれたときにこれが動く
-			List<SearchGraph> SearchGraphs = SelectSearchGraph(like_name,start_date,finish_date);
+			List<SearchGraph> SearchGraphs = SelectSearchGraph(likeName,startDate,finishDate);
 //				l.29のselectSearchGraphを呼び出す
-			return SearchGraphs;
+			return ResponseEntity.ok(SearchGraphs);
 		}
 
 //	}
   @Autowired
   //MySQLのデータを持ってくるライブラリ
   private JdbcTemplate jdbcTemplate;
-	private List<SearchGraph> SelectSearchGraph(Optional<String> like_name,Optional<Timestamp> start_date,Optional<Timestamp> finish_date){
-		String sql="";
+	private List<SearchGraph> SelectSearchGraph(Optional<String> likeName,Optional<String> startDate,Optional<String> finishDate){
+//		String sql="";
 //		ここにif文をいれる 名前検索が入ったらと日時検索が入ったら
-		if(like_name != null) {
-		final String sql1 = "select name,user_id,updated_at,created_at from users inner join parent_graphs on users.id "
-				+ "= parent_graphs.user_id  where name like '%"+like_name+"%'";
-		sql=sql1;
+		String sql = "select username,user_id,updated_at,created_at from users inner join parent_graphs on users.id "
+				+ "= parent_graphs.user_id ";
+		if(likeName.isPresent()) {
+			sql += " where username like '%"+likeName+"%'";
 		}
-		else if(start_date != null && finish_date != null) {
-		final String sql2 =" select name,user_id,updated_at,created_at from users inner join parent_graphs on users.id "
-				+ "= parent_graphs.user_id WHERE `updated_at` BETWEEN  '"
-				+ start_date+"' AND '"+finish_date+"'";
-		sql=sql2;
+		else if(startDate.isPresent() && finishDate.isPresent()) {
+			sql += "WHERE `updated_at` BETWEEN "+startDate+" AND "+finishDate+"";
 		}
 //				sqlに"select ~"という文字列をいれる
 		return jdbcTemplate.query(sql, new RowMapper<SearchGraph>() {
@@ -61,7 +58,7 @@ public class ApiSearchGraphController {
 //			SearchGraph.javaの中にそれぞれのデータを入れている　
 //			その後にRowMapper<SearchGraph>に返却される
 				public SearchGraph mapRow(ResultSet rs, int rowNum) throws SQLException{
-					return new SearchGraph(rs.getString("name"),rs.getInt("user_id"),
+					return new SearchGraph(rs.getString("username"),rs.getInt("user_id"),
 							rs.getTimestamp("updated_at"),rs.getTimestamp("created_at"));
 //					取得したidをl.33のSearchGraphに返す
 //					さらにそのSearchGraphをl.24のselectSearchGraphに返す。
