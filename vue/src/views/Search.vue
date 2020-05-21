@@ -18,34 +18,47 @@
           </button>
         </div>
         <div v-if="isOpenUser">
-          <input id="search_name" v-model="searchUser" type="text" placeholder="ユーザー名">
-          <div>
-            <button id="clear" @click="clear">
-              クリア
-            </button>
-            <button id="return" @click="returnScreen">
-              戻る
-            </button>
-            <button id="submit" @click="active">
-              検索
-            </button>
-          </div>
+          <ValidationObserver v-slot="{ invalid }" @active.prevent="active()">
+            <validation-provider v-slot="{ errors }" name="ユーザー名" rules="required">
+              <input id="search_name" v-model="searchUser" type="text" placeholder="ユーザー名">
+              <span>{{ errors[0] }}</span>
+            </validation-provider>
+            <div>
+              <button id="clear" @click="clear">
+                クリア
+              </button>
+              <button id="return" @click="returnScreen">
+                戻る
+              </button>
+              <button id="submit" :disabled="invalid" @click="active">
+                検索
+              </button>
+            </div>
+          </ValidationObserver>
         </div>
         <div v-if="isOpenUpdata">
-          <input id="search_From" v-model="updatedFrom" type="date">
-          <p>〜</p>
-          <input id="search_To" v-model="updatedTo" type="date">
-          <div>
-            <button id="clear" @click="clear">
-              クリア
-            </button>
-            <button id="return" @click="returnScreen">
-              戻る
-            </button>
-            <button id="submit" @click="active">
-              検索
-            </button>
-          </div>
+          <ValidationObserver v-slot="{ invalid }" @active.prevent="active()">
+            <validation-provider v-slot="{ errors }" name="更新日時" rules="required">
+              <input id="search_From" v-model="updatedFrom" type="date">
+              <span>{{ errors[0] }}</span>
+            </validation-provider>
+            <p>〜</p>
+            <validation-provider v-slot="{ errors }" name="更新日時" rules="required">
+              <input id="search_To" v-model="updatedTo" type="date">
+              <span>{{ errors[0] }}</span>
+            </validation-provider>
+            <div>
+              <button id="clear" @click="clear">
+                クリア
+              </button>
+              <button id="return" @click="returnScreen">
+                戻る
+              </button>
+              <button id="submit" :disabled="invalid" @click="active">
+                検索
+              </button>
+            </div>
+          </ValidationObserver>
         </div>
       </div>
       <div id="output">
@@ -106,12 +119,20 @@ export default {
   },
   data () {
     return {
+      id: '',
+      name: '',
+      created_at: '',
+      updated_at: '',
       updatedFrom: null,
       updatedTo: null,
       isActive: false,
       isOpenUser: false,
       isOpenUpdata: false,
       isOpenSearch: true,
+      // デフォルトを降順にする
+      sortDesc: true,
+      // 検索条件だけに沿った配列
+      // eventedAction: [],
       users: [
         {
           id: 1,
@@ -133,8 +154,8 @@ export default {
         }
       ],
       sort: {
-        key: '',
-        isAct: false
+        isAct: false,
+        key: ''
       },
       searchUser: '',
       searchDay: ''
@@ -143,23 +164,13 @@ export default {
 
   computed: {
     eventedAction () {
-      let list = this.users.slice()
+      const list = this.users.slice()
 
       if (this.sort.key) {
         list.sort((a, b) => {
           a = a[this.sort.key]
           b = b[this.sort.key]
           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-        })
-      }
-
-      if (this.searchUser) {
-        list = list.filter(element => {
-          return Object.keys(element).some(key => {
-            if (key === 'name') {
-              return element[key].indexOf(this.searchUser) > -1
-            }
-          })
         })
       }
 
@@ -177,6 +188,10 @@ export default {
       this.isOpenUpdata = true
     },
     active () {
+      this.id = ''
+      this.name = ''
+      this.created_at = ''
+      this.updated_at = ''
       this.isActive = true
     },
     returnScreen () {
@@ -189,12 +204,12 @@ export default {
       this.updatedFrom = ''
       this.updatedTo = ''
     },
-    sortedClass (key) {
-      return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
-    },
     sortBy (key) {
       this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false
       this.sort.key = key
+    },
+    sortedClass (key) {
+      return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
     },
     resetting () {
       this.sort.key = ''
@@ -227,6 +242,16 @@ h1 {
   width: 50%;
   padding: 30px 0;
   background-color: #fffcf5;
+}
+
+p {
+  color: black;
+}
+
+span {
+  display: block;
+  margin-top: 10px;
+  color: red;
 }
 
 #serch_tittle {

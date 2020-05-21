@@ -14,12 +14,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LifeGraphData {
+
+  private long id;
+
   @NotNull
   private long userId;
 
   @NotNull
   @Max(99)
-  @Min(1)
+  @Min(0)
   private int age;
 
   @NotNull
