@@ -15,7 +15,9 @@
       <Chart />
     </div>
     <div class="back_button">
-      <a href="./search" class="btn-square-pop">検索画面に戻る</a>
+      <router-link to="/Search/" class="btn-square-pop">
+        検索画面へ戻る
+      </router-link>
     </div>
   </div>
 </template>

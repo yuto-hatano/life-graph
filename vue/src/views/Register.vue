@@ -11,7 +11,7 @@
             <label for="age">年齢</label>
           </th>
           <td>
-            <input id="age" ref="editor" v-model="age" type="number" @keyup.enter="changeContents">
+            <input id="age" ref="editor" v-model="age" min="0" max="100" type="number">
           </td>
         </tr>
         <tr>
@@ -19,7 +19,7 @@
             <label for="score">スコア</label>
           </th>
           <td>
-            <input id="score" ref="editor" v-model="score" type="number" @keyup.enter="changeContents">
+            <input id="score" ref="editor" v-model="score" min="-100" max="100" type="number">
           </td>
         </tr>
         <tr>
@@ -27,21 +27,21 @@
             <label for="comment">コメント</label>
           </th>
           <td>
-            <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" @keyup.enter="changeContents" />
+            <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" />
           </td>
         </tr>
       </table>
       <div id="action">
-        <button id="reset" @click="reset">
+        <button id="reset" type="button" @click="reset">
           クリア
         </button>
-        <button id="submit" @click="add">
+        <button id="submit" type="submit" @click="add">
           {{ changeButtonText }}
         </button>
       </div>
     </div>
     <div id="list">
-      <table>
+      <table v-if="isActive">
         <thead>
           <tr>
             <th>年齢</th>
@@ -49,22 +49,28 @@
             <th>コメント</th>
           </tr>
         </thead>
-        <tbody v-if="isActive">
+        <tbody>
           <tr v-for="(content,index) in contents" :key="index">
-            <td>{{ content.age }}</td>
-            <td>{{ content.score }}</td>
-            <td>{{ content.comment }}</td>
-            <button @click="edit(index)">
+            <td>
+              {{ content.age }}
+            </td>
+            <td>
+              {{ content.score }}
+            </td>
+            <td>
+              {{ content.comment }}
+            </td>
+            <button id="edit" @click="edit(index)">
               編集
             </button>
-            <button @click="deleteContents(index)">
+            <button id="delete" @click="deleteContents(index)">
               削除
             </button>
           </tr>
         </tbody>
       </table>
     </div>
-    <router-link to="/Register">
+    <router-link to="/Top">
       <button @click="update()">
         更新
       </button>
@@ -88,16 +94,20 @@ export default {
 
   data () {
     return {
+      age: '',
+      score: '',
+      comment: '',
       isActive: false,
-      contents: [
-        {
-          age: '',
-          score: '',
-          comment: ''
-        }
-      ],
+      contents: [],
+      // contents: [
+      //   {
+      //     age: '',
+      //     score: '',
+      //     comment: ''
+      //   }
+      // ],
       load: true,
-      editIndex: 0
+      editIndex: -1
     }
   },
 
@@ -116,19 +126,13 @@ export default {
       this.score = ''
       this.comment = ''
     },
+
     add () {
       this.isActive = true
       if (this.editIndex === -1) {
         this.contents.push({ age: this.age, score: this.score, comment: this.comment })
-        this.age = ''
-        this.score = ''
-        this.comment = ''
-        // console.log('コンテンツ')
       } else {
         this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment })
-        this.age = ''
-        this.score = ''
-        this.comment = ''
         this.editIndex = -1
       }
 
@@ -138,6 +142,10 @@ export default {
         comment: this.comment
       }
       this.$store.dispatch('addContent', content)
+
+      this.age = ''
+      this.score = ''
+      this.comment = ''
     },
 
     edit (index) {
@@ -175,17 +183,25 @@ h1 {
   width: 60%;
   margin: 45px auto 20px auto;
   background-color: #fff;
+  word-wrap : break-word;
+  overflow-wrap : break-word;
+  vertical-align: middle;
 }
 
 th {
   vertical-align: middle;
   padding:10px 15px;
   border:1px solid #666;
+  word-wrap : break-word;
+  overflow-wrap : break-word;
 }
 
 td {
+  vertical-align: middle;
   padding:10px 15px;
   border:1px solid #666;
+  word-wrap : break-word;
+  overflow-wrap : break-word;
 }
 
 #age,#score,#comment {
@@ -234,16 +250,32 @@ td {
   background-color: #fffcf5;
 }
 
-button {
+#edit {
+  vertical-align: middle;
   cursor: pointer;
-  font-size: 1em;
-  margin-right: 10px;
+  font-size: 0.8em;
+  background-color: #dddddd;
+  padding: 5px 10px;
+  margin: 5px;
+}
+
+#delete {
+  vertical-align: middle;
+  cursor: pointer;
+  font-size: 0.8em;
+  background-color: #dddddd;
+  padding: 5px 10px;
+  margin: 5px;
 }
 
 table {
   width: 60%;
   margin: 45px auto 20px auto;
   background-color: #fff;
+}
+
+#id {
+  border: none;
 }
 
 #chart {
@@ -264,5 +296,11 @@ table {
   box-shadow: none;
   position: relative;
   top: 2px;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1em;
+  background-color: #dddddd;
 }
 </style>
