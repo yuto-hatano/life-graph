@@ -45,10 +45,10 @@ public class ApiSearchGraphController {
 		String sql = "select username,user_id,updated_at,created_at from users inner join parent_graphs on users.id "
 				+ "= parent_graphs.user_id ";
 		if(likeName.isPresent()) {
-			sql += " where username like '%"+likeName+"%'";
+			sql += " where username like '%"+likeName.get()+"%'";
 		}
 		else if(startDate.isPresent() && finishDate.isPresent()) {
-			sql += "WHERE `updated_at` BETWEEN "+startDate+" AND "+finishDate+"";
+			sql += "WHERE `updated_at` BETWEEN "+startDate.get()+" AND "+finishDate.get()+"";
 		}
 //				sqlに"select ~"という文字列をいれる
 		return jdbcTemplate.query(sql, new RowMapper<SearchGraph>() {
