@@ -10,61 +10,48 @@
 //   }
 // }
 
-// export default new Vuex.Store({
+// export default {
 //   state: {
-//     setSearchGraphs: {}
+//     name: '',
+//     user_id: '',
+//     updated_id: '',
+//     created_id: ''
 //   },
 //   mutations: {
 //     // TODO: delete because of test
-//     setSearchGraphs (state, payload) {
-//       state.search = payload.search
+//     setSearchGraphs (state, data) {
+//       state.name = data.name
+//       state.user_id=data.user_id
+//       state.updated_at=data.updated_at
+//       state.created_at=data.created_at
 //     }
 //   },
 //   actions: {
-//     // TODO: delete because of test
-//     fetchLiekName ({ commit },{LikeName},) {
-//       const url = '/api/auth/search'
-//       // ここでAPIを動かすURLを決める
-//       // このURLはAPIの住所だから、ブラウザのURLに反映されるものではない
+//     searchGraphs ({ commit },data){
+//       // const authId = rootState.auth.userId
+//       // 他のmoduleからstateを取得したいがうまく行かない、、
 //       return Promise.all([
-//       axios.get(url, LikeName),
-//       // axios.get(url, StartDate),
-//       // axios.get(url, FinishDate),
-//     ]).then((res) => {
-//         // getリクエストでリクエストを送る
-//         // res レスポンス
-//         commit('setSearchGraphs', res.data)
-//       })
-
-//     }
-//     fetchStartDate ({ commit },{StartDate},) {
-//       const url = '/api/auth/search'
-//       // ここでAPIを動かすURLを決める
-//       // このURLはAPIの住所だから、ブラウザのURLに反映されるものではない
-//       return Promise.all([
-//       axios.get(url, StartDate),
-//       // axios.get(url, StartDate),
-//       // axios.get(url, FinishDate),
-//     ]).then((res) => {
-//         // getリクエストでリクエストを送る
-//         // res レスポンス
-//         commit('setSearchGraphs', res.data)
-//       })
-//     }
-//     fetchFinishDate ({ commit },{FinishDate},) {
-//       const url = '/api/auth/search'
-//       // ここでAPIを動かすURLを決める
-//       // このURLはAPIの住所だから、ブラウザのURLに反映されるものではない
-//       return Promise.all([
-//       axios.get(url, FinishDate),
-//       // axios.get(url, StartDate),
-//       // axios.get(url, FinishDate),
-//     ]).then((res) => {
-//         // getリクエストでリクエストを送る
-//         // res レスポンス
-//         commit('setSearchGraphs', res.data)
-//       })
-
+//               axios.get('/LikeName'),
+//               axios.get('/StareDate'),
+//               axios.get('/FinishDate')
+//             ])
+//         .then(res => commit('searchGraphs', res.data))
+//         .catch(err => err)
 //     }
 //   }
-// })
+// }
+
+// // actions: {
+// //   // TODO: delete because of test
+// //   fetchLikeName ({ commit }) {
+// //     const url = '/api/auth/search'
+// //     // ここでAPIを動かすURLを決める
+// //     // このURLはAPIの住所だから、ブラウザのURLに反映されるものではない
+// //     return Promise.all([
+// //       axios.get('/LikeName'),
+// //       axios.get('/StareDate'),
+// //       axios.get('/FinishDate')
+// //     ]).then((res) => {
+// //       commit('setSearchGraphs', res.data)
+// //     })
+// //   }
