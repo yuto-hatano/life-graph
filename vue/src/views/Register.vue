@@ -4,42 +4,53 @@
       <Header />
     </div>
     <h1>Life Graph</h1>
-    <div id="input">
-      <table id="field">
-        <tr>
-          <th scope="row">
-            <label for="age">年齢</label>
-          </th>
-          <td>
-            <input id="age" ref="editor" v-model="age" min="0" max="100" type="number">
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <label for="score">スコア</label>
-          </th>
-          <td>
-            <input id="score" ref="editor" v-model="score" min="-100" max="100" type="number">
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <label for="comment">コメント</label>
-          </th>
-          <td>
-            <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" placeholder="内容を入力してください。" />
-          </td>
-        </tr>
-      </table>
-      <div id="action">
-        <button id="reset" type="button" @click="reset">
-          クリア
-        </button>
-        <button id="submit" type="submit" @click="add">
-          {{ changeButtonText }}
-        </button>
+    <ValidationObserver v-slot="{ invalid }" @add.prevent="add()">
+      <div id="input">
+        <table id="field">
+          <tr>
+            <th scope="row">
+              <label for="age">年齢</label>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" name="年齢" rules="required|between:0,100">
+                <input id="age" ref="editor" v-model="age" min="0" max="100" type="number">
+                <span>{{ errors[0] }}</span>
+              </validation-provider>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <label for="score">スコア</label>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" name="スコア" rules="required|between:-100,100">
+                <input id="score" ref="editor" v-model="score" min="-100" max="100" type="number">
+                <span>{{ errors[0] }}</span>
+              </validation-provider>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <label for="comment">コメント</label>
+            </th>
+            <td>
+              <validation-provider v-slot="{ errors }" name="コメント" rules="max:100">
+                <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください。" />
+                <span>{{ errors[0] }}</span>
+              </validation-provider>
+            </td>
+          </tr>
+        </table>
+        <div id="action">
+          <button id="reset" @click="reset">
+            クリア
+          </button>
+          <button id="submit" :disabled="invalid" @click="add">
+            {{ changeButtonText }}
+          </button>
+        </div>
       </div>
-    </div>
+    </ValidationObserver>
     <div id="list">
       <table v-if="isActive">
         <thead>
@@ -129,6 +140,7 @@ export default {
 
     add () {
       this.isActive = true
+
       if (this.editIndex === -1) {
         this.contents.push({ age: this.age, score: this.score, comment: this.comment })
       } else {
@@ -196,12 +208,22 @@ th {
   overflow-wrap : break-word;
 }
 
+label {
+  color: black;
+}
+
 td {
   vertical-align: middle;
   padding:10px 15px;
   border:1px solid #666;
   word-wrap : break-word;
   overflow-wrap : break-word;
+}
+
+span {
+  display: block;
+  margin-top: 10px;
+  color: red;
 }
 
 #age,#score,#comment {
