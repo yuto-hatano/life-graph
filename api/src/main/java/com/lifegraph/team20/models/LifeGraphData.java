@@ -22,7 +22,7 @@ public class LifeGraphData {
 
   @NotNull
   @Max(99)
-  @Min(1)
+  @Min(0)
   private int age;
 
   @NotNull
