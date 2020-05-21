@@ -14,6 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LifeGraphData {
+
+  private long id;
+
   @NotNull
   private long userId;
 
