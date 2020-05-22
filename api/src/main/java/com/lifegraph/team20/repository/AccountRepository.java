@@ -18,11 +18,7 @@ public class AccountRepository {
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
 
-<<<<<<< Updated upstream
-  public RefAccount selectAccount(Integer id) {
-=======
   public Account sellectAccount(Integer id) {
->>>>>>> Stashed changes
     // 三つのテーブルくっつけてる。ユーザ名と権限名を取得するため
     final String sql = "select users.id, username, name from users inner join user_roles on users.id = user_roles.user_id\n"
         +

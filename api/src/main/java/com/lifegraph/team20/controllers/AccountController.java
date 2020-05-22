@@ -23,13 +23,9 @@ public class AccountController {
   //  HTTP ステータスやコンテンツタイプ以外のレスポンスヘッダを指定したい場合は、戻り値を ResponseEntity<T> にする。
   //  ResponseEntity はボディ、ヘッダ、ステータスを持つクラスで、型 T にはボディの型を指定。
   //  accountというタイプのボディを指定している
-<<<<<<< Updated upstream:api/src/main/java/com/lifegraph/team20/controllers/RefAccountController.java
-  public ResponseEntity<RefAccount> account(@PathVariable("id") Integer id) {
-    RefAccount account = accountRepository.selectAccount(id);
-=======
+
   public ResponseEntity<Account> account(@PathVariable("id") Integer id) {
     Account account = accountRepository.sellectAccount(id);
->>>>>>> Stashed changes:api/src/main/java/com/lifegraph/team20/controllers/AccountController.java
     return ResponseEntity.ok(account);
   }
 }
