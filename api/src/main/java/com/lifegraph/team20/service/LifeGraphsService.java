@@ -73,8 +73,9 @@ public class LifeGraphsService {
   }
 
   public void clear(LifeGraphData data) {
-    long id = data.getId();
-    deleteRepository.clear(id);
+    long parentId = data.getParentId();
+    int age = data.getAge();
+    deleteRepository.clear(parentId, age);
   }
 
   //-----ここから削除API(全データ)-----
