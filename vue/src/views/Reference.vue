@@ -11,6 +11,9 @@
         {{ reference_name }}
       </div>
     </div>
+    <div id="action">
+      <button id="submit" value="データを取得" @click="getData" />
+    </div>
     <div id="Graph">
       <Chart />
     </div>
@@ -34,7 +37,20 @@ export default {
   },
   data () {
     return {
-      reference_name: 'Kana Sekiguchi'
+      reference_name: 'Kana Sekiguchi',
+      // id: '',
+      parentId: '3'
+      // age: '',
+      // score: '',
+      // comment: ''
+    }
+  },
+  methods: {
+    getData () {
+      const parentId = this.parentId
+      this.$store.dispatch(
+        'refchart/create', parentId
+      )
     }
   }
 }
