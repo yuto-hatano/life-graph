@@ -25,7 +25,7 @@ public class AccountController {
   //  accountというタイプのボディを指定している
 
   public ResponseEntity<Account> account(@PathVariable("id") Integer id) {
-    Account account = accountRepository.sellectAccount(id);
+    Account account = accountRepository.selectAccount(id);
     return ResponseEntity.ok(account);
   }
 }
