@@ -6,6 +6,8 @@ import chart from './modules/chart.js'
 import account from './modules/account.js'
 import auth from './modules/auth.js'
 import http from './modules/http.js'
+import refchart from './modules/refchart.js'
+import SearchGraph from './modules/SearchGraph.js'
 
 Vue.use(Vuex)
 
@@ -14,7 +16,9 @@ export default new Vuex.Store({
     auth,
     http,
     chart,
-    account
+    account,
+    refchart,
+    SearchGraph
   },
   plugins: [createPersistedState({
     key: 'example',

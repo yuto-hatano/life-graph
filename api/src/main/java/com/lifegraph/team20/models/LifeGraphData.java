@@ -6,16 +6,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 //HTTPリクエストを受け取るためのクラスここに情報の定義が集まっている
 @Data
-@Getter
-@Setter
+
 public class LifeGraphData {
 
   private long id;
+
+  private long parentId;
 
   @NotNull
   private long userId;
