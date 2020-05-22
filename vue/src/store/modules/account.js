@@ -8,6 +8,7 @@ export default {
   namespaced: true,
   state: {
     account: {}
+
   },
   mutations: {
     setAccount (state, payload) {
@@ -18,11 +19,9 @@ export default {
     }
   },
   actions: {
-    async fetchAccount ({ commit }, userId) {
-      // const authId = rootState.auth.userId
-      // 他のmoduleからstateを取得したいがうまく行かない、、
-      const url = '/api/auth/accounts/' + userId
-      await axios.get(url).then(res => commit('setAccount', res.data))
+    fetchAccount ({ commit }, userId) {
+      const url = '/api/accounts/' + userId
+      axios.get(url).then(res => commit('setAccount', res.data))
         .catch(err => err)
     }
   }

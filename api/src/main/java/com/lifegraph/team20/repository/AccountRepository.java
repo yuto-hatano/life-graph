@@ -18,7 +18,7 @@ public class AccountRepository {
   @Autowired
   private NamedParameterJdbcTemplate jdbcTemplate;
 
-  public RefAccount sellectAccount(Integer id) {
+  public RefAccount selectAccount(Integer id) {
     // 三つのテーブルくっつけてる。ユーザ名と権限名を取得するため
     final String sql = "select users.id, username, name from users inner join user_roles on users.id = user_roles.user_id\n"
         +
