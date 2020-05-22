@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lifegraph.team20.models.SearchGraph;
@@ -25,9 +25,9 @@ public class ApiSearchGraphController {
 //	メソッドや処理を関連づけるアノテーション
 	@GetMapping(value = "/auth/search")
 //	ResponseEntity<String> doPost(@RequestBody UploadForm body){
-		public  ResponseEntity<List<SearchGraph>> SearchGraphs(@RequestParam("likeName") Optional<String>likeName,
-				@RequestParam("startDate") Optional<String>startDate,
-				@RequestParam("finishDate") Optional<String>finishDate){
+		public  ResponseEntity<List<SearchGraph>> SearchGraphs(@PathVariable("likeName") Optional<String>likeName,
+				@PathVariable("startDate") Optional<String>startDate,
+				@PathVariable("finishDate") Optional<String>finishDate){
 //		Optional:その値がnullかもしれないことを表現するクラス
 //				URLが叩かれたときにこれが動く
 			List<SearchGraph> SearchGraphs = SelectSearchGraph(likeName,startDate,finishDate);
