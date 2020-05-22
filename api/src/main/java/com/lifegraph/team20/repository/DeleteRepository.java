@@ -19,7 +19,7 @@ public class DeleteRepository {
   // parent_idを取り出す
   // 親テーブルのidを取り出す
   public ParentGraph parentId(long userId) {
-    String sql = "select from parent_chart where user_id =" + userId;
+    String sql = "select * from parent_graphs where user_id =" + userId;
     RowMapper<ParentGraph> mapper = new BeanPropertyRowMapper<ParentGraph>(ParentGraph.class);
     ArrayList<ParentGraph> parentLifeGraphs = (ArrayList<ParentGraph>) jdbcTemplate.query(sql, mapper);
 
@@ -37,4 +37,11 @@ public class DeleteRepository {
     String sql = "delete from parent_graphs where user_id = " + userId;
     jdbcTemplate.update(sql);
   }
+
+  //子テーブルのレコード削除
+  public void clear(long id) {
+    final String sql = "delete from child_graphs where id = " + id;
+    jdbcTemplate.update(sql);
+  }
+
 }
