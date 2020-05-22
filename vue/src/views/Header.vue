@@ -36,7 +36,6 @@ export default {
   },
   created () {
     this.setAccount()
-    debugger
   },
   methods: {
     setAccount () {
