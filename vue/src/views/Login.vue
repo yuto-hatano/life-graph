@@ -72,7 +72,7 @@ export default {
 
 .login_tittle {
   color: #fff;
-  font-family: "Arvo";
+  font-family: 'Arvo', serif;
   font-weight: bold;
   text-shadow:
     -3px -3px 0  rgb(59, 59, 59),

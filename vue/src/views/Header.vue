@@ -62,12 +62,12 @@ export default {
   }
 
   .username{
-    font-family: "Lato";
+    font-family: 'Lato', sans-serif;
     margin-bottom: 0;
   }
 
   .authority{
-    font-family: "Lato";
+    font-family: 'Lato', sans-serif;
     margin-top: 0;
   }
 
