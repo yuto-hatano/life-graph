@@ -14,6 +14,8 @@ public class LifeGraphData {
 
   private long id;
 
+  private long parentId;
+
   @NotNull
   private long userId;
 

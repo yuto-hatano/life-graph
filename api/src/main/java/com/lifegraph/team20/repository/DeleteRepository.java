@@ -39,8 +39,8 @@ public class DeleteRepository {
   }
 
   //子テーブルのレコード削除
-  public void clear(long id) {
-    final String sql = "delete from child_graphs where id = " + id;
+  public void clear(long parentId, int age) {
+    final String sql = "delete from child_graphs where parent_id = " + parentId + " and age = " + age;
     jdbcTemplate.update(sql);
   }
 
