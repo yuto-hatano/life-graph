@@ -2,10 +2,10 @@
   <div id="loginSection">
     <div class="plate">
       <div class="script">
-      <p class="login_tittle">
-        Life Graph
-      </p>
-     </div>
+        <p class="login_tittle">
+          Life Graph
+        </p>
+      </div>
     </div>
     <!-- <form id="login"> -->
     <div id="login">
