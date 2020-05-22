@@ -12,7 +12,7 @@
       <h1>LOGIN</h1>
       <div id="input">
         <font-awesome-icon id="icon_email" icon="envelope" />
-        <input id="email" v-model="email" type="email" placeholder="メールアドレス" autofocus required>
+        <input id="email" v-model="email" type="email" placeholder="Mail" autofocus required>
         <font-awesome-icon id="icon_lock" icon="lock" />
         <input id="password" v-model="password" type="password" placeholder="Password" required>
       </div>
@@ -21,7 +21,9 @@
           SIGN IN
         </button>
       </div>
-      新規の方は<a id="signUp" href="">新規登録</a>
+      <div class="loginRegister">
+        新規の方は <a id="signUp" href="">新規登録</a>
+      </div>
     <!-- </form> -->
     </div>
   </div>
@@ -226,5 +228,8 @@ background-color: #dddddd;
 
 #signUp:hover {
   color: #ff7043;
+}
+.loginRegister {
+  font-family: 'Noto Sans JP', sans-serif;
 }
 </style>

@@ -14,7 +14,8 @@ export default new Vuex.Store({
     auth,
     http,
     chart,
-    account
+    account,
+    TopReference,
   },
   plugins: [createPersistedState({
     key: 'example',
