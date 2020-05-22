@@ -43,6 +43,10 @@ export default {
 </script>
 
 <style scoped>
+.topSection {
+  background-color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
+}
 .title {
   font-family: 'Roboto Slab', serif;
   font-size: 60pt;
@@ -50,24 +54,23 @@ export default {
 }
 
 .message {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Courgette', cursive;;
   font-style: italic;
-  background-color: #ffda65;
-  color: white;
   font-size: 15pt;
   height: 25px;
+  padding-bottom: 30px;
 }
 
 .button{
-  background-color: #e5f3f3;
   height: 60px;
 }
 
 .btn-square-pop {
   position: relative;
   display: inline-block;
-  padding: 0.6em 0.6em;
-  margin: 8px;
+  padding: 0.6em 2em 0.6em 2em;
+  margin-left: 30px;
+  margin-right: 30px;
   text-decoration: none;
   color: #FFF;
   /* 背景色 */
@@ -106,13 +109,18 @@ export default {
 }
 
 #Graph {
-  width: 600px;
+  background-color: #FFFcf5;
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
+  width: 700px;
   margin: 0 auto;
-  padding-top: 50pt;
+  padding-top: 30pt;
   padding-bottom: 10pt;
 }
 
 .edit_button{
+  padding-top: 20px;
   padding-left: 500px;
+  padding-bottom: 20px;
 }
 </style>

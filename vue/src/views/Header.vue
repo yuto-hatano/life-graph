@@ -44,7 +44,7 @@ export default {
     display:block;
     width:100%;
     height: 60px;
-    background-color: #e6e6e6;
+    background-color: #e5f3f3;
   }
 
   .header_right{
@@ -62,30 +62,48 @@ export default {
   }
 
   .username{
+    font-family: 'Lato', sans-serif;
     margin-bottom: 0;
   }
 
   .authority{
+    font-family: 'Lato', sans-serif;
     margin-top: 0;
   }
 
   .btn_top,.btn_logout{
-      width: 100px;
-      height: 50px;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 0.6em;
+  margin: 8px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border-bottom: solid 2px #d27d00;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
     }
 
   .btn_logout{
+    cursor : pointer;
     position: relative;
     top: -10px;
     right:30px;
+    padding: 0.6em 1.5em 0.6em 1.5em;
   }
 
   .btn_top{
+    cursor : pointer;
     position: absolute;
     top: 5px;
     left: 20px;
     margin-right: 20px;
     z-index:1;
+    padding: 0.6em 2.5em 0.6em 2.5em;
   }
 
 </style>

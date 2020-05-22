@@ -71,4 +71,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Arvo:700');
+@import url('https://fonts.googleapis.com/css?family=Seaweed+Script');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 </style>
