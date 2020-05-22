@@ -24,7 +24,7 @@ public class RefAccountController {
   //  ResponseEntity はボディ、ヘッダ、ステータスを持つクラスで、型 T にはボディの型を指定。
   //  accountというタイプのボディを指定している
   public ResponseEntity<RefAccount> account(@PathVariable("id") Integer id) {
-    RefAccount account = accountRepository.sellectAccount(id);
+    RefAccount account = accountRepository.selectAccount(id);
     return ResponseEntity.ok(account);
   }
 }

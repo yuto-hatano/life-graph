@@ -23,6 +23,7 @@ export default {
       Axios.post(url, data)
         .then(res => commit('create', res.data))
         .catch(err => err)
+      debugger
     }
     //   destroy ({ commit, dispatch }, data) {
     //     dispatch(

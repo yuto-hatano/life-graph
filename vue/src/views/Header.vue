@@ -30,10 +30,22 @@
 export default {
   data () {
     return {
-      user_name: 'Kana Sekiguchi',
-      authority: 'Owner'
+      user_name: '',
+      authority: ''
+    }
+  },
+  created () {
+    this.setAccount()
+    debugger
+  },
+  methods: {
+    setAccount () {
+      const refAccount = this.$store.state.account
+      this.user_name = refAccount.account.username
+      this.authority = refAccount.account.name
     }
   }
+
 }
 </script>
 
