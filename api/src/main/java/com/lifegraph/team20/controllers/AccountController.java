@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lifegraph.team20.models.RefAccount;
+import com.lifegraph.team20.models.Account;
 import com.lifegraph.team20.repository.AccountRepository;
 
 @RestController
-public class RefAccountController {
+public class AccountController {
   // 自動で初期化されるフィールドを示している。
   @Autowired
   private AccountRepository accountRepository;
@@ -23,8 +23,9 @@ public class RefAccountController {
   //  HTTP ステータスやコンテンツタイプ以外のレスポンスヘッダを指定したい場合は、戻り値を ResponseEntity<T> にする。
   //  ResponseEntity はボディ、ヘッダ、ステータスを持つクラスで、型 T にはボディの型を指定。
   //  accountというタイプのボディを指定している
-  public ResponseEntity<RefAccount> account(@PathVariable("id") Integer id) {
-    RefAccount account = accountRepository.selectAccount(id);
+
+  public ResponseEntity<Account> account(@PathVariable("id") Integer id) {
+    Account account = accountRepository.sellectAccount(id);
     return ResponseEntity.ok(account);
   }
 }
