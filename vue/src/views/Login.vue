@@ -44,13 +44,27 @@ export default {
     // },
     token () {
       return this.$store.state.auth.token
+    },
+
+    account () {
+      return this.$store.state.account.account
     }
   },
   watch: {
-    // tokenの状態を監視して、tokenが更新されたらtop画面に遷移する
     token (newToken) {
+      const userId = this.$store.state.auth.userId
+      this.$store.dispatch(
+        'account/fetchAccount', userId
+      )
+    },
+
+    account (newAccount) {
       this.$router.push('/top')
     }
+    // tokenの状態を監視して、tokenが更新されたらtop画面に遷移する
+    // token (newToken) {
+    //   this.$router.push('/top')
+    // }
   },
   methods: {
     login () {

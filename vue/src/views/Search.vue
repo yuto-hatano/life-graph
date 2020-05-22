@@ -30,7 +30,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-              <button id="submit" :disabled="invalid" @click="active">
+              <button id="submit" :disabled="invalid" @click="search_active()">
                 検索
               </button>
             </div>
@@ -54,7 +54,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-              <button id="submit" :disabled="invalid" @click="active">
+              <button id="submit" :disabled="invalid" @click="search_active()">
                 検索
               </button>
             </div>
@@ -119,10 +119,10 @@ export default {
   },
   data () {
     return {
-      id: '',
-      name: '',
-      created_at: '',
-      updated_at: '',
+      // user_id: '',
+      // name: '',
+      // created_at: '',
+      // updated_at: '',
       updatedFrom: null,
       updatedTo: null,
       isActive: false,
@@ -133,26 +133,26 @@ export default {
       sortDesc: true,
       // 検索条件だけに沿った配列
       // eventedAction: [],
-      users: [
-        {
-          id: 1,
-          name: 'ishida',
-          created_at: '2020/05/01',
-          updated_at: '2020/05/13'
-        },
-        {
-          id: 2,
-          name: 'sekiguti',
-          created_at: '2020/05/03',
-          updated_at: '2020/05/10'
-        },
-        {
-          id: 3,
-          name: 'sato',
-          created_at: '2020/05/02',
-          updated_at: '2020/05/11'
-        }
-      ],
+      // users: [
+      //   {
+      //     user_id: 1,
+      //     name: 'ishida',
+      //     created_at: '2020/05/01',
+      //     updated_at: '2020/05/13'
+      //   },
+      //   {
+      //     user_id: 2,
+      //     name: 'sekiguti',
+      //     created_at: '2020/05/03',
+      //     updated_at: '2020/05/10'
+      //   },
+      //   {
+      //     user_id: 3,
+      //     name: 'sato',
+      //     created_at: '2020/05/02',
+      //     updated_at: '2020/05/11'
+      //   }
+      // ],
       sort: {
         isAct: false,
         key: ''
@@ -175,6 +175,22 @@ export default {
       }
 
       return list
+    },
+    user_id () {
+      // return this.$store.state.SearchGraph.user_id
+      return this.user_id
+    },
+    name () {
+      // return this.$store.state.SearchGraph.name
+      return this.name
+    },
+    created_at () {
+      // return this.$store.state.SearchGraph.created_at
+      return this.created_at
+    },
+    updated_at () {
+      // return this.$store.state.SearchGraph.updated_at
+      return this.updated_at
     }
   },
 
@@ -187,12 +203,16 @@ export default {
       this.isOpenSearch = false
       this.isOpenUpdata = true
     },
-    active () {
-      this.id = ''
+    search_active () {
       this.name = ''
-      this.created_at = ''
+      this.user_id = ''
       this.updated_at = ''
+      this.created_at = ''
       this.isActive = true
+      this.$store.dispatch(
+        //  storeのactionsを呼び出すss
+        'searchGraph/searchGraphs'
+      )
     },
     returnScreen () {
       this.isOpenSearch = true

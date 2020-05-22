@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lifegraph.team20.models.LifeGraphData;
 import com.lifegraph.team20.models.ParentGraph;
 import com.lifegraph.team20.repository.ChildGraphRepository;
+import com.lifegraph.team20.repository.DeleteRepository;
 import com.lifegraph.team20.repository.ParentGraphRepository;
 
 @Service
@@ -17,6 +18,8 @@ public class LifeGraphsService {
   private ParentGraphRepository parentRepository;
   @Autowired
   private ChildGraphRepository childRepository;
+  @Autowired
+  private DeleteRepository deleteRepository;
 
   /**
    * 登録・編集のメイン処理
@@ -67,5 +70,23 @@ public class LifeGraphsService {
       // insert
       childRepository.addChild(parentId, data.getAge(), data.getScore(), data.getComment());
     }
+  }
+
+  public void clear(LifeGraphData data) {
+    long parentId = data.getParentId();
+    int age = data.getAge();
+    deleteRepository.clear(parentId, age);
+  }
+
+  //-----ここから削除API(全データ)-----
+  public void delete(LifeGraphData data) {
+    long userId = data.getUserId();
+    // user_idからparent_idを探す
+    ParentGraph parent = deleteRepository.parentId(userId);
+    long parentId = parent.getId();
+    // 子テーブルの情報を消す
+    deleteRepository.childDelete(parentId);
+    // 親テーブルの情報を消す
+    deleteRepository.parentDelete(userId);
   }
 }

@@ -4,53 +4,115 @@
       <Header />
     </div>
     <h1>Life Graph</h1>
-    <ValidationObserver v-slot="{ invalid }" @add.prevent="add()">
-      <div id="input">
-        <table id="field">
-          <tr>
-            <th scope="row">
-              <label for="age">年齢</label>
-            </th>
-            <td>
-              <validation-provider v-slot="{ errors }" name="年齢" rules="required|between:0,100">
-                <input id="age" ref="editor" v-model="age" min="0" max="100" type="number">
-                <span>{{ errors[0] }}</span>
-              </validation-provider>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <label for="score">スコア</label>
-            </th>
-            <td>
-              <validation-provider v-slot="{ errors }" name="スコア" rules="required|between:-100,100">
-                <input id="score" ref="editor" v-model="score" min="-100" max="100" type="number">
-                <span>{{ errors[0] }}</span>
-              </validation-provider>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <label for="comment">コメント</label>
-            </th>
-            <td>
-              <validation-provider v-slot="{ errors }" name="コメント" rules="max:100">
-                <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください。" />
-                <span>{{ errors[0] }}</span>
-              </validation-provider>
-            </td>
-          </tr>
-        </table>
-        <div id="action">
-          <button id="reset" @click="reset">
-            クリア
-          </button>
-          <button id="submit" :disabled="invalid" @click="add">
-            {{ changeButtonText }}
-          </button>
+    <button id="mainButton" @click="addButton()">
+      登録
+    </button>
+    <button id="mainButton" @click="editButton()">
+      編集
+    </button>
+    <!-- 登録画面 -->
+    <div v-if="isAddTable">
+      <ValidationObserver v-slot="{ invalid }" @add.prevent="add()">
+        <div id="input">
+          <h2>登録</h2>
+          <table id="field">
+            <tr>
+              <th scope="row">
+                <label for="age">年齢</label>
+              </th>
+              <td>
+                <validation-provider v-slot="{ errors }" name="年齢" rules="required|between:0,100">
+                  <input id="age" v-model="age" min="0" max="100" type="number">
+                  <span>{{ errors[0] }}</span>
+                </validation-provider>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <label for="score">スコア</label>
+              </th>
+              <td>
+                <validation-provider v-slot="{ errors }" name="スコア" rules="required|between:-100,100">
+                  <input id="score" v-model="score" min="-100" max="100" type="number">
+                  <span>{{ errors[0] }}</span>
+                </validation-provider>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <label for="comment">コメント</label>
+              </th>
+              <td>
+                <validation-provider v-slot="{ errors }" name="コメント" rules="max:100">
+                  <textarea id="comment" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください。" />
+                  <span>{{ errors[0] }}</span>
+                </validation-provider>
+              </td>
+            </tr>
+          </table>
+          <div id="action">
+            <button id="reset" @click="reset">
+              クリア
+            </button>
+            <button id="submit" :disabled="invalid" @click="add">
+              登録
+            </button>
+          </div>
         </div>
-      </div>
-    </ValidationObserver>
+      </ValidationObserver>
+    </div>
+    <!-- 編集画面 -->
+    <div v-if="isEditTable">
+      <ValidationObserver v-slot="{ invalid }" @add.prevent="edit_1()">
+        <div id="input">
+          <h2>編集</h2>
+          <table id="field">
+            <tr>
+              <th scope="row">
+                <label for="age">年齢</label>
+              </th>
+              <td>
+                <validation-provider v-slot="{ errors }" name="年齢" rules="required|between:0,100">
+                  <input id="age" ref="editor" v-model="age" min="0" max="100" type="number">
+                  <span>{{ errors[0] }}</span>
+                </validation-provider>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <label for="score">スコア</label>
+              </th>
+              <td>
+                <validation-provider v-slot="{ errors }" name="スコア" rules="required|between:-100,100">
+                  <input id="score" ref="editor" v-model="score" min="-100" max="100" type="number">
+                  <span>{{ errors[0] }}</span>
+                </validation-provider>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <label for="comment">コメント</label>
+              </th>
+              <td>
+                <validation-provider v-slot="{ errors }" name="コメント" rules="max:100">
+                  <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください。" />
+                  <span>{{ errors[0] }}</span>
+                </validation-provider>
+              </td>
+            </tr>
+          </table>
+          <div id="action">
+            <button id="reset" @click="clear(content.id,index)">
+              削除
+            </button>
+            <button id="submit" :disabled="invalid" @click="edit_1">
+              保存
+            </button>
+          </div>
+        </div>
+      </ValidationObserver>
+    </div>
+    <!-- データテーブル -->
     <div id="list">
       <table v-if="isActive">
         <thead>
@@ -58,6 +120,7 @@
             <th>年齢</th>
             <th>スコア</th>
             <th>コメント</th>
+            <th>編集</th>
           </tr>
         </thead>
         <tbody>
@@ -71,12 +134,14 @@
             <td>
               {{ content.comment }}
             </td>
-            <button id="edit" @click="edit(index)">
-              編集
-            </button>
-            <button id="delete" @click="deleteContents(index)">
+            <td>
+              <button id="edit" @click="edit(index)">
+                編集
+              </button>
+            </td>
+            <!-- <button id="delete" @click="deleteContents(index)">
               削除
-            </button>
+            </button> -->
           </tr>
         </tbody>
       </table>
@@ -109,7 +174,22 @@ export default {
       score: '',
       comment: '',
       isActive: false,
-      contents: [],
+      isAddTable: true,
+      isEditTable: false,
+      contents: [
+        {
+          id: '',
+          age: 20,
+          score: 40,
+          comment: 'aaaaaaaa'
+        },
+        {
+          id: '',
+          age: 40,
+          score: 30,
+          comment: 'bbbbbbbb'
+        }
+      ],
       // contents: [
       //   {
       //     age: '',
@@ -125,10 +205,10 @@ export default {
   computed: {
     loaded () {
       return this.$store.state.chart.loaded
-    },
-    changeButtonText () {
-      return this.editIndex === -1 ? '追加' : '編集'
     }
+    // changeButtonText () {
+    //   return this.editIndex === -1 ? '追加' : '編集'
+    // }
   },
 
   methods: {
@@ -139,14 +219,14 @@ export default {
     },
 
     add () {
-      this.isActive = true
+      // this.isActive = true
 
-      if (this.editIndex === -1) {
-        this.contents.push({ age: this.age, score: this.score, comment: this.comment })
-      } else {
-        this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment })
-        this.editIndex = -1
-      }
+      // if (this.editIndex === -1) {
+      //   this.contents.push({ age: this.age, score: this.score, comment: this.comment })
+      // } else {
+      //   this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment })
+      //   this.editIndex = -1
+      // }
 
       const content = {
         age: this.age,
@@ -160,15 +240,42 @@ export default {
       this.comment = ''
     },
 
+    addButton () {
+      this.isActive = false
+      this.isAddTable = true
+      this.isEditTable = false
+      this.age = ''
+      this.score = ''
+      this.comment = ''
+    },
+
+    editButton () {
+      this.age = ''
+      this.score = ''
+      this.comment = ''
+      this.isActive = true
+      this.isAddTable = false
+      this.isEditTable = false
+    },
+
+    edit_1 () {
+      this.age = ''
+      this.score = ''
+      this.comment = ''
+      // 上書きされる
+    },
+
     edit (index) {
+      this.isEditTable = true
       this.editIndex = index
       this.age = this.contents[index].age
       this.score = this.contents[index].score
       this.comment = this.contents[index].comment
-      this.$refs.editor.focus() // フォーカスを設定
+      // this.$refs.editor.focus() // フォーカスを設定
     },
 
-    deleteContents (index) {
+    clear (id, index) {
+      // console.log(id)
       this.contents.splice(index, 1)
     }
   }
@@ -182,6 +289,28 @@ h1 {
   background-color: #e5f3f3;
   font-size: 50px;
   padding: 35px 0;
+}
+
+#mainButton {
+  cursor: pointer;
+  font-size: 25px;
+  padding: 10px 15px;
+  margin: 30px 15px 0 15px;
+  box-shadow: 1px 2px #dddddd;
+}
+
+#mainButton:active {
+  box-shadow: none;
+  position: relative;
+  top: 2px;
+}
+
+h2 {
+  font-size: 30px;
+  color: black;
+  margin-top: 50px;
+  margin-right: 50%;
+
 }
 
 #input {
@@ -322,7 +451,14 @@ table {
 
 button {
   cursor: pointer;
-  font-size: 1em;
+  font-size: 20px;
   background-color: #dddddd;
+  box-shadow: 1px 2px #dddddd;
+}
+
+button:active {
+  box-shadow: none;
+  position: relative;
+  top: 2px;
 }
 </style>

@@ -3,13 +3,13 @@ package com.lifegraph.team20.models;
 
 public class Child {
 
-	private long id;
-	private long parentId;
+	private int id;
+	private int parentId;
 	private int age;
 	private int score;
 	private String comment;
 
-	public Child(long id, long parentId, int age, int score, String comment) {
+	public Child(int id, int parentId, int age, int score, String comment) {
 		this.setId(id);
 		this.setParentId(parentId);
 		this.setAge(age);
@@ -21,7 +21,7 @@ public class Child {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -29,7 +29,7 @@ public class Child {
 		return parentId;
 	}
 
-	public void setParentId(long parentId) {
+	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
 
@@ -56,7 +56,5 @@ public class Child {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
-
 
 }

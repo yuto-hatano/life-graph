@@ -7,9 +7,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lifegraph.team20.models.LifeGraphData;
@@ -21,21 +21,25 @@ public class LifeGraphsController {
   @Autowired
   private LifeGraphsService service;
 
-  @RequestMapping(value = "/auth/life_graphs", method = RequestMethod.POST)
-
-  public ResponseEntity<Void> postController(@Valid @RequestBody LifeGraphData data) throws URISyntaxException {
+  //-----ここから登録編集API-------
+  @PostMapping(value = "/auth/life_graphs")
+  //  @RequestMapping(value = "/auth/life_graphs", method = RequestMethod.POST)
+  public ResponseEntity<Void> register(@Valid @RequestBody LifeGraphData data) throws URISyntaxException {
     // call service
     service.resiter(data);
 
-    //    long id = data.getUserId();
-    //    int ageInt = data.getAge();
-    //    int scoreInt = data.getScore();
-    //    String comment = data.getComment();
-
-    //存在チェック
-    //    ExistenceCheckService.exists(id, ageInt);
-
-    return ResponseEntity.created(new URI("/life_graphs/")).build();
+    return ResponseEntity.created(new URI("/life_graphs/" + data.getUserId())).build();
   }
 
+  @DeleteMapping(value = "/auth/life_graphs")
+  public void clear(@RequestBody LifeGraphData data) {
+    service.clear(data);
+  }
+
+  //-----ここから削除API(全データ削除)-----
+  @DeleteMapping(value = "/auth/life-graphs")
+  public void deleteGraphs(@RequestBody LifeGraphData data) {
+
+    service.delete(data);
+  }
 }
