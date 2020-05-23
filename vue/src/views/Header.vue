@@ -30,10 +30,28 @@
 export default {
   data () {
     return {
-      user_name: 'Kana Sekiguchi',
-      authority: 'Owner'
+      user_name: '',
+      authority: ''
+    }
+  },
+  created () {
+    this.setAccount()
+  },
+  methods: {
+    setAccount () {
+      const Account = this.$store.state.account
+      this.user_name = Account.account.username
+      const authority = Account.account.name
+      if (authority === 'ROLE_ADMIN') {
+        this.authority = '管理者'
+      } else if (authority === 'ROLE_MODERATOR') {
+        this.authority = 'モデレーター'
+      } else {
+        this.authority = '一般ユーザー'
+      }
     }
   }
+
 }
 </script>
 

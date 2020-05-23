@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class RefAccount {
+public class Account {
 
   @Id
   @GeneratedValue
@@ -41,7 +41,7 @@ public class RefAccount {
     return name;
   }
 
-  public RefAccount(int id, String username, String name) {
+  public Account(int id, String username, String name) {
     this.id = id;
     this.username = username;
     this.name = name;
