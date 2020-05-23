@@ -75,4 +75,12 @@ public class ParentGraphRepository {
     jdbcTemplate.update(sql);
   }
 
+  //特定のレコードを持ってくる
+  public ParentGraph refRecord(long userId) {
+    String sql = "select * from parent_graphs where user_id =" + userId;
+    RowMapper<ParentGraph> mapper = new BeanPropertyRowMapper<ParentGraph>(ParentGraph.class);
+    ArrayList<ParentGraph> parentLifeGraphs = (ArrayList<ParentGraph>) jdbcTemplate.query(sql, mapper);
+    return parentLifeGraphs.get(0);
+  }
+
 }
