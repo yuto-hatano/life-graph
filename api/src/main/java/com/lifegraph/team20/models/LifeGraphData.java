@@ -29,7 +29,7 @@ public class LifeGraphData {
   @Min(-100)
   private int score;
 
-  @NotNull
+  //  @NotNull
   @Size(max = 100, min = 1)
   private String comment;
 }

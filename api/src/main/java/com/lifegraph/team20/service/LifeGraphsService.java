@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lifegraph.team20.models.ChildGraph;
 import com.lifegraph.team20.models.LifeGraphData;
 import com.lifegraph.team20.models.ParentGraph;
 import com.lifegraph.team20.repository.ChildGraphRepository;
@@ -88,5 +89,16 @@ public class LifeGraphsService {
     deleteRepository.childDelete(parentId);
     // 親テーブルの情報を消す
     deleteRepository.parentDelete(userId);
+  }
+
+  //-----ここからレコード参照-----
+  public ChildGraph refRecode(LifeGraphData data) {
+    long userId = data.getUserId();
+    int age = data.getAge();
+    ParentGraph parent = parentRepository.refRecord(userId);
+    long parentId = parent.getId();
+    //parentIdとageが一致するレコードを持ってくる
+    ChildGraph record = childRepository.refRecord(parentId, age);
+    return record;
   }
 }

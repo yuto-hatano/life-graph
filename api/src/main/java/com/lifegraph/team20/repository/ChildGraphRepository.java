@@ -1,8 +1,14 @@
 package com.lifegraph.team20.repository;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.lifegraph.team20.models.ChildGraph;
 
 @Repository
 public class ChildGraphRepository {
@@ -42,6 +48,14 @@ public class ChildGraphRepository {
     //    final String sql = "select count(*) from child_graphs where parent_id = " + parentId + " age = " + age;
     Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
     return 1 <= count;
+  }
+
+  // parentIdとageが一致するレコードを持ってくる
+  public ChildGraph refRecord(long parentId, int age) {
+    String sql = "select * from child_graphs where parent_id = " + parentId + " and age = " + age;
+    RowMapper<ChildGraph> mapper = new BeanPropertyRowMapper<ChildGraph>(ChildGraph.class);
+    ArrayList<ChildGraph> childLifeGraphs = (ArrayList<ChildGraph>) jdbcTemplate.query(sql, mapper);
+    return childLifeGraphs.get(0);
   }
 
 }
