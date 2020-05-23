@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Signup from '../views/Signup.vue'
 import Login from '../views/Login.vue'
 import Header from '../views/Header.vue'
 import Top from '../views/Top.vue'
@@ -8,11 +9,16 @@ import Search from '../views/Search.vue'
 import Reference from '../views/Reference.vue'
 
 // store
-// import Store from '@/store/index.js'
+import Store from '@/store/index.js'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/Signup',
+    name: 'Signup',
+    component: Signup
+  },
   {
     path: '/login',
     name: 'Login',
@@ -58,12 +64,12 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path !== '/login' && Store.state.auth.token === '') {
-//     next('/login')
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login' && Store.state.auth.token === '') {
+    next('/login')
+  } else {
+    next()
+  }
+})
 
 export default router

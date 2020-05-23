@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
+      <router-link to="/Signup">
+        SignUp
+      </router-link>|
       <router-link to="/Login">
         Login
       </router-link>|
@@ -25,7 +28,7 @@
 </template>
 
 <script>
-
+import Signup from './views/Signup.vue'
 import Login from './views/Login.vue'
 import Header from './views/Header.vue'
 import Top from './views/Top.vue'
@@ -36,6 +39,7 @@ import Reference from './views/Reference.vue'
 export default {
   name: 'App',
   views: {
+    Signup,
     Login,
     Header,
     Top,

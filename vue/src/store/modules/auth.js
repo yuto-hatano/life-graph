@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: {
     userId: '',
-    token: ''
+    token: '',
+    message: ''
   },
   mutations: {
     create (state, data) {
@@ -14,6 +15,10 @@ export default {
     destroy (state) {
       state.userId = ''
       state.token = ''
+    },
+    signup (state, data) {
+      debugger
+      state.message = data.message
     }
   },
   // APIによるdataの受け渡し
@@ -23,7 +28,7 @@ export default {
       Axios.post(url, data)
         .then(res => commit('create', res.data))
         .catch(err => err)
-    }
+    },
     //   destroy ({ commit, dispatch }, data) {
     //     dispatch(
     //       'http/delete',
@@ -34,5 +39,11 @@ export default {
     //       // logout anyway ...
     //       .finally(res => commit('destroy'))
     //   }
+    signup ({ commit }, data) {
+      const url = '/api/auth/signup'
+      Axios.post(url, data)
+        .then(res => commit('signup', res.data))
+        .catch(err => err)
+    }
   }
 }
