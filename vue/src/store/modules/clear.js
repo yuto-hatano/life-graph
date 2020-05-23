@@ -3,18 +3,20 @@ import Axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    contents: []
+    record: []
   },
   mutations: {
     create (state, data) {
-      state.contents = data
+      state.record = data
     }
   },
   // APIによるdataの受け渡し
   actions: {
-    create ({ commit }, parentId) {
-      const url = '/api/auth/ref/' + parentId
-      Axios.get(url)
+    create ({ commit }, data) {
+      debugger
+      const url = '/api/auth/life_graphs'
+      debugger
+      Axios.delete(url, { data })
         .then(res => commit('create', res.data))
         .catch(err => err)
     }

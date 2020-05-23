@@ -46,7 +46,7 @@ public class LifeGraphsController {
   }
 
   //-----ここからレコード参照API-----
-  @GetMapping(value = "/auth/ref-record")
+  @PostMapping(value = "/auth/ref-record")
   public ChildGraph refRecode(@RequestBody LifeGraphData data) {
     ChildGraph record = service.refRecode(data);
     return record;
