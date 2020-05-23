@@ -8,10 +8,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lifegraph.team20.models.ChildGraph;
 import com.lifegraph.team20.models.LifeGraphData;
 import com.lifegraph.team20.service.LifeGraphsService;
 
@@ -41,5 +43,12 @@ public class LifeGraphsController {
   public void deleteGraphs(@RequestBody LifeGraphData data) {
 
     service.delete(data);
+  }
+
+  //-----ここからレコード参照API-----
+  @GetMapping(value = "/auth/ref-record")
+  public ChildGraph refRecode(@RequestBody LifeGraphData data) {
+    ChildGraph record = service.refRecode(data);
+    return record;
   }
 }
