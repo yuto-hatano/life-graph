@@ -8,6 +8,9 @@ import auth from './modules/auth.js'
 import http from './modules/http.js'
 import refchart from './modules/refchart.js'
 import SearchGraph from './modules/SearchGraph.js'
+import register from './modules/register.js'
+import edit from './modules/edit.js'
+import clear from './modules/clear.js'
 
 Vue.use(Vuex)
 
@@ -18,7 +21,10 @@ export default new Vuex.Store({
     chart,
     account,
     refchart,
-    SearchGraph
+    SearchGraph,
+    register,
+    edit,
+    clear
   },
   plugins: [createPersistedState({
     key: 'example',
