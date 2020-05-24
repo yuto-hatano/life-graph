@@ -39,7 +39,7 @@ export default {
     return {
       reference_name: 'Kana Sekiguchi',
       // id: '',
-      parentId: '3'
+      parentId: 2
       // age: '',
       // score: '',
       // comment: ''

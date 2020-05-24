@@ -16,6 +16,11 @@ extend('required', required)
 extend('between', between)
 extend('max', max)
 
+extend('required', {
+  ...required,
+  message: '{_field_}を入力してください'
+})
+
 localize('ja', ja)
 
 library.add(faEnvelope, faLock)

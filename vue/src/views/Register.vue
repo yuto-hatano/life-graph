@@ -18,10 +18,10 @@
           <table id="field">
             <tr>
               <th scope="row">
-                <label for="age">年齢</label>
+                <label id="required" for="age">年齢</label>
               </th>
               <td>
-                <validation-provider v-slot="{ errors }" name="年齢" rules="required|between:0,100">
+                <validation-provider v-slot="{ errors }" name="数値" rules="required|between:0,100">
                   <input id="age" v-model="age" min="0" max="100" type="number">
                   <span>{{ errors[0] }}</span>
                 </validation-provider>
@@ -29,10 +29,10 @@
             </tr>
             <tr>
               <th scope="row">
-                <label for="score">スコア</label>
+                <label id="required" for="score">スコア</label>
               </th>
               <td>
-                <validation-provider v-slot="{ errors }" name="スコア" rules="required|between:-100,100">
+                <validation-provider v-slot="{ errors }" name="数値" rules="required|between:-100,100">
                   <input id="score" v-model="score" min="-100" max="100" type="number">
                   <span>{{ errors[0] }}</span>
                 </validation-provider>
@@ -50,6 +50,7 @@
               </td>
             </tr>
           </table>
+          <span>* は必須項目です</span>
           <div id="action">
             <button id="reset" @click="reset">
               クリア
@@ -69,7 +70,7 @@
           <table id="field">
             <tr>
               <th scope="row">
-                <label for="age">年齢</label>
+                <label id="required" for="age">年齢</label>
               </th>
               <td>
                 <validation-provider v-slot="{ errors }" name="年齢" rules="required|between:0,100">
@@ -80,7 +81,7 @@
             </tr>
             <tr>
               <th scope="row">
-                <label for="score">スコア</label>
+                <label id="required" for="score">スコア</label>
               </th>
               <td>
                 <validation-provider v-slot="{ errors }" name="スコア" rules="required|between:-100,100">
@@ -101,8 +102,9 @@
               </td>
             </tr>
           </table>
+          <span>* は必須項目です</span>
           <div id="action">
-            <button id="reset" @click="clear(content.id,index)">
+            <button id="reset" @click="clear()">
               削除
             </button>
             <button id="submit" :disabled="invalid" @click="edit_1">
@@ -113,10 +115,12 @@
       </ValidationObserver>
     </div>
     <!-- データテーブル -->
-    <div id="list">
-      <table v-if="isActive">
+    <div v-if="isActive" id="list">
+      <h2>データー一覧</h2>
+      <table>
         <thead>
           <tr>
+            <!-- <th>ID</th> -->
             <th>年齢</th>
             <th>スコア</th>
             <th>コメント</th>
@@ -125,6 +129,9 @@
         </thead>
         <tbody>
           <tr v-for="(content,index) in contents" :key="index">
+            <!-- <td>
+              {{ content.id }}
+            </td> -->
             <td>
               {{ content.age }}
             </td>
@@ -147,49 +154,37 @@
       </table>
     </div>
     <router-link to="/Top">
-      <button @click="update()">
+      <button id="update" @click="update()">
         更新
       </button>
     </router-link>
-    <div v-if="loaded" id="chart">
+    <!-- <div id="chart">
       <Chart />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import Header from '../views/Header.vue'
-import Chart from '../components/Chart.vue'
+// import Chart from '../components/Chart.vue'
 
 export default {
   name: 'Register',
   components: {
-    Header,
-    Chart
+    Header
+    // Chart
   },
 
   data () {
     return {
+      id: '',
       age: '',
       score: '',
       comment: '',
       isActive: false,
       isAddTable: true,
       isEditTable: false,
-      contents: [
-        {
-          id: '',
-          age: 20,
-          score: 40,
-          comment: 'aaaaaaaa'
-        },
-        {
-          id: '',
-          age: 40,
-          score: 30,
-          comment: 'bbbbbbbb'
-        }
-      ],
+      contents: [],
       // contents: [
       //   {
       //     age: '',
@@ -203,15 +198,27 @@ export default {
   },
 
   computed: {
-    loaded () {
-      return this.$store.state.chart.loaded
+    stateContents () {
+      return this.$store.state.refchart.contents
     }
-    // changeButtonText () {
-    //   return this.editIndex === -1 ? '追加' : '編集'
-    // }
+  //   loaded () {
+  //     return this.$store.state.chart.loaded
+  //   }
+  //   changeButtonText () {
+  //     return this.editIndex === -1 ? '追加' : '編集'
+  //   }
+  },
+
+  watch: {
+    stateContents (newContents) {
+      this.setContents()
+    }
   },
 
   methods: {
+    setContents () {
+      this.contents = this.$store.state.refchart.contents
+    },
     reset () {
       this.age = ''
       this.score = ''
@@ -219,20 +226,14 @@ export default {
     },
 
     add () {
-      // this.isActive = true
-
-      // if (this.editIndex === -1) {
-      //   this.contents.push({ age: this.age, score: this.score, comment: this.comment })
-      // } else {
-      //   this.contents.splice(this.editIndex, 1, { age: this.age, score: this.score, comment: this.comment })
-      //   this.editIndex = -1
-      // }
-
       const content = {
-        age: this.age,
-        score: this.score,
+        // userId: this.$store.state.auth.userID,
+        userId: 2,
+        age: parseInt(this.age),
+        score: parseInt(this.score),
         comment: this.comment
       }
+      this.$store.dispatch('register', content)
       this.$store.dispatch('addContent', content)
 
       this.age = ''
@@ -250,6 +251,10 @@ export default {
     },
 
     editButton () {
+      const parentId = 3
+      this.$store.dispatch(
+        'refchart/create', parentId
+      )
       this.age = ''
       this.score = ''
       this.comment = ''
@@ -259,6 +264,15 @@ export default {
     },
 
     edit_1 () {
+      const content = {
+        // userId: this.$store.state.auth.userID,
+        id: this.$store.state.edit.record.id,
+        userId: 2,
+        age: parseInt(this.age),
+        score: parseInt(this.score),
+        comment: this.comment
+      }
+      this.$store.dispatch('register', content)
       this.age = ''
       this.score = ''
       this.comment = ''
@@ -268,44 +282,72 @@ export default {
     edit (index) {
       this.isEditTable = true
       this.editIndex = index
+
+      this.$store.dispatch(
+        'edit/create',
+        {
+          userId: 2,
+          age: this.contents[index].age
+        }
+      )
+
       this.age = this.contents[index].age
       this.score = this.contents[index].score
       this.comment = this.contents[index].comment
       // this.$refs.editor.focus() // フォーカスを設定
     },
 
-    clear (id, index) {
+    clear () {
       // console.log(id)
-      this.contents.splice(index, 1)
+      this.$store.dispatch(
+        'clear/create',
+        {
+          parentId: this.$store.state.edit.record.parentId,
+          age: this.$store.state.edit.record.age
+        })
+      this.age = ''
+      this.score = ''
+      this.comment = ''
     }
   }
 }
 </script>
 
 <style scoped>
+#registerSection {
+  background-color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
+}
 
 h1 {
-  /* font-style: Roboto Slab; */
-  background-color: #e5f3f3;
-  font-size: 50px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 50pt;
+  padding: 50px;
   padding: 35px 0;
 }
 
 #mainButton {
   cursor: pointer;
   font-size: 25px;
+  background-color: #fd9535;
+  color: #fff;
+  border-bottom: solid 2px #d27d00;
+  border-radius: 20px;
   padding: 10px 15px;
-  margin: 30px 15px 0 15px;
+  margin: 30px 20px 0 20px;
   box-shadow: 1px 2px #dddddd;
+  font-weight: bold;
 }
 
 #mainButton:active {
   box-shadow: none;
   position: relative;
+  border-bottom: solid 2px #fd9535;
   top: 2px;
 }
 
 h2 {
+  font-family: 'Roboto Slab', serif;
   font-size: 30px;
   color: black;
   margin-top: 50px;
@@ -335,6 +377,15 @@ th {
   border:1px solid #666;
   word-wrap : break-word;
   overflow-wrap : break-word;
+}
+
+#required {
+  color: black;
+}
+
+#required:after {
+  color: #E00;
+  content: " *";
 }
 
 label {
@@ -421,7 +472,7 @@ span {
 
 table {
   width: 60%;
-  margin: 45px auto 20px auto;
+  margin: 45px auto 45px auto;
   background-color: #fff;
 }
 
@@ -449,16 +500,21 @@ table {
   top: 2px;
 }
 
-button {
+#update {
   cursor: pointer;
   font-size: 20px;
-  background-color: #dddddd;
-  box-shadow: 1px 2px #dddddd;
+  padding: 5px 20px;
+  background-color: #fd9535;
+  color: #fff;
+  border-bottom: solid 2px #d27d00;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
-button:active {
+#update:active {
   box-shadow: none;
   position: relative;
+  border-bottom: solid 2px #fd9535;
   top: 2px;
 }
 </style>
