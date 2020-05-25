@@ -1,60 +1,59 @@
 package com.lifegraph.team20.models;
 
-
 public class Child {
 
-	private int id;
-	private int parentId;
-	private int age;
-	private int score;
-	private String comment;
+  private long id;
+  private long parentId;
+  private int age;
+  private int score;
+  private String comment;
 
-	public Child(int id, int parentId, int age, int score, String comment) {
-		this.setId(id);
-		this.setParentId(parentId);
-		this.setAge(age);
-		this.setScore(score);
-		this.setComment(comment);
-	}
+  public Child(int id, int parentId, int age, int score, String comment) {
+    this.setId(id);
+    this.setParentId(parentId);
+    this.setAge(age);
+    this.setScore(score);
+    this.setComment(comment);
+  }
 
-	public long getId() {
-		return id;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public long getParentId() {
-		return parentId;
-	}
+  public long getParentId() {
+    return parentId;
+  }
 
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
+  public void setParentId(int parentId) {
+    this.parentId = parentId;
+  }
 
-	public int getAge() {
-		return age;
-	}
+  public int getAge() {
+    return age;
+  }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+  public void setAge(int age) {
+    this.age = age;
+  }
 
-	public int getScore() {
-		return score;
-	}
+  public int getScore() {
+    return score;
+  }
 
-	public void setScore(int score) {
-		this.score = score;
-	}
+  public void setScore(int score) {
+    this.score = score;
+  }
 
-	public String getComment() {
-		return comment;
-	}
+  public String getComment() {
+    return comment;
+  }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
 
 }
