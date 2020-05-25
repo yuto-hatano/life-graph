@@ -33,7 +33,11 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
+<<<<<<< HEAD
               <button id="submit" :disabled="invalid" @click="active">
+=======
+              <button id="submit" :disabled="invalid" @click="search_name()">
+>>>>>>> develop
                 検索
               </button>
             </div>
@@ -57,7 +61,11 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
+<<<<<<< HEAD
               <button id="submit" :disabled="invalid" @click="active">
+=======
+              <button id="submit" :disabled="invalid" @click="search_date()">
+>>>>>>> develop
                 検索
               </button>
             </div>
@@ -70,28 +78,36 @@
         </p>
         <div>
           <table id="table">
+<<<<<<< HEAD
             <tr>
               <th :class="sortedClass('name')" @click="sortBy('name')">
+=======
+            <tr class="table_2">
+              <th>
+>>>>>>> develop
                 ユーザー名
               </th>
-              <th :class="sortedClass('created_at')" @click="sortBy('created_at')">
+              <th>
+                <!-- <th :class="sortedClass('created_at')" @click="sortBy('created_at')"> -->
                 登録日時
               </th>
-              <th :class="sortedClass('updated_at')" @click="sortBy('updated_at')">
+              <th>
+                <!-- <th :class="sortedClass('updated_at')" @click="sortBy('updated_at')"> -->
                 更新日時
               </th>
               <th>参照</th>
             </tr>
             <tbody v-if="isActive">
-              <tr v-for="user in eventedAction" :key="user.id">
+              <tr v-for="user in users" :key="user.id">
+                <!-- <tr v-for="user in eventedAction" :key="user.id"> -->
                 <td>
                   {{ user.name }}
                 </td>
                 <td>
-                  {{ user.created_at }}
+                  {{ user.created_at | moment }}
                 </td>
                 <td>
-                  {{ user.updated_at }}
+                  {{ user.updated_at | moment }}
                 </td>
                 <td>
                   <router-link to="'/Reference/' + user.id" tag="button" class="button">
@@ -114,19 +130,40 @@
 
 <script>
 import Header from '../views/Header.vue'
+<<<<<<< HEAD
+=======
+import Footer from '../components/Footer.vue'
+import moment from 'moment'
+// import qs from 'qs'
+>>>>>>> develop
 
 export default {
   name: 'Search',
   components: {
     Header
   },
+  filters: {
+    moment: function (date) {
+      return moment(date).format('YYYY-MM-DD')
+    }
+  },
   data () {
     return {
+<<<<<<< HEAD
       // user_id: '',
       // id: '',
       // name: '',
       // created_at: '',
       // updated_at: '',
+=======
+      user_id: '',
+      username: '',
+      created_at: '',
+      updated_at: '',
+      // searchUser:'',
+      // startDate:'',
+      // finishDate:'',
+>>>>>>> develop
       updatedFrom: null,
       updatedTo: null,
       isActive: false,
@@ -137,6 +174,7 @@ export default {
       sortDesc: true,
       // 検索条件だけに沿った配列
       // eventedAction: [],
+<<<<<<< HEAD
       // users: [
       //   {
       //     id: 1,
@@ -163,38 +201,61 @@ export default {
       },
       searchUser: '',
       searchDay: ''
+=======
+      users: [
+        // {
+        //   user_id: 1,
+        //   name: 'ishida',
+        //   created_at: '2020/05/01',
+        //   updated_at: '2020/05/13'
+        // },
+        // {
+        //   user_id: 2,
+        //   name: 'sekiguti',
+        //   created_at: '2020/05/03',
+        //   updated_at: '2020/05/10'
+        // },
+        // {
+        //   user_id: 3,
+        //   name: 'sato',
+        //   created_at: '2020/05/02',
+        //   updated_at: '2020/05/11'
+        // }
+      ],
+      // sort: {
+      //   isAct: false,
+      //   key: ''
+      // },
+      searchUser: ''
+      // updatedFroｍ: '',
+      // updatedTo: ''
+>>>>>>> develop
     }
   },
 
   computed: {
-    eventedAction () {
-      const list = this.users.slice()
+    searchContents () {
+      return this.$store.state.SearchGraph.users
+    }
+    //   eventedAction () {
+    //     const list = this.users.slice()
 
-      if (this.sort.key) {
-        list.sort((a, b) => {
-          a = a[this.sort.key]
-          b = b[this.sort.key]
-          return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-        })
-      }
+    //     if (this.sort.key) {
+    //       list.sort((a, b) => {
+    //         a = a[this.sort.key]
+    //         b = b[this.sort.key]
+    //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+    //       })
+    //     }
 
-      return list
-    },
-    user_id () {
-      // return this.$store.state.SearchGraph.user_id
-      return this.user_id
-    },
-    name () {
-      // return this.$store.state.SearchGraph.name
-      return this.name
-    },
-    created_at () {
-      // return this.$store.state.SearchGraph.created_at
-      return this.created_at
-    },
-    updated_at () {
-      // return this.$store.state.SearchGraph.updated_at
-      return this.updated_at
+    //     return list
+    //   }
+
+  },
+
+  watch: {
+    searchContents (newContents) {
+      this.setUsers()
     }
   },
 
@@ -207,17 +268,42 @@ export default {
       this.isOpenSearch = false
       this.isOpenUpdata = true
     },
+<<<<<<< HEAD
     active () {
       this.id = ''
       this.name = ''
       this.created_at = ''
       this.updated_at = ''
+=======
+
+    search_name () {
+      const data = {
+        likeName: this.searchUser,
+        startDate: '',
+        finishDate: ''
+      }
+
+>>>>>>> develop
       this.isActive = true
       this.$store.dispatch(
-        //  storeのactionsを呼び出すss
-        'searchGraph/searchGraphs'
+        //  storeのactionsを呼び出す
+        // 'SearchGraph/SearchGraphs',
+        'SearchGraph', data
       )
     },
+    search_date () {
+      const data = {
+        likeName: '',
+        startDate: this.updatedFrom,
+        finishDate: this.updatedTo
+      }
+
+      this.isActive = true
+      this.$store.dispatch(
+        'SearchGraph', data
+      )
+    },
+
     returnScreen () {
       this.isOpenSearch = true
       this.isOpenUpdata = false
@@ -228,13 +314,16 @@ export default {
       this.updatedFrom = ''
       this.updatedTo = ''
     },
-    sortBy (key) {
-      this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false
-      this.sort.key = key
+    setUsers () {
+      this.users = this.$store.state.SearchGraph.users
     },
-    sortedClass (key) {
-      return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
-    },
+    // sortBy (key) {
+    //   this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false
+    //   this.sort.key = key
+    // },
+    // sortedClass (key) {
+    //   return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
+    // },
     resetting () {
       this.sort.key = ''
       this.sort.isAsc = false

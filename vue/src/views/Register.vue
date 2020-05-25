@@ -121,8 +121,8 @@
     </div>
     <!-- データテーブル -->
     <div v-if="isActive" id="list">
-      <h2>データー一覧</h2>
-      <table>
+      <h2>データ一覧</h2>
+      <table class="allData">
         <thead id="dataThead">
           <tr>
             <!-- <th>ID</th> -->
@@ -158,11 +158,9 @@
         </tbody>
       </table>
     </div>
-    <router-link to="/Top">
-      <button id="update" @click="update()">
-        更新
-      </button>
-    </router-link>
+    <button id="update" @click="update()">
+      更新
+    </button>
     <Footer />
   </div>
 </template>
@@ -290,6 +288,10 @@ export default {
       // this.$refs.editor.focus() // フォーカスを設定
     },
 
+    update () {
+      this.$router.push('/Top')
+    },
+
     clear () {
       this.$store.dispatch(
         'clear/create',
@@ -376,7 +378,7 @@ h1 {
 
 h2 {
   font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-size: 28px;
+  font-size: 20px;
   color: #2c3e50;
   margin-top: 50px;
   margin-right: 70%;
@@ -482,12 +484,12 @@ span {
 }
 
 #submit {
-  color:rgb(158, 157, 157);
+  color:rgb(255, 255, 255);
   font-family: 'M PLUS Rounded 1c', sans-serif;
   cursor: pointer;
   padding: 0.5em 2em 0.5em 2em;
   font-size: 9pt;
-  background-color: #dddddd;
+  background-color: #fcbc73;
   border-radius: 5px;
   box-shadow: 1px 2px #dddddd;
 }
@@ -497,25 +499,52 @@ span {
   background: #fd9535;
   /*少し濃い目の色*/
   border: solid 2px #f59402;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2);
   position: relative;
   top: 2px;
 }
 
 #list {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
+  border: dashed 2px #666f7a;
   border-radius: 30px;
-  width: 80%;
-  margin: 50px auto;
+  width: 60%;
+  margin: 50px auto 20px auto;
   background-color: #fffcf5;
 }
 
-#edit {
+.allData {
+  border-collapse: separate;
+  border: solid 1px #666f7a;
+  border-radius: 30px;
+  width: 60%;
+  margin: 30px auto 20px auto;
+  background-color: #fff;
+  word-wrap : break-word;
+  overflow-wrap : break-word;
   vertical-align: middle;
+}
+
+#edit {
+  font-size: 8pt;
   cursor: pointer;
-  font-size: 0.8em;
-  background-color: #dddddd;
-  padding: 5px 10px;
-  margin: 5px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 1em 0.6em 1em;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 
 #delete {

@@ -12,9 +12,13 @@ export default {
   },
   // APIによるdataの受け渡し
   actions: {
-    create ({ commit }, data) {
-      const url = '/api/auth/life_graphs'
-      Axios.delete(url, { data })
+    create ({ commit, rootState }, data) {
+      const url = '/api/life_graphs'
+      Axios.delete(url, { data }, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      })
         .then(res => commit('create', res.data))
         .catch(err => err)
     }
