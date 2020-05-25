@@ -14,7 +14,6 @@ export default {
   actions: {
     create ({ commit }, userId) {
       const url = '/api/auth/ref/' + userId
-      debugger
       Axios.get(url)
         .then(res => commit('create', res.data))
         .catch(err => err)
