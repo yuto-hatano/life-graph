@@ -301,13 +301,14 @@ h1:before {
 
 #icon_lock {
   position:absolute;
+  z-index: -100;
   left:10px;/*アイコン左右の位置調整*/
   top:78px;
   background:none;
   color:#666;
   border:none;
-  font-size:26px;/*アイコンサイズ*/
-  padding: 6px 9px;
+  font-size:29px;/*アイコンサイズ*/
+  padding: 4.6px 8px;
   background-color: #dddddd;
 }
 
