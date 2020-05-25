@@ -48,7 +48,7 @@ export default {
     setUserChart () {
       const userId = this.$store.state.auth.userId
       this.$store.dispatch(
-        'TopReference/getUserChart', userId
+        'refchart/create', userId
       )
     }
   }

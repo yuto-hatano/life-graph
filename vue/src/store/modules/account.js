@@ -20,7 +20,7 @@ export default {
   },
   actions: {
     fetchAccount ({ commit }, userId) {
-      const url = '/api/accounts/' + userId
+      const url = '/api/auth/accounts/' + userId
       axios.get(url).then(res => commit('setAccount', res.data))
         .catch(err => err)
     },
