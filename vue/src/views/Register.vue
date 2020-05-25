@@ -163,23 +163,18 @@
         更新
       </button>
     </router-link>
-    <!-- <div id="chart">
-      <Chart />
-    </div> -->
     <Footer />
   </div>
 </template>
 
 <script>
 import Header from '../views/Header.vue'
-// import Chart from '../components/Chart.vue'
 import Footer from '../components/Footer.vue'
 
 export default {
   name: 'Register',
   components: {
     Header,
-    // Chart
     Footer
   },
 
@@ -193,13 +188,6 @@ export default {
       isAddTable: true,
       isEditTable: false,
       contents: [],
-      // contents: [
-      //   {
-      //     age: '',
-      //     score: '',
-      //     comment: ''
-      //   }
-      // ],
       load: true,
       editIndex: -1
     }
@@ -235,8 +223,7 @@ export default {
 
     add () {
       const content = {
-        // userId: this.$store.state.auth.userID,
-        userId: 2,
+        userId: this.$store.state.auth.userID,
         age: parseInt(this.age),
         score: parseInt(this.score),
         comment: this.comment
@@ -259,9 +246,9 @@ export default {
     },
 
     editButton () {
-      const parentId = 3
+      const userId = this.$store.state.auth.userID
       this.$store.dispatch(
-        'refchart/create', parentId
+        'refchart/create', userId
       )
       this.age = ''
       this.score = ''
@@ -273,9 +260,8 @@ export default {
 
     edit_1 () {
       const content = {
-        // userId: this.$store.state.auth.userID,
+        userId: this.$store.state.auth.userID,
         id: this.$store.state.edit.record.id,
-        userId: 2,
         age: parseInt(this.age),
         score: parseInt(this.score),
         comment: this.comment
@@ -284,7 +270,6 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // 上書きされる
     },
 
     edit (index) {
@@ -306,7 +291,6 @@ export default {
     },
 
     clear () {
-      // console.log(id)
       this.$store.dispatch(
         'clear/create',
         {
