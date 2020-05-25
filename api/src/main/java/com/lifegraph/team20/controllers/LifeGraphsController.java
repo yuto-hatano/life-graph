@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,26 +24,27 @@ public class LifeGraphsController {
   private LifeGraphsService service;
 
   //-----ここから登録編集API-------
-  @PostMapping(value = "/auth/life_graphs")
-  //  @RequestMapping(value = "/auth/life_graphs", method = RequestMethod.POST)
+  @PostMapping(value = "/life-graphs")
+  //  @RequestMapping(value = "/life_graphs", method = RequestMethod.POST)
   public ResponseEntity<Void> register(@Valid @RequestBody LifeGraphData data) throws URISyntaxException {
     // call service
     service.resiter(data);
 
-    return ResponseEntity.created(new URI("/life_graphs/" + data.getUserId())).build();
+    return ResponseEntity.created(new URI("/life-graphs/" + data.getUserId())).build();
   }
 
-  @DeleteMapping(value = "/auth/life_graphs")
+  //  子テーブルの1レコードのみを消去
+  @DeleteMapping(value = "/life_graphs")
   public ResponseEntity<Void> clear(@RequestBody LifeGraphData data) {
     service.clear(data);
     return ResponseEntity.noContent().build();
   }
 
   //-----ここから削除API(全データ削除)-----
-  @DeleteMapping(value = "/auth/life-graphs")
-  public ResponseEntity<Void> deleteGraphs(@RequestBody LifeGraphData data) {
+  @DeleteMapping(value = "/life-graphs/{id}")
+  public ResponseEntity<Void> deleteGraphs(@PathVariable("id") long userId) {
 
-    service.delete(data);
+    service.delete(userId);
     return ResponseEntity.noContent().build();
   }
 

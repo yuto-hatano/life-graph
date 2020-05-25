@@ -14,9 +14,13 @@ export default {
   },
   // APIによるdataの受け渡し
   actions: {
-    create ({ commit }, userId) {
-      const url = '/api/auth/ref/' + userId
-      Axios.get(url)
+    create ({ commit, rootState }, userId) {
+      const url = '/api/life_graphs/' + userId
+      Axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      })
         .then(res => commit('create', res.data))
         .catch(err => err)
     }
