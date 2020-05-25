@@ -91,10 +91,10 @@
                   {{ user.name }}
                 </td>
                 <td>
-                  {{ user.created_at }}
+                  {{ user.created_at | moment }}
                 </td>
                 <td>
-                  {{ user.updated_at }}
+                  {{ user.updated_at | moment }}
                 </td>
                 <td>
                   <router-link to="'/Reference/' + user.id" tag="button" class="button">
@@ -119,6 +119,7 @@
 <script>
 import Header from '../views/Header.vue'
 import Footer from '../components/Footer.vue'
+import moment from 'moment'
 // import qs from 'qs'
 
 export default {
@@ -126,6 +127,11 @@ export default {
   components: {
     Header,
     Footer
+  },
+  filters: {
+    moment: function (date) {
+      return moment(date).format('YYYY-MM-DD')
+    }
   },
   data () {
     return {
@@ -176,22 +182,31 @@ export default {
     }
   },
 
-  // computed: {
-  //   eventedAction () {
-  //     const list = this.users.slice()
+  computed: {
+    searchContents () {
+      return this.$store.state.SearchGraph.users
+    }
+    //   eventedAction () {
+    //     const list = this.users.slice()
 
-  //     if (this.sort.key) {
-  //       list.sort((a, b) => {
-  //         a = a[this.sort.key]
-  //         b = b[this.sort.key]
-  //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-  //       })
-  //     }
+    //     if (this.sort.key) {
+    //       list.sort((a, b) => {
+    //         a = a[this.sort.key]
+    //         b = b[this.sort.key]
+    //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+    //       })
+    //     }
 
-  //     return list
-  //   }
+    //     return list
+    //   }
 
-  // },
+  },
+
+  watch: {
+    searchContents (newContents) {
+      this.setUsers()
+    }
+  },
 
   methods: {
     searchUserName () {
@@ -202,34 +217,8 @@ export default {
       this.isOpenSearch = false
       this.isOpenUpdata = true
     },
-    // search_name () {
-    //   this.isActive = true
-    //   this.$store.dispatch(
-    //     //  storeのactionsを呼び出す
-    //     'SearchGraphs',
-    //     {
-    //       likeName: this.searchUser,
-    //       startDate: '',
-    //       finishDate: ''
-    //     }
-    //   )
-    // },
-    // search_date () {
-    //   this.isActive = true
-    //   this.$store.dispatch(
-    //     //  storeのactionsを呼び出すss
-    //     'SearchGraphs',
-    //     {
-    //       likeName: '',
-    //       startDate: this.updatedFrom,
-    //       finishDate: this.updatedTo
-    //     }
-    //   )
-    // },
+
     search_name () {
-      // const likeName = this.searchUser
-      // const startDate = ''
-      // const finishDate = ''
       const data = {
         likeName: this.searchUser,
         startDate: '',
@@ -237,23 +226,13 @@ export default {
       }
 
       this.isActive = true
-      // const graphInfo = {
-      //   Info: {
-      //     $in: [likeName, startDate, finishDate]
-      //   }
-      // }
-
-      // const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
       this.$store.dispatch(
         //  storeのactionsを呼び出す
         // 'SearchGraph/SearchGraphs',
-        'SearchName', data
+        'SearchGraph', data
       )
     },
     search_date () {
-      // const likeName = this.searchUser
-      // const startDate = ''
-      // const finishDate = ''
       const data = {
         likeName: '',
         startDate: this.updatedFrom,
@@ -261,17 +240,8 @@ export default {
       }
 
       this.isActive = true
-      // const graphInfo = {
-      //   Info: {
-      //     $in: [likeName, startDate, finishDate]
-      //   }
-      // }
-
-      // const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
       this.$store.dispatch(
-        //  storeのactionsを呼び出す
-        // 'SearchGraph/SearchGraphs',
-        'SearchDate', data
+        'SearchGraph', data
       )
     },
 
@@ -284,6 +254,9 @@ export default {
       this.searchUser = ''
       this.updatedFrom = ''
       this.updatedTo = ''
+    },
+    setUsers () {
+      this.users = this.$store.state.SearchGraph.users
     },
     // sortBy (key) {
     //   this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false

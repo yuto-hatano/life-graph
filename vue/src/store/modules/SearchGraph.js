@@ -12,54 +12,53 @@ import axios from 'axios'
 
 export default {
   state: {
-    // list:this.users.slice()[
-    name: '',
-    user_id: '',
-    updated_id: '',
-    created_id: ''
+    users: []
+    // username: '',
+    // user_id: '',
+    // updated_id: '',
+    // created_id: ''
     // // ]
   },
   mutations: {
     // TODO: delete because of test
-    SearchName (state, data) {
-      state.name = data.name
-      state.user_id = data.user_id
-      state.updated_at = data.updated_at
-      state.created_at = data.created_at
-      debugger
+    SearchGraph (state, data) {
+      state.users = data
+      // state.username = data.username
+      // state.user_id = data.user_id
+      // state.updated_at = data.updated_at
+      // state.created_at = data.created_at
     }
   },
   actions: {
-    SearchName ({ commit }, data) {
+    SearchGraph ({ commit }, data) {
       const url = 'api/auth/search'
       axios.get(url, {
         params: {
           // ここにクエリパラメータを指定する
           likeName: data.likeName,
           startDate: data.startDate,
-          fromDate: data.fromDate
+          finishDate: data.finishDate
         }
       }
       )
-        .then(res => commit('SearchName', res.data))
+        .then(res => commit('SearchGraph', res.data))
         .catch(err => err)
-      debugger
-    },
-    SearchDate ({ commit }, data) {
-      const url = '/api/auth/search/'
-      axios.get(url, {
-        params: {
-          // ここにクエリパラメータを指定する
-          likeName: data.likeName,
-          startDate: data.startDate,
-          fromDate: data.fromDate
-        }
-      }
-      )
-        .then(res => commit('SearchDate', res.data))
-        .catch(err => err)
-      debugger
     }
+    // SearchDate ({ commit }, data) {
+    //   const url = '/api/auth/search/'
+    //   axios.get(url, {
+    //     params: {
+    //       // ここにクエリパラメータを指定する
+    //       likeName: data.likeName,
+    //       startDate: data.startDate,
+    //       finishDate: data.finishDate
+    //     }
+    //   }
+    //   )
+    //     .then(res => commit('SearchDate', res.data))
+    //     .catch(err => err)
+    //   debugger
+    // }
     //  const url = '/api/auth/search' +data
 
     //   const data = {

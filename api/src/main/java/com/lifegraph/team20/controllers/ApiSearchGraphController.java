@@ -48,7 +48,7 @@ public class ApiSearchGraphController {
 			sql += " where username like '%"+likeName.get()+"%'";
 		}
 		else if(startDate.isPresent() && finishDate.isPresent()) {
-			sql += "WHERE `updated_at` BETWEEN "+startDate.get()+" AND "+finishDate.get()+"";
+			sql += "WHERE `updated_at` BETWEEN '"+startDate.get()+"' AND '"+finishDate.get()+"'";
 		}
 //				sqlに"select ~"という文字列をいれる
 		return jdbcTemplate.query(sql, new RowMapper<SearchGraph>() {
