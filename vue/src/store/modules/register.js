@@ -5,7 +5,9 @@ export default {
     contents: []
   },
   mutations: {
-
+    // registerSuccess (state) {
+    //   state.update = !state.update
+    // }
   },
   // APIによるdataの受け渡し
   actions: {
