@@ -33,11 +33,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-<<<<<<< HEAD
-              <button id="submit" :disabled="invalid" @click="active">
-=======
               <button id="submit" :disabled="invalid" @click="search_name()">
->>>>>>> develop
                 検索
               </button>
             </div>
@@ -61,11 +57,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-<<<<<<< HEAD
-              <button id="submit" :disabled="invalid" @click="active">
-=======
               <button id="submit" :disabled="invalid" @click="search_date()">
->>>>>>> develop
                 検索
               </button>
             </div>
@@ -78,13 +70,8 @@
         </p>
         <div>
           <table id="table">
-<<<<<<< HEAD
-            <tr>
-              <th :class="sortedClass('name')" @click="sortBy('name')">
-=======
             <tr class="table_2">
               <th>
->>>>>>> develop
                 ユーザー名
               </th>
               <th>
@@ -130,12 +117,9 @@
 
 <script>
 import Header from '../views/Header.vue'
-<<<<<<< HEAD
-=======
 import Footer from '../components/Footer.vue'
 import moment from 'moment'
 // import qs from 'qs'
->>>>>>> develop
 
 export default {
   name: 'Search',
@@ -149,13 +133,6 @@ export default {
   },
   data () {
     return {
-<<<<<<< HEAD
-      // user_id: '',
-      // id: '',
-      // name: '',
-      // created_at: '',
-      // updated_at: '',
-=======
       user_id: '',
       username: '',
       created_at: '',
@@ -163,7 +140,6 @@ export default {
       // searchUser:'',
       // startDate:'',
       // finishDate:'',
->>>>>>> develop
       updatedFrom: null,
       updatedTo: null,
       isActive: false,
@@ -174,34 +150,6 @@ export default {
       sortDesc: true,
       // 検索条件だけに沿った配列
       // eventedAction: [],
-<<<<<<< HEAD
-      // users: [
-      //   {
-      //     id: 1,
-      //     name: 'ishida',
-      //     created_at: '2020/05/01',
-      //     updated_at: '2020/05/13'
-      //   },
-      //   {
-      //     id: 2,
-      //     name: 'sekiguti',
-      //     created_at: '2020/05/03',
-      //     updated_at: '2020/05/10'
-      //   },
-      //   {
-      //     id: 3,
-      //     name: 'sato',
-      //     created_at: '2020/05/02',
-      //     updated_at: '2020/05/11'
-      //   }
-      // ],
-      sort: {
-        isAct: false,
-        key: ''
-      },
-      searchUser: '',
-      searchDay: ''
-=======
       users: [
         // {
         //   user_id: 1,
@@ -229,7 +177,6 @@ export default {
       searchUser: ''
       // updatedFroｍ: '',
       // updatedTo: ''
->>>>>>> develop
     }
   },
 
@@ -268,13 +215,6 @@ export default {
       this.isOpenSearch = false
       this.isOpenUpdata = true
     },
-<<<<<<< HEAD
-    active () {
-      this.id = ''
-      this.name = ''
-      this.created_at = ''
-      this.updated_at = ''
-=======
 
     search_name () {
       const data = {
@@ -283,7 +223,6 @@ export default {
         finishDate: ''
       }
 
->>>>>>> develop
       this.isActive = true
       this.$store.dispatch(
         //  storeのactionsを呼び出す
