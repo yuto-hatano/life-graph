@@ -41,7 +41,7 @@ export default {
     Chart,
     Footer
   },
-  created () {
+  mounted () {
     this.setUserChart()
   },
   methods: {

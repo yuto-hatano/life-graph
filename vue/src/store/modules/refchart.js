@@ -4,12 +4,14 @@ export default {
   namespaced: true,
 
   state: {
-    contents: []
+    contents: [],
+    loaded: false
   },
 
   mutations: {
     create (state, data) {
       state.contents = data
+      state.loaded = !state.loaded
     }
   },
   // APIによるdataの受け渡し
