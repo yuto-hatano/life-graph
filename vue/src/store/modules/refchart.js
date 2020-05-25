@@ -9,7 +9,6 @@ export default {
 
   mutations: {
     create (state, data) {
-      console.log(data)
       state.contents = data
     }
   },
