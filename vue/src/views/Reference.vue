@@ -14,9 +14,6 @@
         {{ reference_name() }}
       </div>
     </div>
-    <div id="action">
-      <button id="submit" value="データを取得" @click="getData" />
-    </div>
     <div id="Graph_3">
       <Chart />
     </div>
