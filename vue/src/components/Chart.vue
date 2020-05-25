@@ -100,7 +100,7 @@ export default {
   },
   computed: {
     checkContents () {
-      return this.$store.state.chart.contents
+      return this.$store.state.refchart.contents
     }
   },
 
