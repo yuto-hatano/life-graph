@@ -223,7 +223,7 @@ export default {
 
     add () {
       const content = {
-        userId: this.$store.state.auth.userID,
+        userId: this.$store.state.auth.userId,
         age: parseInt(this.age),
         score: parseInt(this.score),
         comment: this.comment
@@ -246,7 +246,7 @@ export default {
     },
 
     editButton () {
-      const userId = this.$store.state.auth.userID
+      const userId = this.$store.state.auth.userId
       this.$store.dispatch(
         'refchart/create', userId
       )
@@ -260,7 +260,7 @@ export default {
 
     edit_1 () {
       const content = {
-        userId: this.$store.state.auth.userID,
+        userId: this.$store.state.auth.userId,
         id: this.$store.state.edit.record.id,
         age: parseInt(this.age),
         score: parseInt(this.score),
@@ -279,7 +279,7 @@ export default {
       this.$store.dispatch(
         'edit/create',
         {
-          userId: 2,
+          userId: this.$store.state.auth.userId,
           age: this.contents[index].age
         }
       )
