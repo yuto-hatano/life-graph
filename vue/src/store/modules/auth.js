@@ -23,6 +23,10 @@ export default {
       Axios.post(url, data)
         .then(res => commit('create', res.data))
         .catch(err => err)
+    },
+    logout (state) {
+      state.userId = ''
+      state.token = ''
     }
     //   destroy ({ commit, dispatch }, data) {
     //     dispatch(
