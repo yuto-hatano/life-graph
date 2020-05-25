@@ -20,7 +20,7 @@ public class LifeGraphData {
   private long userId;
 
   @NotNull
-  @Max(99)
+  @Max(100)
   @Min(0)
   private int age;
 

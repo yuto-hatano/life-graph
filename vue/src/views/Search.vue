@@ -342,9 +342,10 @@ p {
 }
 
 span {
+  font-size: 10pt;
   display: block;
   margin-top: 10px;
-  color: red;
+  color: rgb(233, 0, 0);
 }
 
 #serch_tittle {
@@ -355,21 +356,44 @@ span {
 }
 
 #searchUserName {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  color: #2c3e50;
   cursor: pointer;
-  margin: 40px 20px;
-  padding: 20px 20px;
-  font-size: 1em;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 2em 0.6em 2em;
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 
 #searchUpdate {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  color: #2c3e50;
   cursor: pointer;
-  margin: 40px 20px;
-  padding: 20px 20px;
-  font-size: 1em;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 2.1em 0.6em 2.1em;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 
 #search_name {
@@ -398,23 +422,58 @@ span {
 }
 
 #clear {
+  font-size: 8pt;
   cursor: pointer;
   font-family: 'M PLUS Rounded 1c', sans-serif;
-  color: #2c3e50;
-  font-size: 1em;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 1em 0.6em 1em;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 
 #return {
   cursor: pointer;
+  font-size: 8pt;
   font-family: 'M PLUS Rounded 1c', sans-serif;
-  color: #2c3e50;
-  font-size: 1em;
-  margin: 20px 10% 20px 10%;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 1em 0.6em 1em;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 
 #submit {
+  font-size: 8pt;
+  color:rgb(158, 157, 157);
+  padding: 0.6em 1em 0.6em 1em;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   cursor: pointer;
-  font-size: 1em;
+  background-color: #dddddd;
+  border-radius: 5px;
+  box-shadow: 1px 2px #dddddd;
 }
 
 #output {

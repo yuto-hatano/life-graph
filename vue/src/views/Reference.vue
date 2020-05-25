@@ -11,11 +11,8 @@
     </div>
     <div class="referenceName">
       <div>
-        {{ reference_name }}
+        {{ reference_name() }}
       </div>
-    </div>
-    <div id="action">
-      <button id="submit" value="データを取得" @click="getData" />
     </div>
     <div id="Graph_3">
       <Chart />
@@ -41,23 +38,30 @@ export default {
     Chart,
     Footer
   },
-  data () {
-    return {
-      reference_name: 'Kana Sekiguchi',
-      // id: '',
-      parentId: 2
-      // age: '',
-      // score: '',
-      // comment: ''
+  computed: {
+    referenceName () {
+      return this.$store.state.SearchGraph.list.name
+    },
+    referenceUserId () {
+      return this.$store.state.SearchGraph.list.user_id
     }
+  },
+  created: function () {
+    this.getData()
+    this.reference_name()
   },
   methods: {
     getData () {
-      const parentId = this.parentId
+      const userId = this.$store.state.SearchGraph.list.user_id
       this.$store.dispatch(
-        'refchart/create', parentId
+        'refchart/create', userId
       )
+    },
+    reference_name () {
+      var refName = this.$store.state.SearchGraph.name
+      return refName
     }
+
   }
 }
 

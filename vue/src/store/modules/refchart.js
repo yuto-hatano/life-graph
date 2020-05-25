@@ -2,9 +2,11 @@ import Axios from 'axios'
 
 export default {
   namespaced: true,
+
   state: {
     contents: []
   },
+
   mutations: {
     create (state, data) {
       state.contents = data
@@ -12,8 +14,8 @@ export default {
   },
   // APIによるdataの受け渡し
   actions: {
-    create ({ commit }, parentId) {
-      const url = '/api/auth/ref/' + parentId
+    create ({ commit }, userId) {
+      const url = '/api/auth/ref/' + userId
       Axios.get(url)
         .then(res => commit('create', res.data))
         .catch(err => err)

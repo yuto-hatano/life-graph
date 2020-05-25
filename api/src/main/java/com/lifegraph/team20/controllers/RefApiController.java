@@ -27,15 +27,15 @@ public class RefApiController {
   @GetMapping(value = "/auth/ref/{userId}")
   public ResponseEntity<List<Child>> Child(
       @PathVariable("userId") long userId) {
-    //	Optional:その値がnullかもしれないことを表現するクラス
-    //			URLが叩かれたときにこれが動く
+    //  Optional:その値がnullかもしれないことを表現するクラス
+    //      URLが叩かれたときにこれが動く
 
     //userIdを元に、親テーブルのレコードを持ってくる
     ParentGraph parent = parentId(userId);
     long parentId = parent.getId();
 
     List<Child> Child = selectChilds(parentId);
-    //			l.29のselectSearchGraphを呼び出す
+    //      l.29のselectSearchGraphを呼び出す
     return ResponseEntity.ok(Child);
   }
 
@@ -52,8 +52,8 @@ public class RefApiController {
     return parentLifeGraphs.get(0);
   }
 
-  public List<Child> selectChilds(long ID) {
-    final String sql = "select * from child_graphs where parent_id=" + ID + "";
+  public List<Child> selectChilds(long parentId) {
+    final String sql = "select * from child_graphs where parent_id=" + parentId + "";
 
     return jdbcTemplate.query(sql, new RowMapper<Child>() {
       // Sampleの中にそれぞれのデータを入れている　

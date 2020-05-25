@@ -40,6 +40,17 @@ export default {
     Header,
     Chart,
     Footer
+  },
+  created () {
+    this.setUserChart()
+  },
+  methods: {
+    setUserChart () {
+      const userId = this.$store.state.auth.userId
+      this.$store.dispatch(
+        'refchart/create', userId
+      )
+    }
   }
 }
 

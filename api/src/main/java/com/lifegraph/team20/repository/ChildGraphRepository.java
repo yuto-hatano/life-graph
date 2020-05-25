@@ -1,12 +1,14 @@
 package com.lifegraph.team20.repository;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import com.lifegraph.team20.models.ChildGraph;
 
@@ -41,6 +43,14 @@ public class ChildGraphRepository {
 
             + score + ",'" + comment + "')");
 
+  }
+
+  //idが存在しているかどうか
+  public Optional<ChildGraph> findById(long id) {
+    final String sql = "select * from child_graphs where id = " + id;
+    RowMapper<ChildGraph> mapper = new BeanPropertyRowMapper<ChildGraph>(ChildGraph.class);
+    ArrayList<ChildGraph> childLifeGraphs = (ArrayList<ChildGraph>) jdbcTemplate.query(sql, mapper);
+    return CollectionUtils.isEmpty(childLifeGraphs) ? Optional.empty() : Optional.of(childLifeGraphs.get(0));
   }
 
   public Boolean existsByUserIdAndAge(long parentId, int age) {

@@ -15,11 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lifegraph.team20.models.Account;
 import com.lifegraph.team20.models.ERole;
 import com.lifegraph.team20.models.Role;
 import com.lifegraph.team20.models.User;
@@ -27,6 +30,7 @@ import com.lifegraph.team20.payload.request.LoginRequest;
 import com.lifegraph.team20.payload.request.SignupRequest;
 import com.lifegraph.team20.payload.response.JwtResponse;
 import com.lifegraph.team20.payload.response.MessageResponse;
+import com.lifegraph.team20.repository.AccountRepository;
 import com.lifegraph.team20.repository.RoleRepository;
 import com.lifegraph.team20.repository.UserRepository;
 import com.lifegraph.team20.security.jwt.JwtUtils;
@@ -125,5 +129,22 @@ public class AuthController {
     userRepository.save(user);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+  }
+
+  @Autowired
+  private AccountRepository accountRepository;
+
+  //  クライアントからのリクエストに対してメソッドやハンドラをマッピングします。
+  //  一般的には特定のURLリクエストに対してマッピングを行うが、
+  //  属性を使えばGET や POST といったメソッドなどで条件付けすることもできる。
+  //  valueのURLがきたらGETメソッドを返す。
+  @GetMapping(value = "/accounts/{id}")
+  //  HTTP ステータスやコンテンツタイプ以外のレスポンスヘッダを指定したい場合は、戻り値を ResponseEntity<T> にする。
+  //  ResponseEntity はボディ、ヘッダ、ステータスを持つクラスで、型 T にはボディの型を指定。
+  //  accountというタイプのボディを指定している
+
+  public ResponseEntity<Account> account(@PathVariable("id") Integer id) {
+    Account account = accountRepository.selectAccount(id);
+    return ResponseEntity.ok(account);
   }
 }
