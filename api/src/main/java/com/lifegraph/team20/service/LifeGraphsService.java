@@ -63,8 +63,9 @@ public class LifeGraphsService {
   }
 
   private void registerChild(Long parentId, LifeGraphData data) {
+    Optional<ChildGraph> child = childRepository.findById(data.getId());
     // exists parent by userId
-    if (childRepository.existsByUserIdAndAge(parentId, data.getAge())) {
+    if (child.isPresent()) {
       // update
       childRepository.updateChild(data.getId(), data.getAge(), data.getScore(), data.getComment());
     } else {
