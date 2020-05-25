@@ -15,7 +15,7 @@ export default {
       state.account = payload
     },
     deleteAccount (state) {
-      state.account = ''
+      state.account = {}
     }
   },
   actions: {
