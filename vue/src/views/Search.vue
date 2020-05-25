@@ -33,7 +33,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-              <button id="submit" :disabled="invalid" @click="search_active()">
+              <button id="submit" :disabled="invalid" @click="search_name()">
                 検索
               </button>
             </div>
@@ -57,7 +57,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-              <button id="submit" :disabled="invalid" @click="search_active()">
+              <button id="submit" :disabled="invalid" @click="search_date()">
                 検索
               </button>
             </div>
@@ -71,19 +71,22 @@
         <div>
           <table id="table">
             <tr class="table_2">
-              <th :class="sortedClass('name')" @click="sortBy('name')">
+              <th>
                 ユーザー名
               </th>
-              <th :class="sortedClass('created_at')" @click="sortBy('created_at')">
+              <th>
+                <!-- <th :class="sortedClass('created_at')" @click="sortBy('created_at')"> -->
                 登録日時
               </th>
-              <th :class="sortedClass('updated_at')" @click="sortBy('updated_at')">
+              <th>
+                <!-- <th :class="sortedClass('updated_at')" @click="sortBy('updated_at')"> -->
                 更新日時
               </th>
               <th>参照</th>
             </tr>
             <tbody v-if="isActive">
-              <tr v-for="user in eventedAction" :key="user.id">
+              <tr v-for="user in users" :key="user.id">
+                <!-- <tr v-for="user in eventedAction" :key="user.id"> -->
                 <td>
                   {{ user.name }}
                 </td>
@@ -116,6 +119,7 @@
 <script>
 import Header from '../views/Header.vue'
 import Footer from '../components/Footer.vue'
+import qs from 'qs'
 
 export default {
   name: 'Search',
@@ -125,10 +129,13 @@ export default {
   },
   data () {
     return {
-      // user_id: '',
-      // name: '',
-      // created_at: '',
-      // updated_at: '',
+      user_id: '',
+      username: '',
+      created_at: '',
+      updated_at: '',
+      // searchUser:'',
+      // startDate:'',
+      // finishDate:'',
       updatedFrom: null,
       updatedTo: null,
       isActive: false,
@@ -139,66 +146,52 @@ export default {
       sortDesc: true,
       // 検索条件だけに沿った配列
       // eventedAction: [],
-      // users: [
-      //   {
-      //     user_id: 1,
-      //     name: 'ishida',
-      //     created_at: '2020/05/01',
-      //     updated_at: '2020/05/13'
-      //   },
-      //   {
-      //     user_id: 2,
-      //     name: 'sekiguti',
-      //     created_at: '2020/05/03',
-      //     updated_at: '2020/05/10'
-      //   },
-      //   {
-      //     user_id: 3,
-      //     name: 'sato',
-      //     created_at: '2020/05/02',
-      //     updated_at: '2020/05/11'
-      //   }
-      // ],
-      sort: {
-        isAct: false,
-        key: ''
-      },
-      searchUser: '',
-      searchDay: ''
+      users: [
+        // {
+        //   user_id: 1,
+        //   name: 'ishida',
+        //   created_at: '2020/05/01',
+        //   updated_at: '2020/05/13'
+        // },
+        // {
+        //   user_id: 2,
+        //   name: 'sekiguti',
+        //   created_at: '2020/05/03',
+        //   updated_at: '2020/05/10'
+        // },
+        // {
+        //   user_id: 3,
+        //   name: 'sato',
+        //   created_at: '2020/05/02',
+        //   updated_at: '2020/05/11'
+        // }
+      ],
+      // sort: {
+      //   isAct: false,
+      //   key: ''
+      // },
+      searchUser: ''
+      // updatedFroｍ: '',
+      // updatedTo: ''
     }
   },
 
-  computed: {
-    eventedAction () {
-      const list = this.users.slice()
+  // computed: {
+  //   eventedAction () {
+  //     const list = this.users.slice()
 
-      if (this.sort.key) {
-        list.sort((a, b) => {
-          a = a[this.sort.key]
-          b = b[this.sort.key]
-          return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-        })
-      }
+  //     if (this.sort.key) {
+  //       list.sort((a, b) => {
+  //         a = a[this.sort.key]
+  //         b = b[this.sort.key]
+  //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+  //       })
+  //     }
 
-      return list
-    },
-    user_id () {
-      // return this.$store.state.SearchGraph.user_id
-      return this.user_id
-    },
-    name () {
-      // return this.$store.state.SearchGraph.name
-      return this.name
-    },
-    created_at () {
-      // return this.$store.state.SearchGraph.created_at
-      return this.created_at
-    },
-    updated_at () {
-      // return this.$store.state.SearchGraph.updated_at
-      return this.updated_at
-    }
-  },
+  //     return list
+  //   }
+
+  // },
 
   methods: {
     searchUserName () {
@@ -209,17 +202,83 @@ export default {
       this.isOpenSearch = false
       this.isOpenUpdata = true
     },
-    search_active () {
-      this.name = ''
-      this.user_id = ''
-      this.updated_at = ''
-      this.created_at = ''
+    // search_name () {
+    //   this.isActive = true
+    //   this.$store.dispatch(
+    //     //  storeのactionsを呼び出す
+    //     'SearchGraphs',
+    //     {
+    //       likeName: this.searchUser,
+    //       startDate: '',
+    //       finishDate: ''
+    //     }
+    //   )
+    // },
+    // search_date () {
+    //   this.isActive = true
+    //   this.$store.dispatch(
+    //     //  storeのactionsを呼び出すss
+    //     'SearchGraphs',
+    //     {
+    //       likeName: '',
+    //       startDate: this.updatedFrom,
+    //       finishDate: this.updatedTo
+    //     }
+    //   )
+    // },
+    search_name () {
+      // user_id = ''
+      // username = ''
+      // created_at = ''
+      // updated_at = ''
+      const likeName = this.searchUser
+      const startDate = ''
+      const finishDate = ''
+
       this.isActive = true
+      const graphInfo = {
+        Info: {
+          $in: [likeName, startDate, finishDate]
+        }
+      }
+
+      const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
       this.$store.dispatch(
-        //  storeのactionsを呼び出すss
-        'searchGraph/searchGraphs'
+        //  storeのactionsを呼び出す
+        // 'SearchGraph/SearchGraphs',
+        'SearchGraphs',
+        {
+          graphInfo, dataSerializer
+        }
       )
     },
+    search_date () {
+      // user_id = ''
+      // username = ''s
+      // created_at = ''
+      // updated_at = ''
+      const userName = ''
+      const startDate = this.updatedFrom
+      const finishDate = this.updatedTo
+
+      this.isActive = true
+      const graphInfo = {
+        Info: {
+          $in: [userName, startDate, finishDate]
+        }
+      }
+
+      const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
+      this.$store.dispatch(
+        //  storeのactionsを呼び出す
+        // 'SearchGraph/SearchGraphs',
+        'SearchGraphs',
+        {
+          graphInfo, dataSerializer
+        }
+      )
+    },
+
     returnScreen () {
       this.isOpenSearch = true
       this.isOpenUpdata = false
@@ -230,13 +289,13 @@ export default {
       this.updatedFrom = ''
       this.updatedTo = ''
     },
-    sortBy (key) {
-      this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false
-      this.sort.key = key
-    },
-    sortedClass (key) {
-      return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
-    },
+    // sortBy (key) {
+    //   this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false
+    //   this.sort.key = key
+    // },
+    // sortedClass (key) {
+    //   return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
+    // },
     resetting () {
       this.sort.key = ''
       this.sort.isAsc = false
