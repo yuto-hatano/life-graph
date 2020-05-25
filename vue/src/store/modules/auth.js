@@ -11,10 +11,10 @@ export default {
       state.userId = data.id
       state.token = data.accessToken
     },
-    destroy (state) {
-      state.userId = ''
-      state.token = ''
-    },
+    // destroy (state) {
+    //   state.userId = ''
+    //   state.token = ''
+    // },
     logout (state) {
       state.userId = ''
       state.token = ''
@@ -28,19 +28,18 @@ export default {
         .then(res => commit('create', res.data))
         .catch(err => err)
     },
-    logout (state) {
-      state.userId = ''
-      state.token = ''
+    logout ({ commit }) {
+      commit('logout')
     }
-    //   destroy ({ commit, dispatch }, data) {
-    //     dispatch(
-    //       'http/delete',
-    //       { url: '/auth', data },
-    //       { root: true }
-    //     ).then(res => commit('create', res.data))
-    //       .catch(err => err)
-    //       // logout anyway ...
-    //       .finally(res => commit('destroy'))
-    //   }
   }
+  //   destroy ({ commit, dispatch }, data) {
+  //     dispatch(
+  //       'http/delete',
+  //       { url: '/auth', data },
+  //       { root: true }
+  //     ).then(res => commit('create', res.data))
+  //       .catch(err => err)
+  //       // logout anyway ...
+  //       .finally(res => commit('destroy'))
+  //   }
 }
