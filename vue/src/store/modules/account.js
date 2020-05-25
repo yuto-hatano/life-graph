@@ -19,9 +19,9 @@ export default {
     }
   },
   actions: {
-    fetchAccount ({ commit }, userId) {
-      const url = '/api/accounts/' + userId
-      axios.get(url).then(res => commit('setAccount', res.data))
+    async fetchAccount ({ commit }, userId) {
+      const url = '/api/auth/accounts/' + userId
+      await axios.get(url).then(res => commit('setAccount', res.data))
         .catch(err => err)
     },
     deleteAccount ({ commit }) {

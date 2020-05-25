@@ -22,9 +22,9 @@ export default {
   },
   // APIによるdataの受け渡し
   actions: {
-    create ({ commit }, data) {
+    async create ({ commit }, data) {
       const url = '/api/auth/login'
-      Axios.post(url, data)
+      await Axios.post(url, data)
         .then(res => commit('create', res.data))
         .catch(err => err)
     },
