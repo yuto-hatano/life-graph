@@ -15,7 +15,7 @@ export default {
   // APIによるdataの受け渡し
   actions: {
     create ({ commit, rootState }, userId) {
-      const url = '/api/life_graphs/' + userId
+      const url = '/api/life-graphs/' + userId
       Axios.get(url, {
         headers: {
           Authorization: `Bearer ${rootState.auth.token}`
