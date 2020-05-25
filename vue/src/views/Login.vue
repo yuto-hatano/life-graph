@@ -15,17 +15,29 @@
     <!-- <form id="login"> -->
     <div id="login">
       <span class="loginTable">LOGIN</span>
-      <div id="input">
-        <font-awesome-icon id="icon_email" icon="envelope" />
-        <input id="email" v-model="email" type="email" placeholder="Mail" autofocus required>
-        <font-awesome-icon id="icon_lock" icon="lock" />
-        <input id="password" v-model="password" type="password" placeholder="Password" required>
-      </div>
-      <div id="action">
-        <button id="submit" value="Enter" @click="login()">
-          SIGN IN
-        </button>
-      </div>
+        <div id="input">
+          <div id="searchMail">
+            <ValidationProvider v-slot="{ errors }" name="メールアドレス" rules="required|email">
+              <label for="email"><img id="iconMail" src="../assets/mail.png"></label>
+              <!-- <font-awesome-icon id="icon_email" icon="envelope" /> -->
+              <input id="email" v-model="email" type="email" placeholder="Mail" autofocus required>
+              <span id="validate">{{ errors[0] }}</span>
+            </ValidationProvider>
+          </div>
+          <div id="searchPassword">
+            <ValidationProvider v-slot="{ errors }" name="パスワード" rules="required">
+              <!-- <font-awesome-icon id="icon_lock" icon="lock" /> -->
+               <label for="password"><img id="iconPassword" src="../assets/password.png"></label>
+              <input id="password" v-model="password" type="password" placeholder="Password" required>
+              <span id="validate">{{ errors[0] }}</span>
+            </ValidationProvider>
+          </div>
+        </div>
+        <div id="action">
+          <button id="submit" value="Enter" @click="login()">
+            SIGN IN
+          </button>
+        </div>
       <div class="loginRegister">
         新規の方は <a id="signUp" href="">新規登録</a>
       </div>
@@ -271,45 +283,63 @@ h1:before {
 #input {
   z-index: 80;
   width: 70%;
-  padding:25px 12px 15px 50px;
+  padding:25px 12px 15px 12px;
   margin: 0 auto;
   position: relative;
 }
 
+#validate {
+  font-size: 13pt;
+  display: inline;
+  color: rgb(233, 0, 0);
+}
+
 #icon_email {
   position:absolute;
-  left:8px;/*アイコン左右の位置調整*/
+  left:8px;
   top:25px;
   background:none;
   color:#666;
   border:none;
-  font-size:28px;/*アイコンサイズ*/
+  font-size:28px;
   padding: 6px 7px;
   background-color: #dddddd;
+}
+
+#iconMail {
+  display: inline-block;
+  width: 8%;
+  float: left;
 }
 
 #email {
   cursor : pointer;
   padding: 10px ;
-  display: block;
+  display: inline-block;
   width: 100%;
   font-size: 1em;
   font-weight: 400;
   border: solid 1px #666;
-  margin-bottom: 13px;
+  margin-bottom: 5px;
 }
 
 #icon_lock {
   position:absolute;
-  z-index: -100;
-  left:10px;/*アイコン左右の位置調整*/
-  top:78px;
+  left:8px;/*アイコン左右の位置調整*/
+  top:96px;
   background:none;
   color:#666;
   border:none;
   font-size:29px;/*アイコンサイズ*/
   padding: 4.6px 8px;
   background-color: #dddddd;
+}
+
+#iconPassword {
+  display: inline-block;
+  width: 8%;
+  float: left;
+  margin-bottom: 5px;
 }
 
 #password {
@@ -320,6 +350,8 @@ h1:before {
   font-size: 1em;
   font-weight: 400;
   border: solid 1px #666;
+  margin-top: 40px;
+  margin-bottom: 5px;
 }
 
 #action {

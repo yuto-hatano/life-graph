@@ -3,10 +3,10 @@
     <div>
       <Header />
     </div>
-    <h1>Life Graph</h1>
     <div class="message_3">
       You can search "LifeGraph".
     </div>
+    <h1>Life Graph</h1>
     <div id="users">
       <div id="field">
         <p id="serch_tittle">
@@ -33,7 +33,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-              <button id="submit" :disabled="invalid" @click="search_active()">
+              <button id="submit" :disabled="invalid" @click="active">
                 検索
               </button>
             </div>
@@ -57,7 +57,7 @@
               <button id="return" @click="returnScreen">
                 戻る
               </button>
-              <button id="submit" :disabled="invalid" @click="search_active()">
+              <button id="submit" :disabled="invalid" @click="active">
                 検索
               </button>
             </div>
@@ -70,7 +70,7 @@
         </p>
         <div>
           <table id="table">
-            <tr class="table_2">
+            <tr>
               <th :class="sortedClass('name')" @click="sortBy('name')">
                 ユーザー名
               </th>
@@ -109,23 +109,21 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '../views/Header.vue'
-import Footer from '../components/Footer.vue'
 
 export default {
   name: 'Search',
   components: {
-    Header,
-    Footer
+    Header
   },
   data () {
     return {
       // user_id: '',
+      // id: '',
       // name: '',
       // created_at: '',
       // updated_at: '',
@@ -141,19 +139,19 @@ export default {
       // eventedAction: [],
       // users: [
       //   {
-      //     user_id: 1,
+      //     id: 1,
       //     name: 'ishida',
       //     created_at: '2020/05/01',
       //     updated_at: '2020/05/13'
       //   },
       //   {
-      //     user_id: 2,
+      //     id: 2,
       //     name: 'sekiguti',
       //     created_at: '2020/05/03',
       //     updated_at: '2020/05/10'
       //   },
       //   {
-      //     user_id: 3,
+      //     id: 3,
       //     name: 'sato',
       //     created_at: '2020/05/02',
       //     updated_at: '2020/05/11'
@@ -209,11 +207,11 @@ export default {
       this.isOpenSearch = false
       this.isOpenUpdata = true
     },
-    search_active () {
+    active () {
+      this.id = ''
       this.name = ''
-      this.user_id = ''
-      this.updated_at = ''
       this.created_at = ''
+      this.updated_at = ''
       this.isActive = true
       this.$store.dispatch(
         //  storeのactionsを呼び出すss
@@ -257,13 +255,11 @@ export default {
   background-color: #ffffff;
   background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
 }
-
 h1 {
   font-family: 'Roboto Slab', serif;
   font-size: 60pt;
   padding: 50px;
 }
-
 .message_3 {
   font-family: 'Courgette', cursive;
   font-style: italic;
@@ -274,8 +270,8 @@ h1 {
 }
 
 #field {
-  border: dashed 2px #666f7a;
-  border-radius: 30px;
+  border: 1px solid #434a52;
+  border-radius: 50px;
   margin: 40px auto;
   width: 50%;
   padding: 30px 0;
@@ -294,8 +290,6 @@ span {
 }
 
 #serch_tittle {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  color: #2c3e50;
   font-size: 25px;
   font: bold;
 }
@@ -342,7 +336,6 @@ span {
 }
 
 #search_name {
-  cursor: pointer;
   width: 50%;
   margin-top: 20px ;
   font-size: 1em;
@@ -350,7 +343,6 @@ span {
 }
 
 #search_From {
-  cursor: pointer;
   width: 20%;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -359,7 +351,6 @@ span {
 }
 
 #search_To {
-  cursor: pointer;
   width: 20%;
   margin-top: 10px;
   font-size: 1em;
@@ -422,11 +413,11 @@ span {
 }
 
 #output {
-  border: dashed 2px #666f7a;
-  border-radius: 30px;
-  margin: 40px auto;
+  border: 1px solid #434a52;
+  border-radius: 50px;
+  margin: 60px auto;
   width: 50%;
-  padding: 30px 0;
+  padding: 20px 0;
   background-color: #fffcf5;
 }
 
@@ -448,7 +439,6 @@ th.sorted.asc::after{
 }
 
 th {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
   padding: 10px 10px;
   cursor: pointer;
 }
