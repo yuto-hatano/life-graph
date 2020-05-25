@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,35 +19,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lifegraph.team20.models.Child;
 import com.lifegraph.team20.models.Parent;
+import com.lifegraph.team20.models.ParentGraph;
 
 @RestController
 public class RefApiController {
 
-  @GetMapping(value = "/auth/ref/{parentId}")
-  //  @GetMapping(value = "/auth/ref/{parent_id}")
+  @GetMapping(value = "/auth/ref/{userId}")
   public ResponseEntity<List<Child>> Child(
-      //      @RequestBody Child data) {
-      @PathVariable("parentId") long parentId) {
+      @PathVariable("userId") long userId) {
     //	Optional:その値がnullかもしれないことを表現するクラス
     //			URLが叩かれたときにこれが動く
-    //    long parentId = data.getParentId();
+
+    //userIdを元に、親テーブルのレコードを持ってくる
+    ParentGraph parent = parentId(userId);
+    long parentId = parent.getId();
+
     List<Child> Child = selectChilds(parentId);
     //			l.29のselectSearchGraphを呼び出す
     return ResponseEntity.ok(Child);
   }
 
-  //	private static final int ParentId = 2;
-  //	@RequestMapping(value = "/auth/ref", method = RequestMethod.GET)
-  //	 public List<Map<String, Object>> ref() {
-  //		List<Parent> graphs = selectParents();
-  //		List<Child> data = selectChilds();
-  //
-  //		List<Map<String, Object>> graphList = uploadGraph(graphs, data);
-  //		return graphList;
-  //	}
   @Autowired
   //MySQLのデータを持ってくるライブラリ
   private JdbcTemplate jdbcTemplate;
+
+  //userIdを元に、親テーブルのレコードを持ってくる処理
+  public ParentGraph parentId(long userId) {
+    String sql = "select * from parent_graphs where user_id =" + userId;
+    RowMapper<ParentGraph> mapper = new BeanPropertyRowMapper<ParentGraph>(ParentGraph.class);
+    ArrayList<ParentGraph> parentLifeGraphs = (ArrayList<ParentGraph>) jdbcTemplate.query(sql, mapper);
+
+    return parentLifeGraphs.get(0);
+  }
 
   public List<Child> selectChilds(long ID) {
     final String sql = "select * from child_graphs where parent_id=" + ID + "";
@@ -60,26 +64,6 @@ public class RefApiController {
       }
     });
   }
-  //親グラフのテーブルを丸々持ってくる
-  //Parentの中にデータを入れて、RowMapper<Parent>に返却
-  //	public List<User> selectUsers(int ID){
-  //		final String sql = "select username from users where id="+ID+"";
-  //		return jdbcTemplate.query(sql, new RowMapper<Parent>() {
-  //			public Parent mapRow(ResultSet rs, int rowNum) throws SQLException{
-  //				return new Parent(rs.getInt("id"));
-  //			}
-  //		});
-  //	}
-  //親グラフのテーブルを丸々持ってくる
-  //Parentの中にデータを入れて、RowMapper<Parent>に返却
-  //	public List<Parent> selectParents(int ID){
-  //		final String sql = "select id from parent_graphs where id="+ID+"";
-  //		return jdbcTemplate.query(sql, new RowMapper<Parent>() {
-  //			public Parent mapRow(ResultSet rs, int rowNum) throws SQLException{
-  //				return new Parent(rs.getInt("id"));
-  //			}
-  //		});
-  //	}
 
   public List<Map<String, Object>> uploadGraph(List<Parent> graphs, List<Child> data) {
     List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
