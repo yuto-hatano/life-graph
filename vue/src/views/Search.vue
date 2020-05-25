@@ -117,7 +117,7 @@
 
 <script>
 import Header from '../views/Header.vue'
-import Footer from '../components/Footer.vue'
+// import Footer from '../components/Footer.vue'
 import moment from 'moment'
 // import qs from 'qs'
 
