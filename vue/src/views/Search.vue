@@ -4,6 +4,9 @@
       <Header />
     </div>
     <h1>Life Graph</h1>
+    <div class="message_3">
+      You can search "LifeGraph".
+    </div>
     <div id="users">
       <div id="field">
         <p id="serch_tittle">
@@ -67,7 +70,7 @@
         </p>
         <div>
           <table id="table">
-            <tr>
+            <tr class="table_2">
               <th :class="sortedClass('name')" @click="sortBy('name')">
                 ユーザー名
               </th>
@@ -106,16 +109,19 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '../views/Header.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
   name: 'Search',
   components: {
-    Header
+    Header,
+    Footer
   },
   data () {
     return {
@@ -247,17 +253,29 @@ export default {
 </script>
 
 <style scoped>
+#searchSection {
+  background-color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
+}
 
 h1 {
-  /* font-style: Roboto Slab; */
-  background-color: #e5f3f3;
-  font-size: 40px;
-  padding: 35px 0;
+  font-family: 'Roboto Slab', serif;
+  font-size: 60pt;
+  padding: 50px;
+}
+
+.message_3 {
+  font-family: 'Courgette', cursive;
+  font-style: italic;
+  font-size: 15pt;
+  height: 25px;
+  font-weight: bold;
+  padding-bottom: 5px;
 }
 
 #field {
-  border: 1px solid #434a52;
-  border-radius: 50px;
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
   margin: 40px auto;
   width: 50%;
   padding: 30px 0;
@@ -275,11 +293,15 @@ span {
 }
 
 #serch_tittle {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
   font-size: 25px;
   font: bold;
 }
 
 #searchUserName {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
   cursor: pointer;
   margin: 40px 20px;
   padding: 20px 20px;
@@ -287,6 +309,8 @@ span {
 }
 
 #searchUpdate {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
   cursor: pointer;
   margin: 40px 20px;
   padding: 20px 20px;
@@ -294,6 +318,7 @@ span {
 }
 
 #search_name {
+  cursor: pointer;
   width: 50%;
   margin-top: 20px ;
   font-size: 1em;
@@ -301,6 +326,7 @@ span {
 }
 
 #search_From {
+  cursor: pointer;
   width: 20%;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -309,6 +335,7 @@ span {
 }
 
 #search_To {
+  cursor: pointer;
   width: 20%;
   margin-top: 10px;
   font-size: 1em;
@@ -316,24 +343,31 @@ span {
 }
 
 #clear {
+  cursor: pointer;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
   font-size: 1em;
 }
 
 #return {
+  cursor: pointer;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
   font-size: 1em;
   margin: 20px 10% 20px 10%;
 }
 
 #submit {
+  cursor: pointer;
   font-size: 1em;
 }
 
 #output {
-  border: 1px solid #434a52;
-  border-radius: 50px;
-  margin: 60px auto;
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
+  margin: 40px auto;
   width: 50%;
-  padding: 20px 0;
+  padding: 30px 0;
   background-color: #fffcf5;
 }
 
@@ -355,6 +389,7 @@ th.sorted.asc::after{
 }
 
 th {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   padding: 10px 10px;
   cursor: pointer;
 }
