@@ -8,7 +8,7 @@
     </h1>
     <div class="referenceName">
       <div>
-        {{ reference_name }}
+        {{ reference_name() }}
       </div>
     </div>
     <div id="action">
@@ -37,21 +37,48 @@ export default {
   },
   data () {
     return {
-      reference_name: 'Kana Sekiguchi',
+      // 以下２行 コード検証用
+      userId: 2,
+      name: 'taito'
       // id: '',
-      parentId: 2
+      // parentId: 2
       // age: '',
       // score: '',
       // comment: ''
     }
   },
+  computed: {
+    referenceName () {
+      // 実装用
+      // return this.$store.state.SearchGraph.list.name
+      // コード検証用
+      return this.name
+    },
+    referenceUserId () {
+      // 実装用
+      // return this.$store.state.SearchGraph.list.user_id
+      // コード検証用
+      return this.user_id
+    }
+  },
   methods: {
     getData () {
-      const parentId = this.parentId
+      // 実装用
+      // const userId = this.$store.state.SearchGraph.list.user_id
+      // コード検証用
+      const userId = this.userId
       this.$store.dispatch(
-        'refchart/create', parentId
+        'refchart/create', userId
       )
+    },
+    reference_name () {
+      // 実装用
+      // var refName =this.$store.state.SearchGraph.name
+      // コード検証用
+      var refName = this.name
+      return refName
     }
+
   }
 }
 

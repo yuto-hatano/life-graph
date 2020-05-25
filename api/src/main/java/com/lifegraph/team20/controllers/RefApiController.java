@@ -52,8 +52,8 @@ public class RefApiController {
     return parentLifeGraphs.get(0);
   }
 
-  public List<Child> selectChilds(long ID) {
-    final String sql = "select * from child_graphs where parent_id=" + ID + "";
+  public List<Child> selectChilds(long parentId) {
+    final String sql = "select * from child_graphs where parent_id=" + parentId + "";
 
     return jdbcTemplate.query(sql, new RowMapper<Child>() {
       // Sampleの中にそれぞれのデータを入れている　
