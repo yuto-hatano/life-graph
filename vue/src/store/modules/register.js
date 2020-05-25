@@ -5,13 +5,19 @@ export default {
     contents: []
   },
   mutations: {
-
+    // registerSuccess (state) {
+    //   state.update = !state.update
+    // }
   },
   // APIによるdataの受け渡し
   actions: {
-    register ({ commit }, data) {
-      const url = '/api/auth/life_graphs'
-      Axios.post(url, data)
+    register ({ commit, rootState }, data) {
+      const url = '/api/life-graphs'
+      Axios.post(url, data, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        }
+      })
     }
   }
 }

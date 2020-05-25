@@ -24,9 +24,9 @@ import com.lifegraph.team20.models.ParentGraph;
 @RestController
 public class RefApiController {
 
-  @GetMapping(value = "/auth/ref/{userId}")
+  @GetMapping(value = "/life-graphs/{id}")
   public ResponseEntity<List<Child>> Child(
-      @PathVariable("userId") long userId) {
+      @PathVariable("id") long userId) {
     //  Optional:その値がnullかもしれないことを表現するクラス
     //      URLが叩かれたときにこれが動く
 

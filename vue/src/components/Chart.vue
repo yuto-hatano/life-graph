@@ -99,8 +99,21 @@ export default {
     }
   },
   computed: {
+    // refチャートの情報を返す。これめちゃくちゃ早い多分。
     checkContents () {
       return this.$store.state.refchart.contents
+    },
+    loaded () {
+      return this.$store.state.refchart.loaded
+    }
+  },
+  // ここで人生グラフ参照APIが終わった後に動かしたいやつ（監視）
+  watch: {
+    loaded () {
+      this.setAge()
+      this.setScore()
+      this.setComment()
+      this.renderChart(this.data, this.options)
     }
   },
 
@@ -210,7 +223,7 @@ export default {
         tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
         tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
         // 背景色指定
-        tooltipEl.style.backgroundColor = 'rgba(240, 248, 255, 0.8)'
+        tooltipEl.style.backgroundColor = 'rgba(255, 0, 0, 0.8)'
         tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
         tooltipEl.style.fontSize = tooltipModel.bodyFontSize
         tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
