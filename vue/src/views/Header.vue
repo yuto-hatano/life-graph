@@ -16,11 +16,9 @@
         </h5>
       </li>
       <li>
-        <router-link to="/login">
-          <button class="btn_logout" @click="logout">
-            LOGOUT
-          </button>
-        </router-link>
+        <button class="btn_logout" @click="logout">
+          LOGOUT
+        </button>
       </li>
     </ul>
   </div>
@@ -46,8 +44,10 @@ export default {
         this.authority = '管理者'
       } else if (authority === 'ROLE_MODERATOR') {
         this.authority = 'モデレーター'
-      } else {
+      } else if (authority === 'ROLE_USER') {
         this.authority = '一般ユーザー'
+      } else {
+        this.authority = ''
       }
     },
 
@@ -58,6 +58,7 @@ export default {
       this.$store.dispatch(
         'account/deleteAccount'
       )
+      this.$router.push('login')
     }
   }
 
