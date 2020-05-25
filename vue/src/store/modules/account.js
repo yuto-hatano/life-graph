@@ -23,6 +23,9 @@ export default {
       const url = '/api/accounts/' + userId
       axios.get(url).then(res => commit('setAccount', res.data))
         .catch(err => err)
+    },
+    deleteAccount ({ commit }) {
+      commit('deleteAccount')
     }
   }
 }
