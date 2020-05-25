@@ -1,15 +1,20 @@
 <template>
   <div id="loginSection">
-    <div class="plate">
-      <div class="script">
-        <p class="login_tittle">
-          Life Graph
-        </p>
-      </div>
-    </div>
+    <h1>
+      <span class="char1">L</span>
+      <span class="char2">i</span>
+      <span class="char3">f</span>
+      <span class="char4">e</span>
+      <span class="char5" />
+      <span class="char6">G</span>
+      <span class="char7">r</span>
+      <span class="char8">a</span>
+      <span class="char9">p</span>
+      <span class="char10">h</span>
+    </h1>
     <!-- <form id="login"> -->
     <div id="login">
-      <h1>LOGIN</h1>
+      <span class="loginTable">LOGIN</span>
       <div id="input">
         <font-awesome-icon id="icon_email" icon="envelope" />
         <input id="email" v-model="email" type="email" placeholder="Mail" autofocus required>
@@ -25,6 +30,15 @@
         新規の方は <a id="signUp" href="">新規登録</a>
       </div>
     <!-- </form> -->
+    </div>
+    <div id="parent">
+      <div class="message" />
+      <div class="message" />
+      <div class="message" />
+      <div class="message" />
+      <div class="message" />
+      <div class="message" />
+      <div class="message" />
     </div>
   </div>
 </template>
@@ -82,13 +96,82 @@ export default {
 </script>
 
 <style scoped>
-.plate {
-  font-size: 150px;
+#loginSection {
+  z-index: -100;
+  background-color:#e5f3f3;
+  height: auto;
+  padding: 100px 0;
+}
+#parent {
+  padding: 0 200px 0 200px;
+  margin: 0 auto;
+  position: relative;
+  width: 600px;
+  height: 30vh;
+  /* overflow: hidden; */
+}
+.message {
+  z-index: 0;
+  position: fixed;
+  left: 200px;
+  bottom: -100px;
+  height: 60px;
+  width: 60px;
+  background-color: rgba(255, 233, 35, 0.788);
+  border-radius: 220px;
+  animation: move 5s infinite linear;
+}
+.message:nth-child(2) {
+  left: 900px;
+  animation-delay: 2s;
+}
+.message:nth-child(3) {
+  left: 500px;
+  animation-delay: 6s;
+}
+.message:nth-child(4) {
+  left: 400px;
+  animation-delay: 5s;
+}
+.message:nth-child(5) {
+  left: 700px;
+  animation-delay: 2s;
+}
+.message:nth-child(6) {
+  left: 800px;
+  animation-delay: 10s;
+}
+.message:nth-child(7) {
+  left: 60px;
+  animation-delay: 9s;
+}
+@keyframes move {
+  0% {
+    bottom: -50px;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+@keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
 }
 
-.login_tittle {
+.message:hover {
+  background: #e5f3f3;
+}
+
+h1 span {
+  z-index: 30;
+  font: 120px 'Arvo', serif;
   color: #fff;
-  font-family: 'Arvo', serif;
+  height: 600px;
+  position: absolute;
   font-weight: bold;
   text-shadow:
     -3px -3px 0  rgb(59, 59, 59),
@@ -100,43 +183,74 @@ export default {
     6px 6px 0 #fff,
     7px 7px 0 #fff;
   line-height: 0.9em;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.01em;  width: 20px;
   transform: scaleY(0.7);
   -webkit-transform: scaleY(0.7);
   -moz-transform: scaleY(0.7);
-  margin:0;
-  padding-bottom: 100px;
-  text-align: center;
+  transform-origin: bottom center;
+}
+.char1 {
+  transform: rotate(-40deg);
+}
+.char2 {
+  transform: rotate(-30deg);
+}
+.char3 {
+  transform: rotate(-24deg);
+}
+.char4 {
+  transform: rotate(-18deg);
+}
+.char5 {
+  transform: rotate(-4deg);
+}
+.char6 {
+  transform: rotate(-5deg);
+}
+.char7 {
+  transform: rotate(7deg);
+}
+.char8 {
+  transform: rotate(14.3deg);
+}
+.char9 {
+  transform: rotate(22.5deg);
+}
+.char10 {
+  transform: rotate(32deg);
 }
 
-#loginSection {
+/* #loginSection {
   background-color:#e5f3f3;
   width: 100%;
   height: auto;
   padding: 100px 0;
-}
+} */
 
 #login {
+  z-index: 90;
+  position: relative;
   width: 40%;
   border-top: 4px solid #434a52;
   border-bottom: 4px solid #434a52;
   padding: 40px 0;
-  margin: 0 auto;
+  margin: 250px auto 0 auto;
   background-color: #fff;
 }
 
-h1 {
+.loginTable {
+  z-index: 50;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
   text-transform: uppercase;
   text-align: center;
-  color: #666;
-  margin: 20px 0 ;
+  color: rgb(82, 82, 82);
+  margin: 20px 0;
   letter-spacing: 4px;
   font: normal 43px/1 Helvetica, Arial, sans-serif;
   position: relative;
 }
 
-h1:after,
+/* h1:after,
 h1:before {
   background-color: #777;
   content: "";
@@ -144,17 +258,18 @@ h1:before {
   position: absolute;
   top: 21px;
   width: 200px;
-}
+} */
 
-h1:after {
+/* h1:after {
   right: 0;
 }
 
 h1:before {
   left: 0;
-}
+} */
 
 #input {
+  z-index: 80;
   width: 70%;
   padding:25px 12px 15px 50px;
   margin: 0 auto;
@@ -162,15 +277,15 @@ h1:before {
 }
 
 #icon_email {
-position:absolute;
-left:8px;/*アイコン左右の位置調整*/
-top:25px;
-background:none;
-color:#666;
-border:none;
-font-size:28px;/*アイコンサイズ*/
-padding: 6px 7px;
-background-color: #dddddd;
+  position:absolute;
+  left:8px;/*アイコン左右の位置調整*/
+  top:25px;
+  background:none;
+  color:#666;
+  border:none;
+  font-size:28px;/*アイコンサイズ*/
+  padding: 6px 7px;
+  background-color: #dddddd;
 }
 
 #email {
@@ -186,13 +301,14 @@ background-color: #dddddd;
 
 #icon_lock {
   position:absolute;
+  z-index: -100;
   left:10px;/*アイコン左右の位置調整*/
   top:78px;
   background:none;
   color:#666;
   border:none;
-  font-size:26px;/*アイコンサイズ*/
-  padding: 6px 9px;
+  font-size:29px;/*アイコンサイズ*/
+  padding: 4.6px 8px;
   background-color: #dddddd;
 }
 
@@ -212,6 +328,7 @@ background-color: #dddddd;
 }
 
 #submit {
+  z-index: 80;
   cursor : pointer;
   font-size: 9pt;
   position: relative;
@@ -223,7 +340,7 @@ background-color: #dddddd;
   /* 背景色 */
   background: #fd9535;
   /*少し濃い目の色*/
-  border-bottom: solid 2px #d27d00;
+  border: solid 2px #f59402;
   /*角の丸みをもたせる*/
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
@@ -244,6 +361,8 @@ background-color: #dddddd;
   color: #ff7043;
 }
 .loginRegister {
-  font-family: 'Noto Sans JP', sans-serif;
+  z-index: 100;
+  position: relative;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 </style>

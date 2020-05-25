@@ -3,7 +3,12 @@
     <div>
       <Header />
     </div>
-    <h1>Life Graph</h1>
+    <h1 class="registerTittle">
+      Life Graph
+    </h1>
+    <div class="message_2">
+      You can register or edit your "LifeGraph".
+    </div>
     <button id="mainButton" @click="addButton()">
       登録
     </button>
@@ -44,13 +49,13 @@
               </th>
               <td>
                 <validation-provider v-slot="{ errors }" name="コメント" rules="max:100">
-                  <textarea id="comment" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください。" />
+                  <textarea id="comment" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください" />
                   <span>{{ errors[0] }}</span>
                 </validation-provider>
               </td>
             </tr>
           </table>
-          <span>* は必須項目です</span>
+          <span class="attention">* は必須項目です</span>
           <div id="action">
             <button id="reset" @click="reset">
               クリア
@@ -96,7 +101,7 @@
               </th>
               <td>
                 <validation-provider v-slot="{ errors }" name="コメント" rules="max:100">
-                  <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください。" />
+                  <textarea id="comment" ref="editor" v-model="comment" cols="30" rows="5" maxlength="120" placeholder="内容を入力してください" />
                   <span>{{ errors[0] }}</span>
                 </validation-provider>
               </td>
@@ -118,7 +123,7 @@
     <div v-if="isActive" id="list">
       <h2>データー一覧</h2>
       <table>
-        <thead>
+        <thead id="dataThead">
           <tr>
             <!-- <th>ID</th> -->
             <th>年齢</th>
@@ -158,21 +163,19 @@
         更新
       </button>
     </router-link>
-    <!-- <div id="chart">
-      <Chart />
-    </div> -->
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '../views/Header.vue'
-// import Chart from '../components/Chart.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
   name: 'Register',
   components: {
-    Header
-    // Chart
+    Header,
+    Footer
   },
 
   data () {
@@ -185,13 +188,6 @@ export default {
       isAddTable: true,
       isEditTable: false,
       contents: [],
-      // contents: [
-      //   {
-      //     age: '',
-      //     score: '',
-      //     comment: ''
-      //   }
-      // ],
       load: true,
       editIndex: -1
     }
@@ -227,8 +223,7 @@ export default {
 
     add () {
       const content = {
-        // userId: this.$store.state.auth.userID,
-        userId: 2,
+        userId: this.$store.state.auth.userID,
         age: parseInt(this.age),
         score: parseInt(this.score),
         comment: this.comment
@@ -251,9 +246,9 @@ export default {
     },
 
     editButton () {
-      const parentId = 3
+      const userId = this.$store.state.auth.userID
       this.$store.dispatch(
-        'refchart/create', parentId
+        'refchart/create', userId
       )
       this.age = ''
       this.score = ''
@@ -265,9 +260,8 @@ export default {
 
     edit_1 () {
       const content = {
-        // userId: this.$store.state.auth.userID,
+        userId: this.$store.state.auth.userID,
         id: this.$store.state.edit.record.id,
-        userId: 2,
         age: parseInt(this.age),
         score: parseInt(this.score),
         comment: this.comment
@@ -276,7 +270,6 @@ export default {
       this.age = ''
       this.score = ''
       this.comment = ''
-      // 上書きされる
     },
 
     edit (index) {
@@ -298,7 +291,6 @@ export default {
     },
 
     clear () {
-      // console.log(id)
       this.$store.dispatch(
         'clear/create',
         {
@@ -321,9 +313,18 @@ export default {
 
 h1 {
   font-family: 'Roboto Slab', serif;
-  font-size: 50pt;
+  font-size: 60pt;
   padding: 50px;
-  padding: 35px 0;
+  font-weight: bold;
+}
+
+.message_2 {
+  font-family: 'Courgette', cursive;
+  font-style: italic;
+  font-size: 15pt;
+  height: 25px;
+  font-weight: bold;
+  padding-bottom: 5px;
 }
 
 #mainButton {
@@ -331,40 +332,73 @@ h1 {
   font-size: 25px;
   background-color: #fd9535;
   color: #fff;
-  border-bottom: solid 2px #d27d00;
+  border: solid 2px #f59402;
   border-radius: 20px;
   padding: 10px 15px;
   margin: 30px 20px 0 20px;
   box-shadow: 1px 2px #dddddd;
+  font-size: 60pt;
+  padding: 50px;
+}
+
+#mainButton,#update{
+  font-size: 12pt;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 2.2em 0.6em 2.2em;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
 }
 
 #mainButton:active {
   box-shadow: none;
   position: relative;
-  border-bottom: solid 2px #fd9535;
   top: 2px;
+  border: solid 2px #f59402;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+#update {
+  cursor: pointer;
+  margin: 0 auto 35px auto;
 }
 
 h2 {
-  font-family: 'Roboto Slab', serif;
-  font-size: 30px;
-  color: black;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 28px;
+  color: #2c3e50;
   margin-top: 50px;
-  margin-right: 50%;
+  margin-right: 70%;
 
 }
 
 #input {
-  border: 1px solid #434a52;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
   width: 60%;
-  margin: 50px auto;
+  margin: 50px auto 20px auto;
   background-color: #fffcf5;
 }
 
 #field {
+  border-collapse: separate;
+  border: solid 1px #666f7a;
+  border-radius: 30px;
   width: 60%;
-  margin: 45px auto 20px auto;
+  margin: 30px auto 20px auto;
   background-color: #fff;
   word-wrap : break-word;
   overflow-wrap : break-word;
@@ -372,38 +406,42 @@ h2 {
 }
 
 th {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   vertical-align: middle;
   padding:10px 15px;
-  border:1px solid #666;
+  /* border:1px solid #666; */
   word-wrap : break-word;
   overflow-wrap : break-word;
 }
 
 #required {
-  color: black;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50;
 }
 
 #required:after {
-  color: #E00;
+  color: rgb(233, 0, 0);
   content: " *";
 }
 
 label {
-  color: black;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: #2c3e50
 }
 
 td {
   vertical-align: middle;
   padding:10px 15px;
-  border:1px solid #666;
+  /* border:1px solid #666; */
   word-wrap : break-word;
   overflow-wrap : break-word;
 }
 
 span {
+  font-size: 10pt;
   display: block;
   margin-top: 10px;
-  color: red;
+  color: rgb(233, 0, 0);
 }
 
 #age,#score,#comment {
@@ -418,11 +456,23 @@ span {
 
 #reset {
   cursor: pointer;
-  font-size: 1em;
-  background-color: #dddddd;
-  border-radius: 5px;
-  box-shadow: 1px 2px #dddddd;
-  margin-right: 20px;
+  font-size: 9pt;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  display: inline-block;
+  padding: 0.5em 2em 0.5em 2em;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 
 #reset:active {
@@ -432,22 +482,29 @@ span {
 }
 
 #submit {
+  color:rgb(158, 157, 157);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   cursor: pointer;
-  font-size: 1em;
+  padding: 0.5em 2em 0.5em 2em;
+  font-size: 9pt;
   background-color: #dddddd;
   border-radius: 5px;
   box-shadow: 1px 2px #dddddd;
 }
 
 #submit:active {
-  box-shadow: none;
+  color:#FFF;
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   position: relative;
   top: 2px;
 }
 
 #list {
-  border: 1px solid #434a52;
-  width: 60%;
+  border-radius: 30px;
+  width: 80%;
   margin: 50px auto;
   background-color: #fffcf5;
 }
@@ -480,9 +537,14 @@ table {
   border: none;
 }
 
-#chart {
-  width: 60%;
-  margin: 100px auto;
+#Graph_2 {
+  background-color: #FFFcf5;
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
+  width: 700px;
+  margin: 0 auto;
+  padding-top: 30pt;
+  padding-bottom: 10pt;
 }
 
 #add {
@@ -500,7 +562,7 @@ table {
   top: 2px;
 }
 
-#update {
+/* #update {
   cursor: pointer;
   font-size: 20px;
   padding: 5px 20px;
@@ -509,12 +571,13 @@ table {
   border-bottom: solid 2px #d27d00;
   border-radius: 20px;
   font-weight: bold;
-}
+} */
 
 #update:active {
   box-shadow: none;
   position: relative;
-  border-bottom: solid 2px #fd9535;
+  border: solid 2px #f59402;
   top: 2px;
 }
+
 </style>
