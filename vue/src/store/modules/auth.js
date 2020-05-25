@@ -14,6 +14,10 @@ export default {
     destroy (state) {
       state.userId = ''
       state.token = ''
+    },
+    logout (state) {
+      state.userId = ''
+      state.token = ''
     }
   },
   // APIによるdataの受け渡し
