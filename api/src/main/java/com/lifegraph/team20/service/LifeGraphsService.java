@@ -81,8 +81,7 @@ public class LifeGraphsService {
   }
 
   //-----ここから削除API(全データ)-----
-  public void delete(LifeGraphData data) {
-    long userId = data.getUserId();
+  public void delete(long userId) {
     // user_idからparent_idを探す
     ParentGraph parent = deleteRepository.parentId(userId);
     long parentId = parent.getId();

@@ -11,7 +11,6 @@ import SearchGraph from './modules/SearchGraph.js'
 import register from './modules/register.js'
 import edit from './modules/edit.js'
 import clear from './modules/clear.js'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
