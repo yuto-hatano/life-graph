@@ -74,4 +74,5 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Arvo:700');
 @import url('https://fonts.googleapis.com/css?family=Seaweed+Script');
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
 </style>

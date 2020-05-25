@@ -16,11 +16,9 @@
         </h5>
       </li>
       <li>
-        <router-link to="/login">
-          <button class="btn_logout">
-            LOGOUT
-          </button>
-        </router-link>
+        <button class="btn_logout" @click="logout">
+          LOGOUT
+        </button>
       </li>
     </ul>
   </div>
@@ -43,12 +41,22 @@ export default {
       this.user_name = Account.account.username
       const authority = Account.account.name
       if (authority === 'ROLE_ADMIN') {
-        this.authority = '管理者'
+        this.authority = 'Manager'
       } else if (authority === 'ROLE_MODERATOR') {
-        this.authority = 'モデレーター'
+        this.authority = 'Moderator'
       } else {
-        this.authority = '一般ユーザー'
+        this.authority = 'General user'
       }
+    },
+
+    logout () {
+      this.$store.dispatch(
+        'auth/logout'
+      )
+      this.$store.dispatch(
+        'account/deleteAccount'
+      )
+      this.$router.push('login')
     }
   }
 
@@ -63,6 +71,7 @@ export default {
     width:100%;
     height: 60px;
     background-color: #e5f3f3;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16), 0 1px 4px rgba(0, 0, 0, 0.23);
   }
 
   .header_right{
@@ -80,16 +89,17 @@ export default {
   }
 
   .username{
-    font-family: 'Lato', sans-serif;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     margin-bottom: 0;
   }
 
   .authority{
-    font-family: 'Lato', sans-serif;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     margin-top: 0;
   }
 
   .btn_top,.btn_logout{
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   position: relative;
   display: inline-block;
   padding: 0.6em 0.6em;
@@ -99,10 +109,10 @@ export default {
   /* 背景色 */
   background: #fd9535;
   /*少し濃い目の色*/
-  border-bottom: solid 2px #d27d00;
+  border: solid 2px #f59402;
   /*角の丸みをもたせる*/
   border-radius: 4px;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.021);
   font-weight: bold;
     }
 
@@ -115,6 +125,7 @@ export default {
   }
 
   .btn_top{
+    margin-left: 40px;
     cursor : pointer;
     position: absolute;
     top: 5px;
