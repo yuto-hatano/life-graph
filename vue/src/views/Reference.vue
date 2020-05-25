@@ -38,47 +38,27 @@ export default {
     Chart,
     Footer
   },
-  data () {
-    return {
-      // 以下２行 コード検証用
-      // userId: 2,
-      // name: 'taito'
-    }
-  },
   computed: {
     referenceName () {
-      // 実装用
       return this.$store.state.SearchGraph.list.name
-      // コード検証用
-      // return this.name
     },
     referenceUserId () {
-      // 実装用
       return this.$store.state.SearchGraph.list.user_id
-      // コード検証用
-      // return this.user_id
     }
   },
-  // 実装用
   created: function () {
     this.getData()
     this.reference_name()
   },
   methods: {
     getData () {
-      // 実装用
       const userId = this.$store.state.SearchGraph.list.user_id
-      // コード検証用
-      // const userId = this.userId
       this.$store.dispatch(
         'refchart/create', userId
       )
     },
     reference_name () {
-      // 実装用
       var refName = this.$store.state.SearchGraph.name
-      // コード検証用
-      // var refName = this.name
       return refName
     }
 
