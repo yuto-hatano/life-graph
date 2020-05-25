@@ -16,11 +16,9 @@
         </h5>
       </li>
       <li>
-        <router-link to="/login">
-          <button class="btn_logout">
-            LOGOUT
-          </button>
-        </router-link>
+        <button class="btn_logout" @click="logout">
+          LOGOUT
+        </button>
       </li>
     </ul>
   </div>
@@ -49,6 +47,16 @@ export default {
       } else {
         this.authority = 'General user'
       }
+    },
+
+    logout () {
+      this.$store.dispatch(
+        'auth/logout'
+      )
+      this.$store.dispatch(
+        'account/deleteAccount'
+      )
+      this.$router.push('login')
     }
   }
 
