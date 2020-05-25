@@ -68,7 +68,6 @@ export default {
       // 実装用
       // const userId = this.$store.state.SearchGraph.list.user_id
       // コード検証用
-      // console.log('created')
       const userId = this.userId
       this.$store.dispatch(
         'refchart/create', userId
