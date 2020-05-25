@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,21 +33,23 @@ public class LifeGraphsController {
   }
 
   @DeleteMapping(value = "/auth/life_graphs")
-  public void clear(@RequestBody LifeGraphData data) {
+  public ResponseEntity<Void> clear(@RequestBody LifeGraphData data) {
     service.clear(data);
+    return ResponseEntity.noContent().build();
   }
 
   //-----ここから削除API(全データ削除)-----
   @DeleteMapping(value = "/auth/life-graphs")
-  public void deleteGraphs(@RequestBody LifeGraphData data) {
+  public ResponseEntity<Void> deleteGraphs(@RequestBody LifeGraphData data) {
 
     service.delete(data);
+    return ResponseEntity.noContent().build();
   }
 
   //-----ここからレコード参照API-----
   @PostMapping(value = "/auth/ref-record")
-  public ChildGraph refRecode(@RequestBody LifeGraphData data) {
+  public ResponseEntity<ChildGraph> refRecode(@RequestBody LifeGraphData data) {
     ChildGraph record = service.refRecode(data);
-    return record;
+    return ResponseEntity.ok(record);
   }
 }
