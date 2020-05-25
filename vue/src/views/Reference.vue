@@ -76,7 +76,7 @@ export default {
     },
     reference_name () {
       // 実装用
-      var refName =this.$store.state.SearchGraph.name
+      var refName = this.$store.state.SearchGraph.name
       // コード検証用
       // var refName = this.name
       return refName
