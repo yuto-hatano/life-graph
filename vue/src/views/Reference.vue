@@ -11,9 +11,6 @@
         {{ reference_name() }}
       </div>
     </div>
-    <div id="action">
-      <button id="submit" value="データを取得" @click="getData" />
-    </div>
     <div id="Graph">
       <Chart />
     </div>
@@ -61,11 +58,17 @@ export default {
       return this.user_id
     }
   },
+  // 実装用
+  created: function () {
+    this.getData()
+    this.reference_name()
+  },
   methods: {
     getData () {
       // 実装用
       // const userId = this.$store.state.SearchGraph.list.user_id
       // コード検証用
+      // console.log('created')
       const userId = this.userId
       this.$store.dispatch(
         'refchart/create', userId
