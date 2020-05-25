@@ -21,27 +21,46 @@ export default {
   },
   mutations: {
     // TODO: delete because of test
-    SearchGraphs (state, data) {
+    SearchName (state, data) {
       state.name = data.name
       state.user_id = data.user_id
       state.updated_at = data.updated_at
       state.created_at = data.created_at
+      debugger
     }
   },
   actions: {
-    SearchGraphs ({ commit }, data) {
-      const url = '/api/auth/search' + data
-      // const data = {
-      //   likeName = this.like_name,
-      //   startDate = this.start_date,
-      //   finishDate = this.finish_date
-      // }
-      debugger
-      axios.get(url, data)
-        .then(res => commit('SearchGraphs', res.data))
+    SearchName ({ commit }, data) {
+      const url = 'api/auth/search'
+      axios.get(url, {
+        params: {
+          // ここにクエリパラメータを指定する
+          likeName: data.likeName,
+          startDate: data.startDate,
+          fromDate: data.fromDate
+        }
+      }
+      )
+        .then(res => commit('SearchName', res.data))
         .catch(err => err)
+      debugger
+    },
+    SearchDate ({ commit }, data) {
+      const url = '/api/auth/search/'
+      axios.get(url, {
+        params: {
+          // ここにクエリパラメータを指定する
+          likeName: data.likeName,
+          startDate: data.startDate,
+          fromDate: data.fromDate
+        }
+      }
+      )
+        .then(res => commit('SearchDate', res.data))
+        .catch(err => err)
+      debugger
     }
-    //   const url = '/api/auth/search' +data
+    //  const url = '/api/auth/search' +data
 
     //   const data = {
     //     word: 'userName',

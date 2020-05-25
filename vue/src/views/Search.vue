@@ -119,7 +119,7 @@
 <script>
 import Header from '../views/Header.vue'
 import Footer from '../components/Footer.vue'
-import qs from 'qs'
+// import qs from 'qs'
 
 export default {
   name: 'Search',
@@ -227,55 +227,51 @@ export default {
     //   )
     // },
     search_name () {
-      // user_id = ''
-      // username = ''
-      // created_at = ''
-      // updated_at = ''
-      const likeName = this.searchUser
-      const startDate = ''
-      const finishDate = ''
-
-      this.isActive = true
-      const graphInfo = {
-        Info: {
-          $in: [likeName, startDate, finishDate]
-        }
+      // const likeName = this.searchUser
+      // const startDate = ''
+      // const finishDate = ''
+      const data = {
+        likeName: this.searchUser,
+        startDate: '',
+        finishDate: ''
       }
 
-      const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
+      this.isActive = true
+      // const graphInfo = {
+      //   Info: {
+      //     $in: [likeName, startDate, finishDate]
+      //   }
+      // }
+
+      // const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
       this.$store.dispatch(
         //  storeのactionsを呼び出す
         // 'SearchGraph/SearchGraphs',
-        'SearchGraphs',
-        {
-          graphInfo, dataSerializer
-        }
+        'SearchName', data
       )
     },
     search_date () {
-      // user_id = ''
-      // username = ''s
-      // created_at = ''
-      // updated_at = ''
-      const userName = ''
-      const startDate = this.updatedFrom
-      const finishDate = this.updatedTo
-
-      this.isActive = true
-      const graphInfo = {
-        Info: {
-          $in: [userName, startDate, finishDate]
-        }
+      // const likeName = this.searchUser
+      // const startDate = ''
+      // const finishDate = ''
+      const data = {
+        likeName: '',
+        startDate: this.updatedFrom,
+        finishDate: this.updatedTo
       }
 
-      const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
+      this.isActive = true
+      // const graphInfo = {
+      //   Info: {
+      //     $in: [likeName, startDate, finishDate]
+      //   }
+      // }
+
+      // const dataSerializer = (graphInfo) => qs.stringify(graphInfo)
       this.$store.dispatch(
         //  storeのactionsを呼び出す
         // 'SearchGraph/SearchGraphs',
-        'SearchGraphs',
-        {
-          graphInfo, dataSerializer
-        }
+        'SearchDate', data
       )
     },
 
