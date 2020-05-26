@@ -66,6 +66,9 @@
           </div>
         </div>
       </ValidationObserver>
+      <button id="update" @click="update()">
+        更新
+      </button>
     </div>
     <!-- 編集画面 -->
     <div v-if="isEditTable">
@@ -118,6 +121,9 @@
           </div>
         </div>
       </ValidationObserver>
+      <button id="update" @click="update()">
+        更新
+      </button>
     </div>
     <!-- データテーブル -->
     <div v-if="isActive" id="list">
@@ -157,9 +163,6 @@
           </tr>
         </tbody>
       </table>
-      <button id="update" @click="update()">
-        更新
-      </button>
     </div>
     <div id="footer">
       <Footer />
@@ -525,7 +528,7 @@ span {
   border: dashed 2px #666f7a;
   border-radius: 30px;
   width: 60%;
-  margin: 50px auto 20px auto;
+  margin: 50px auto;
   background-color: #fffcf5;
 }
 
@@ -573,7 +576,7 @@ span {
 
 table {
   width: 60%;
-  margin: 45px auto 45px auto;
+  margin: 45px auto 60px auto;
   background-color: #fff;
 }
 
