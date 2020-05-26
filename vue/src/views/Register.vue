@@ -126,9 +126,7 @@
         <thead id="dataThead">
           <tr>
             <!-- <th>ID</th> -->
-            <th @click="sort('age')">
-              年齢▲
-            </th>
+            <th>年齢</th>
             <th>スコア</th>
             <th>コメント</th>
             <th>編集</th>
@@ -159,11 +157,13 @@
           </tr>
         </tbody>
       </table>
+      <button id="update" @click="update()">
+        更新
+      </button>
     </div>
-    <button id="update" @click="update()">
-      更新
-    </button>
-    <Footer />
+    <div id="footer">
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -185,7 +185,7 @@ export default {
       score: '',
       comment: '',
       isActive: false,
-      isAddTable: true,
+      isAddTable: false,
       isEditTable: false,
       contents: [],
       load: true,
@@ -320,6 +320,8 @@ export default {
 #registerSection {
   background-color: #ffffff;
   background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
+  height: 700px;
+  margin: 0;
 }
 
 h1 {
@@ -475,15 +477,16 @@ span {
   margin-left: 30px;
   margin-right: 30px;
   text-decoration: none;
-  color: #FFF;
+  /* color: #FFF; */
   /* 背景色 */
-  background: #fd9535;
+  background: #ffb350;
   /*少し濃い目の色*/
-  border: solid 2px #f59402;
+  border: solid 2px #ffb355;
   /*角の丸みをもたせる*/
   border-radius: 4px;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  /* box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19); */
   font-weight: bold;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
 }
 
 #reset:active {
@@ -493,22 +496,24 @@ span {
 }
 
 #submit {
-  color:rgb(255, 255, 255);
+  /* color:rgb(255, 255, 255); */
   font-family: 'M PLUS Rounded 1c', sans-serif;
   cursor: pointer;
   padding: 0.5em 2em 0.5em 2em;
   font-size: 9pt;
-  background-color: #fcbc73;
+  background: #ffb350;
+  border: solid 2px #ffb355;
   border-radius: 5px;
-  box-shadow: 1px 2px #dddddd;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  /* box-shadow: 1px 2px #dddddd; */
 }
 
 #submit:active {
   color:#FFF;
-  background: #fd9535;
+  /* background: #fd9535; */
   /*少し濃い目の色*/
-  border: solid 2px #f59402;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2);
+  /* border: solid 2px #f59402; */
+  /* box-shadow: inset 0 2px 0 rgba(255,255,255,0.2); */
   position: relative;
   top: 2px;
 }
@@ -616,6 +621,10 @@ table {
   position: relative;
   border: solid 2px #f59402;
   top: 2px;
+}
+
+#footer {
+  margin-top: 313px;
 }
 
 </style>
