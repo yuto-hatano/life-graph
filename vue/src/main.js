@@ -7,7 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ValidationProvider, extend, ValidationObserver, localize } from 'vee-validate'
-import { required, between, max } from 'vee-validate/dist/rules'
+import { required, between, max, email } from 'vee-validate/dist/rules'
 import ja from 'vee-validate/dist/locale/ja.json'
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
@@ -15,10 +15,16 @@ Vue.component('ValidationObserver', ValidationObserver)
 extend('required', required)
 extend('between', between)
 extend('max', max)
+extend('email', email)
 
 extend('required', {
   ...required,
   message: '{_field_}を入力してください'
+})
+
+extend('email', {
+  ...email,
+  message: 'この{_field_}は有効ではありません'
 })
 
 localize('ja', ja)
