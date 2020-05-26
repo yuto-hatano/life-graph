@@ -167,26 +167,7 @@ export default {
       sortOrders: columnsData.sortOrders(),
       // 検索条件だけに沿った配列
       // eventedAction: [],
-      users: [
-        {
-          user_id: 1,
-          name: 'ishida',
-          created_at: '2020/05/01',
-          updated_at: '2020/05/13'
-        },
-        {
-          user_id: 2,
-          name: 'sekiguti',
-          created_at: '2020/05/03',
-          updated_at: '2020/05/10'
-        },
-        {
-          user_id: 3,
-          name: 'sato',
-          created_at: '2020/05/02',
-          updated_at: '2020/05/11'
-        }
-      ],
+      users: [],
       // sort: {
       //   isAct: false,
       //   key: ''
