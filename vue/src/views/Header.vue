@@ -69,7 +69,7 @@ export default {
     margin-top: 0;
     display:block;
     width:100%;
-    height: 60px;
+    height: 70px;
     background-color: #e5f3f3;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16), 0 1px 4px rgba(0, 0, 0, 0.23);
   }
