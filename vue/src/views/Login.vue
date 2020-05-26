@@ -15,29 +15,29 @@
     <!-- <form id="login"> -->
     <div id="login">
       <span class="loginTable">LOGIN</span>
-        <div id="input">
-          <div id="searchMail">
-            <ValidationProvider v-slot="{ errors }" name="メールアドレス" rules="required|email">
-              <label for="email"><img id="iconMail" src="../assets/mail.png"></label>
-              <!-- <font-awesome-icon id="icon_email" icon="envelope" /> -->
-              <input id="email" v-model="email" type="email" placeholder="Mail" autofocus required>
-              <span id="validate">{{ errors[0] }}</span>
-            </ValidationProvider>
-          </div>
-          <div id="searchPassword">
-            <ValidationProvider v-slot="{ errors }" name="パスワード" rules="required">
-              <!-- <font-awesome-icon id="icon_lock" icon="lock" /> -->
-               <label for="password"><img id="iconPassword" src="../assets/password.png"></label>
-              <input id="password" v-model="password" type="password" placeholder="Password" required>
-              <span id="validate">{{ errors[0] }}</span>
-            </ValidationProvider>
-          </div>
+      <div id="input">
+        <div id="searchMail">
+          <ValidationProvider v-slot="{ errors }" name="メールアドレス" rules="required|email">
+            <label for="email"><img id="iconMail" src="../assets/mail.png"></label>
+            <!-- <font-awesome-icon id="icon_email" icon="envelope" /> -->
+            <input id="email" v-model="email" type="email" placeholder="Mail" autofocus required>
+            <span id="validate">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
-        <div id="action">
-          <button id="submit" value="Enter" @click="login()">
-            SIGN IN
-          </button>
+        <div id="searchPassword">
+          <ValidationProvider v-slot="{ errors }" name="パスワード" rules="required">
+            <!-- <font-awesome-icon id="icon_lock" icon="lock" /> -->
+            <label for="password"><img id="iconPassword" src="../assets/password.png"></label>
+            <input id="password" v-model="password" type="password" placeholder="Password" required>
+            <span id="validate">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
+      </div>
+      <div id="action">
+        <button id="submit" value="Enter" @click="login()">
+          SIGN IN
+        </button>
+      </div>
       <div class="loginRegister">
         新規の方は <a id="signUp" href="">新規登録</a>
       </div>
