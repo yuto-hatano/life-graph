@@ -26,7 +26,7 @@
                 <label id="required" for="age">年齢</label>
               </th>
               <td>
-                <validation-provider v-slot="{ errors }" name="数値" rules="required|between:0,100">
+                <validation-provider v-slot="{ errors }" name="年齢" rules="required|between:0,100">
                   <input id="age" v-model="age" min="0" max="100" type="number">
                   <span>{{ errors[0] }}</span>
                 </validation-provider>
@@ -37,7 +37,7 @@
                 <label id="required" for="score">スコア</label>
               </th>
               <td>
-                <validation-provider v-slot="{ errors }" name="数値" rules="required|between:-100,100">
+                <validation-provider v-slot="{ errors }" name="スコア" rules="required|between:-100,100">
                   <input id="score" v-model="score" min="-100" max="100" type="number">
                   <span>{{ errors[0] }}</span>
                 </validation-provider>
@@ -126,7 +126,9 @@
         <thead id="dataThead">
           <tr>
             <!-- <th>ID</th> -->
-            <th>年齢</th>
+            <th @click="sort('age')">
+              年齢▲
+            </th>
             <th>スコア</th>
             <th>コメント</th>
             <th>編集</th>
@@ -210,6 +212,13 @@ export default {
   },
 
   methods: {
+    sort (age) {
+      this.contents.sort(function (a, b) {
+        if (a.id < b.id) return -1
+        if (a.id > b.id) return 1
+        return 0
+      })
+    },
     setContents () {
       this.contents = this.$store.state.refchart.contents
     },

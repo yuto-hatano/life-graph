@@ -27,6 +27,11 @@ extend('email', {
   message: 'この{_field_}は有効ではありません'
 })
 
+extend('between', {
+  ...between,
+  message: '{_field_}は{min}から{max}を入力してください'
+})
+
 localize('ja', ja)
 
 library.add(faEnvelope, faLock)
