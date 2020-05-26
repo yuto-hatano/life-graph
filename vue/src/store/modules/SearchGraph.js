@@ -30,9 +30,13 @@ export default {
     }
   },
   actions: {
-    SearchGraph ({ commit }, data) {
-      const url = 'api/auth/search'
+    //   paramsは第2引数に入れなければならないｓ
+    SearchGraph ({ commit, rootState }, data) {
+      const url = '/api/life-graphs'
       axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${rootState.auth.token}`
+        },
         params: {
           // ここにクエリパラメータを指定する
           likeName: data.likeName,
