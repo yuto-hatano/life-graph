@@ -29,7 +29,7 @@ const routes = [
     component: Top
   },
   {
-    path: '/register',
+    path: '/life-graph/new',
     name: 'Register',
     component: Register
     // route level code-splitting
@@ -40,13 +40,13 @@ const routes = [
     // }
   },
   {
-    path: '/search',
+    path: '/life-graph/list',
     name: 'Search',
     component: Search
   },
 
   {
-    path: '/reference',
+    path: '/reference/:userId',
     name: 'Reference',
     component: Reference
   }
