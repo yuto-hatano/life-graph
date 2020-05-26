@@ -24,7 +24,7 @@
           <ValidationObserver v-slot="{ invalid }" @active.prevent="active()">
             <validation-provider v-slot="{ errors }" name="ユーザー名" rules="required">
               <input id="search_name" v-model="searchUser" type="text" placeholder="ユーザー名">
-              <span>{{ errors[0] }}</span>
+              <span id="validate">{{ errors[0] }}</span>
             </validation-provider>
             <div>
               <button id="clear" @click="clear">
@@ -43,12 +43,12 @@
           <ValidationObserver v-slot="{ invalid }" @active.prevent="active()">
             <validation-provider v-slot="{ errors }" name="更新日時" rules="required">
               <input id="search_From" v-model="updatedFrom" type="date">
-              <span>{{ errors[0] }}</span>
+              <span id="validate">{{ errors[0] }}</span>
             </validation-provider>
             <p>〜</p>
             <validation-provider v-slot="{ errors }" name="更新日時" rules="required">
               <input id="search_To" v-model="updatedTo" type="date">
-              <span>{{ errors[0] }}</span>
+              <span id="validate">{{ errors[0] }}</span>
             </validation-provider>
             <div>
               <button id="clear" @click="clear">
@@ -64,28 +64,28 @@
           </ValidationObserver>
         </div>
       </div>
-      <div id="output">
+      <div v-if="isActive" id="output">
         <p id="serch_tittle">
           検索結果
         </p>
         <div>
           <table id="table">
             <tr class="table_2">
-              <th>
+              <th @click="sortBy('name')">
                 ユーザー名
               </th>
-              <th>
-                <!-- <th :class="sortedClass('created_at')" @click="sortBy('created_at')"> -->
+              <th :class="['sortable',{active: sortKey == 'created_at' }]" @click="sortBy(&quot;created_at&quot;)">
                 登録日時
+                <span :class="sortOrders['created_at'] > 0 ? 'asc' : 'desc'">▼</span>
               </th>
-              <th>
-                <!-- <th :class="sortedClass('updated_at')" @click="sortBy('updated_at')"> -->
+              <th :class="{ active: sortKey == 'updated_at' }" class="sortable" @click="sortBy(&quot;updated_at&quot;)">
                 更新日時
+                <span :class="sortOrders['updated_at'] > 0 ? 'asc' : 'desc'">▼</span>
               </th>
               <th>参照</th>
             </tr>
-            <tbody v-if="isActive">
-              <tr v-for="user in users" :key="user.id">
+            <tbody>
+              <tr v-for="user in filteredData" :key="user.id">
                 <!-- <tr v-for="user in eventedAction" :key="user.id"> -->
                 <td>
                   {{ user.name }}
@@ -132,6 +132,21 @@ export default {
     }
   },
   data () {
+    const columnsData = {
+      colmuns: [
+        'name',
+        'created_at',
+        'updated_at'
+      ],
+      users: [],
+      sortOrders () {
+        const sortOrder = {}
+        columnsData.colmuns.forEach(function (key) {
+          sortOrder[key] = 1
+        })
+        return sortOrder
+      }
+    }
     return {
       user_id: '',
       username: '',
@@ -148,27 +163,29 @@ export default {
       isOpenSearch: true,
       // デフォルトを降順にする
       sortDesc: true,
+      sortKey: '', // ソート対象
+      sortOrders: columnsData.sortOrders(),
       // 検索条件だけに沿った配列
       // eventedAction: [],
       users: [
-        // {
-        //   user_id: 1,
-        //   name: 'ishida',
-        //   created_at: '2020/05/01',
-        //   updated_at: '2020/05/13'
-        // },
-        // {
-        //   user_id: 2,
-        //   name: 'sekiguti',
-        //   created_at: '2020/05/03',
-        //   updated_at: '2020/05/10'
-        // },
-        // {
-        //   user_id: 3,
-        //   name: 'sato',
-        //   created_at: '2020/05/02',
-        //   updated_at: '2020/05/11'
-        // }
+        {
+          user_id: 1,
+          name: 'ishida',
+          created_at: '2020/05/01',
+          updated_at: '2020/05/13'
+        },
+        {
+          user_id: 2,
+          name: 'sekiguti',
+          created_at: '2020/05/03',
+          updated_at: '2020/05/10'
+        },
+        {
+          user_id: 3,
+          name: 'sato',
+          created_at: '2020/05/02',
+          updated_at: '2020/05/11'
+        }
       ],
       // sort: {
       //   isAct: false,
@@ -183,21 +200,30 @@ export default {
   computed: {
     searchContents () {
       return this.$store.state.SearchGraph.users
+    },
+    filteredData () {
+      var data = this.users
+      var sortKey = this.sortKey
+      var wordKey = this.word && this.word.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      // 検索テキストがある場合
+      if (wordKey) {
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(wordKey) > -1
+          })
+        })
+      }
+      // ソートが選択されている場合
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
     }
-    //   eventedAction () {
-    //     const list = this.users.slice()
-
-    //     if (this.sort.key) {
-    //       list.sort((a, b) => {
-    //         a = a[this.sort.key]
-    //         b = b[this.sort.key]
-    //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //       })
-    //     }
-
-    //     return list
-    //   }
-
   },
 
   watch: {
@@ -207,6 +233,11 @@ export default {
   },
 
   methods: {
+    // ソート対象、ソートの値を変更する
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    },
     searchUserName () {
       this.isOpenSearch = false
       this.isOpenUser = true
@@ -264,15 +295,15 @@ export default {
     //   return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : ''
     // },
     resetting () {
+      this.isActive = false
+      this.isOpenUser = false
+      this.isOpenUpdata = false
+      this.isOpenSearch = true
       this.sort.key = ''
       this.sort.isAsc = false
       this.searchUser = ''
       this.updatedFrom = ''
       this.updatedTo = ''
-      this.isActive = false
-      this.isOpenUser = false
-      this.isOpenUpdata = false
-      this.isOpenSearch = true
     }
   }
 }
@@ -310,11 +341,12 @@ p {
   color: black;
 }
 
-span {
+#validate {
   font-size: 10pt;
   display: block;
   margin-top: 10px;
   color: rgb(233, 0, 0);
+  margin-bottom: 10px;
 }
 
 #serch_tittle {
