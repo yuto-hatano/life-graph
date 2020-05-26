@@ -137,20 +137,16 @@ export default {
       // this.checkContents.map((content) => {
       //   comment.push(content.comment)
       // })
-      console.log('aaa')
       this.options.tooltips.custom = function (tooltipModel) {
-        console.log('bbb')
         // ツールチップ要素
         // サイトから持ってきた(https://misc.0o0o.org/chartjs-doc-ja/configuration/tooltip.html#%E5%A4%96%E9%83%A8%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%83%84%E3%83%BC%E3%83%AB%E3%83%81%E3%83%83%E3%83%97)
         var tooltipEl = document.getElementById('chartjs-tooltip')
-        console.log('ccc')
         // 最初のレンダリング時に要素を作成する
         if (!tooltipEl) {
           tooltipEl = document.createElement('div')
           tooltipEl.id = 'chartjs-tooltip'
           tooltipEl.innerHTML = '<table></table>'
           document.body.appendChild(tooltipEl)
-          console.log('ddd')
         }
         tooltipEl.style.opacity = 1
 
@@ -181,7 +177,6 @@ export default {
           titleLines.forEach(function (age) {
             // 何歳スタートか（x軸）
             // var comNum = age - 1
-            debugger
             // 比較演算子「＝＝＝」は型まで比較される。以前説明あったきがする。「contents.age」はchart.js(ref.js)のなかの内容。右辺「age」は134行あたりの内容。
             // ここまで比較されるので型は合わせる。（数字型に）Number(age)みたいに
             var comment = comments.find(contents => contents.age === Number(age)).comment
