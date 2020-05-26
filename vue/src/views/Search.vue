@@ -102,7 +102,7 @@
                 </td>
                 <td>
                   <router-link :to="{name: 'Reference',params:{userId:user.id}}">
-                    <button id="reference" @click="reference(index)">
+                    <button class="button_ref" @click="reference(index)">
                       参照
                     </button>
                   </router-link>
