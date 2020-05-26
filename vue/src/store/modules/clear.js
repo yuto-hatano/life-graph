@@ -14,7 +14,8 @@ export default {
   actions: {
     create ({ commit, rootState }, data) {
       const url = '/api/life_graphs'
-      Axios.delete(url, { data }, {
+      Axios.delete(url, {
+        data,
         headers: {
           Authorization: `Bearer ${rootState.auth.token}`
         }

@@ -51,6 +51,8 @@
       <div class="message" />
       <div class="message" />
       <div class="message" />
+      <div class="message" />
+      <div class="message" />
     </div>
   </div>
 </template>
@@ -156,6 +158,14 @@ export default {
 .message:nth-child(7) {
   left: 60px;
   animation-delay: 9s;
+}
+.message:nth-child(8) {
+  left: 1200px;
+  animation-delay: 1s;
+}
+.message:nth-child(9) {
+  left: 1000px;
+  animation-delay: 10.8s;
 }
 @keyframes move {
   0% {

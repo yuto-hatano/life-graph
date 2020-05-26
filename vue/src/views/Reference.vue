@@ -18,7 +18,7 @@
       <Chart />
     </div>
     <div class="back_button">
-      <router-link to="/Search/" class="btn-square-pop">
+      <router-link to="/life-graph/list" class="btn-square-pop">
         検索画面へ戻る
       </router-link>
     </div>
@@ -33,6 +33,7 @@ import Header from '../views/Header.vue'
 import Footer from '../components/Footer.vue'
 
 export default {
+  name: 'Reference',
   components: {
     Header,
     Chart,
@@ -40,19 +41,19 @@ export default {
   },
   computed: {
     referenceName () {
-      return this.$store.state.SearchGraph.list.name
+      return this.$store.state.SearchGraph.users.name
     },
     referenceUserId () {
-      return this.$store.state.SearchGraph.list.user_id
+      return this.$store.state.SearchGraph.users.user_id
     }
   },
   created: function () {
-    this.getData()
+  //   this.getData()
     this.reference_name()
   },
   methods: {
     getData () {
-      const userId = this.$store.state.SearchGraph.list.user_id
+      const userId = this.$store.state.refchart.contents.user_id
       this.$store.dispatch(
         'refchart/create', userId
       )
