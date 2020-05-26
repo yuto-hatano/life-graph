@@ -101,7 +101,7 @@
                   {{ user.updated_at | moment }}
                 </td>
                 <td>
-                  <router-link to="'/Reference/' + user.id">
+                  <router-link :to="{name: 'Reference',params:{userId:user.id}}">
                     <button id="reference" @click="reference(index)">
                       参照
                     </button>

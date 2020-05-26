@@ -46,7 +46,7 @@ const routes = [
   },
 
   {
-    path: '/reference',
+    path: '/reference/:userId',
     name: 'Reference',
     component: Reference
   }
