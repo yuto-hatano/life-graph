@@ -85,8 +85,12 @@
               <th>参照</th>
             </tr>
             <tbody>
-              <tr v-for="user in filteredData" :key="user.id">
+              <tr v-for="(user,index) in filteredData" :key="index">
                 <!-- <tr v-for="user in eventedAction" :key="user.id"> -->
+                <!-- 非表示 -->
+                <td hidden>
+                  {{ user.id }}
+                </td>
                 <td>
                   {{ user.name }}
                 </td>
@@ -97,9 +101,14 @@
                   {{ user.updated_at | moment }}
                 </td>
                 <td>
-                  <router-link to="'/Reference/' + user.id" tag="button" class="button_ref">
-                    参照
+                  <router-link :to="{name: 'Reference',params:{userId:user.id}}">
+                    <button id="reference" @click="reference(index)">
+                      参照
+                    </button>
                   </router-link>
+                  <!-- <router-link to="'/Reference/' + user.id" tag="button" class="button">
+                    参照
+                  </router-link> -->
                 </td>
               </tr>
             </tbody>
@@ -269,6 +278,13 @@ export default {
     },
     setUsers () {
       this.users = this.$store.state.SearchGraph.users
+    },
+    reference (index) {
+      this.editIndex = index
+      const id = this.users[index].id
+      this.$store.dispatch(
+        'refchart/create', id
+      )
     },
     // sortBy (key) {
     //   this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false
