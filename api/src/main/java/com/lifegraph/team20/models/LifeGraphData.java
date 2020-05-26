@@ -30,6 +30,6 @@ public class LifeGraphData {
   private int score;
 
   //  @NotNull
-  @Size(max = 100, min = 1)
+  @Size(max = 100, min = 0)
   private String comment;
 }

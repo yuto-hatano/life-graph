@@ -31,26 +31,7 @@ export default {
         tooltips: {
           // 元のやつ出さない
           enabled: false,
-          // callbacks: {
-          //   label: (labels, data) => {
-          //     const { label } =
-          //     data.datasets[labels.datasetsIndex]
-          //     const value = labels.value.eplace('null', '')
-          //     return value && `${label}: ${value}`
-          //   }
-          // },
-          // ここにカスタムしたものをつめる
-          // 多分最後表示されず困ってたのは、customで定義しているのに、tooltipをちゃんと入れ込めていなかったから・・・？
           custom: []
-          // ホバー時の動作（ツールチップ）
-          // カーソルが合ったときに全ての値が表示される「near set」と迷い中
-        //   callbacks: {
-        //     afterbody: function (data) {
-        //       var commentText = ['コメント１', 'コメント２', 'コメント3', 'コメント4', 'コメント5', 'コメント6', 'コメント7', 'コメント8', 'コメント9', 'コメント10', 'コメント11', 'コメント12', 'コメント13', 'コメント14', 'コメント15', 'コメント16', 'コメント17', 'コメント18', 'コメント19', 'コメント20', 'コメント21', 'コメント22', 'コメント23']
-        //       return commentText
-        //     }
-        //   }
-        // },
         },
         // 元のcanvasのサイズを保つか保たないのか（おそらく適用してくれていない）
         // おそらく処理の順番の関係で適用されていなかったっぽい？位置こっちにずらしたらいけた
@@ -95,7 +76,8 @@ export default {
         //   }
         // },
       },
-      responsive: true
+      responsive: true,
+      content: []
     }
   },
   computed: {
@@ -123,7 +105,6 @@ export default {
     this.setComment()
     this.renderChart(this.data, this.options)
   },
-
   methods: {
     setAge () {
       const age = []
@@ -152,18 +133,26 @@ export default {
       const comments = this.checkContents.map((content) => {
         return { age: content.age, comment: content.comment }
       })
+      // const comment = []
+      // this.checkContents.map((content) => {
+      //   comment.push(content.comment)
+      // })
+      console.log('aaa')
       this.options.tooltips.custom = function (tooltipModel) {
+        console.log('bbb')
         // ツールチップ要素
         // サイトから持ってきた(https://misc.0o0o.org/chartjs-doc-ja/configuration/tooltip.html#%E5%A4%96%E9%83%A8%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%83%84%E3%83%BC%E3%83%AB%E3%83%81%E3%83%83%E3%83%97)
         var tooltipEl = document.getElementById('chartjs-tooltip')
-
+        console.log('ccc')
         // 最初のレンダリング時に要素を作成する
         if (!tooltipEl) {
           tooltipEl = document.createElement('div')
           tooltipEl.id = 'chartjs-tooltip'
           tooltipEl.innerHTML = '<table></table>'
           document.body.appendChild(tooltipEl)
+          console.log('ddd')
         }
+        tooltipEl.style.opacity = 1
 
         // ツールチップがない場合は非表示
         if (tooltipModel.opacity === 0) {
@@ -192,7 +181,10 @@ export default {
           titleLines.forEach(function (age) {
             // 何歳スタートか（x軸）
             // var comNum = age - 1
-            var comment = comments.find(contents => contents.age === age).comment
+            debugger
+            // 比較演算子「＝＝＝」は型まで比較される。以前説明あったきがする。「contents.age」はchart.js(ref.js)のなかの内容。右辺「age」は134行あたりの内容。
+            // ここまで比較されるので型は合わせる。（数字型に）Number(age)みたいに
+            var comment = comments.find(contents => contents.age === Number(age)).comment
             innerHtml += '<tr><th>' + age + '歳' + '</th></tr>'
             bodyLines.forEach(function (body, i) {
               var colors = tooltipModel.labelColors[i]
@@ -223,7 +215,7 @@ export default {
         tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
         tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
         // 背景色指定
-        tooltipEl.style.backgroundColor = 'rgba(255, 0, 0, 0.8)'
+        tooltipEl.style.backgroundColor = 'rgba(240, 248, 255, 0.8)'
         tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
         tooltipEl.style.fontSize = tooltipModel.bodyFontSize
         tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
