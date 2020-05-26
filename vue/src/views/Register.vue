@@ -472,6 +472,7 @@ span {
   font-size: 9pt;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   position: relative;
+  font-weight: bold;
   display: inline-block;
   padding: 0.5em 2em 0.5em 2em;
   margin-left: 30px;
@@ -501,6 +502,7 @@ span {
   cursor: pointer;
   padding: 0.5em 2em 0.5em 2em;
   font-size: 9pt;
+  font-weight: bold;
   background: #ffb350;
   border: solid 2px #ffb355;
   border-radius: 5px;
