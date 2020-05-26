@@ -3,10 +3,10 @@
     <div>
       <Header />
     </div>
+    <h1>Life Graph</h1>
     <div class="message_3">
       You can search "LifeGraph".
     </div>
-    <h1>Life Graph</h1>
     <div id="users">
       <div id="field">
         <p id="serch_tittle">
@@ -121,19 +121,21 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '../views/Header.vue'
-// import Footer from '../components/Footer.vue'
+import Footer from '../components/Footer.vue'
 import moment from 'moment'
 // import qs from 'qs'
 
 export default {
   name: 'Search',
   components: {
-    Header
+    Header,
+    Footer
   },
   filters: {
     moment: function (date) {
@@ -326,8 +328,8 @@ h1 {
 }
 
 #field {
-  border: 1px solid #434a52;
-  border-radius: 50px;
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
   margin: 40px auto;
   width: 50%;
   padding: 30px 0;
@@ -347,8 +349,11 @@ p {
 }
 
 #serch_tittle {
-  font-size: 25px;
-  font: bold;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 20px;
+  color: #2c3e50;
+  padding-bottom: 15px;
+  font-weight: bold;
 }
 
 #searchUserName {
@@ -424,11 +429,10 @@ p {
   margin-left: 30px;
   margin-right: 30px;
   text-decoration: none;
-  color: #FFF;
   /* 背景色 */
-  background: #fd9535;
+  background: #ffb350;
   /*少し濃い目の色*/
-  border: solid 2px #f59402;
+  border: solid 2px #ffb355;
   /*角の丸みをもたせる*/
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
@@ -445,11 +449,10 @@ p {
   margin-left: 30px;
   margin-right: 30px;
   text-decoration: none;
-  color: #FFF;
   /* 背景色 */
-  background: #fd9535;
+  background: #ffb350;
   /*少し濃い目の色*/
-  border: solid 2px #f59402;
+  border: solid 2px #ffb355;
   /*角の丸みをもたせる*/
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
@@ -458,44 +461,53 @@ p {
 
 #submit {
   font-size: 8pt;
-  color:rgb(158, 157, 157);
   padding: 0.6em 1em 0.6em 1em;
+  font-weight: bold;
   margin-left: 30px;
   margin-right: 30px;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   cursor: pointer;
-  background-color: #dddddd;
-  border-radius: 5px;
-  box-shadow: 1px 2px #dddddd;
+  background: #ffb350;
+  border: solid 2px #ffb355;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
 }
 
 #output {
-  border: 1px solid #434a52;
-  border-radius: 50px;
-  margin: 60px auto;
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
+  margin: 40px auto;
   width: 50%;
-  padding: 20px 0;
+  padding: 30px 0;
   background-color: #fffcf5;
 }
 
 #table {
-  margin: 30px auto;
-  border: 1px solid #434a52;
-  border-radius: 5px;
-  width: 70%;
+  border-collapse: separate;
+  border: solid 1px #666f7a;
+  border-radius: 30px;
+  width: 80%;
+  margin: 30px auto 20px auto;
+  background-color: #fff;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  vertical-align: middle;
 }
 
 th.sorted.desc::after{
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     display: inline-block;
     content: '▼';
 }
 
 th.sorted.asc::after{
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     display: inline-block;
     content: '▲';
 }
 
 th {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   padding: 10px 10px;
   cursor: pointer;
 }
@@ -504,7 +516,43 @@ td {
   padding: 5px 20px;
 }
 
+.button_ref {
+  cursor: pointer;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 1em 0.6em 1em;
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+}
+
 #reset {
-  font-size: 1em;
+  cursor: pointer;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  display: inline-block;
+  padding: 0.6em 1em 0.6em 1em;
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #FFF;
+  /* 背景色 */
+  background: #fd9535;
+  /*少し濃い目の色*/
+  border: solid 2px #f59402;
+  /*角の丸みをもたせる*/
+  border-radius: 4px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
 }
 </style>
