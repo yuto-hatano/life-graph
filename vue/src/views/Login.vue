@@ -19,8 +19,6 @@
         Login Error!!
       </div>
       <div id="input">
-        <!-- <span v-if="!errMessage" class="loginNoAlert" />
-        <span v-if="errMessage" class="loginAlert">メールアドレスまたはパスワードが間違っています</span> -->
         <div id="searchMail">
           <ValidationProvider v-slot="{ errors }" name="メールアドレス" rules="required|email">
             <label for="email"><img id="iconMail" src="../assets/mail.png"></label>
@@ -68,7 +66,6 @@ export default {
     return {
       email: '',
       password: ''
-      // errMessage: false
     }
   },
   computed: {
@@ -87,10 +84,6 @@ export default {
     isLoginError () {
       return this.$store.state.auth.isLoginError
     }
-
-    // errMessage () {
-    //   return this.$store.state.auth.message
-    // }
   },
   watch: {
     token (newToken) {
@@ -103,13 +96,6 @@ export default {
     account (newAccount) {
       this.$router.push('/top')
     }
-    // tokenの状態を監視して、tokenが更新されたらtop画面に遷移する
-    // token (newToken) {
-    //   this.$router.push('/top')
-    // }
-    // err () {
-    //   this.errMessage = true
-    // }
   },
   mounted () {
     if (this.$store.state.auth.token) {
