@@ -16,7 +16,8 @@
     <div id="login">
       <span class="loginTable">LOGIN</span>
       <div v-if="isLoginError" class="login_error">
-        Login Error!!
+        <img id="error_icon" src="../assets/error.png">
+        ログインに失敗しました
       </div>
       <div id="input">
         <div id="searchMail">
@@ -309,6 +310,16 @@ h1 span {
   z-index: 50;
 }
 
+#error_icon {
+  width: 20px;
+}
+
+.login_error {
+  color: rgb(233, 0, 0);
+  font-size: 23px;
+  margin-top: 30px;
+}
+
 /* h1:after,
 h1:before {
   background-color: #777;
@@ -329,7 +340,7 @@ h1:before {
 
 #input {
   margin: 0 auto;
-  padding: 25px 12px 15px 12px;
+  padding: 0 12px 15px 12px;
   position: relative;
   width: 70%;
   z-index: 80;
