@@ -4,12 +4,18 @@ export default {
   namespaced: true,
   state: {
     userId: '',
-    token: ''
+    token: '',
+    isLoginError: false
   },
   mutations: {
     create (state, data) {
       state.userId = data.id
       state.token = data.accessToken
+      state.isLoginError = false
+    },
+    // エラーメッセージ表示
+    errorMessage (state) {
+      state.message = !state.message
     },
     // destroy (state) {
     //   state.userId = ''
@@ -18,6 +24,13 @@ export default {
     logout (state) {
       state.userId = ''
       state.token = ''
+      state.isLoginError = false
+    },
+    loginError (state) {
+      state.isLoginError = true
+    },
+    resetLoginError (state) {
+      state.isLoginError = false
     }
   },
   // APIによるdataの受け渡し
@@ -26,7 +39,7 @@ export default {
       const url = '/api/auth/login'
       await Axios.post(url, data)
         .then(res => commit('create', res.data))
-        .catch(err => err)
+        .catch(() => commit('loginError'))
     },
     logout ({ commit }) {
       commit('logout')

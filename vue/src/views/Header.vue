@@ -56,6 +56,9 @@ export default {
       this.$store.dispatch(
         'account/deleteAccount'
       )
+      this.$store.dispatch(
+        'refchart/clear'
+      )
       this.$router.push('/login')
     }
   }
