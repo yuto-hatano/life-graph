@@ -12,6 +12,9 @@ export default {
     create (state, data) {
       state.contents = data
       state.loaded = !state.loaded
+    },
+    clear (state) {
+      state.contents = []
     }
   },
   // APIによるdataの受け渡し
@@ -25,6 +28,9 @@ export default {
       })
         .then(res => commit('create', res.data))
         .catch(err => err)
+    },
+    clear ({ commit }) {
+      commit('clear')
     }
   }
 }
