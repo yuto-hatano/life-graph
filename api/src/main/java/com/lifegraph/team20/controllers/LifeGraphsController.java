@@ -91,7 +91,8 @@ public class LifeGraphsController {
     if (likeName.isPresent() && !StringUtils.isEmpty(likeName.get())) {
       sql += " where username like '%" + likeName.get() + "%'";
     } else if (startDate.isPresent() && finishDate.isPresent()) {
-      sql += "WHERE `updated_at` BETWEEN '" + startDate.get() + "' AND '" + finishDate.get() + "'";
+      sql += "WHERE `updated_at` BETWEEN '" + DateUtil.convertForQuery(startDate.get(), false) + "' AND '"
+          + DateUtil.convertForQuery(finishDate.get(), true) + "'";
     }
     // sqlに"select ~"という文字列をいれる
     return jdbcTemplate.query(sql, new RowMapper<SearchGraph>() {
