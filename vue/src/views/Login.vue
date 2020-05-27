@@ -15,6 +15,9 @@
     <!-- <form id="login"> -->
     <div id="login">
       <span class="loginTable">LOGIN</span>
+      <div v-if="isLoginError" class="login_error">
+        Login Error!!
+      </div>
       <div id="input">
         <div id="searchMail">
           <ValidationProvider v-slot="{ errors }" name="メールアドレス" rules="required|email">
@@ -76,6 +79,10 @@ export default {
 
     account () {
       return this.$store.state.account.account
+    },
+
+    isLoginError () {
+      return this.$store.state.auth.isLoginError
     }
   },
   watch: {
@@ -94,6 +101,11 @@ export default {
     //   this.$router.push('/top')
     // }
   },
+
+  created () {
+    this.$store.commit('auth/resetLoginError')
+  },
+
   methods: {
     login () {
       // ログイン画面で入力したemailとpasswordをAPIに渡す
@@ -111,62 +123,74 @@ export default {
 
 <style scoped>
 #loginSection {
-  z-index: -100;
-  background-color:#e5f3f3;
+  background-color: #e5f3f3;
   height: auto;
   padding: 100px 0;
+  z-index: -100;
 }
+
 #parent {
-  padding: 0 200px 0 200px;
+  height: 30vh;
   margin: 0 auto;
+  padding: 0 200px 0 200px;
   position: relative;
   width: 600px;
-  height: 30vh;
+
   /* overflow: hidden; */
 }
+
 .message {
-  z-index: 0;
-  position: fixed;
-  left: 200px;
-  bottom: -100px;
-  height: 60px;
-  width: 60px;
+  animation: move 5s infinite linear;
   background-color: rgba(255, 233, 35, 0.788);
   border-radius: 220px;
-  animation: move 5s infinite linear;
+  bottom: -100px;
+  height: 60px;
+  left: 200px;
+  position: fixed;
+  width: 60px;
+  z-index: 0;
 }
+
 .message:nth-child(2) {
+  animation-delay: 2s;
   left: 900px;
-  animation-delay: 2s;
 }
+
 .message:nth-child(3) {
-  left: 500px;
   animation-delay: 6s;
+  left: 500px;
 }
+
 .message:nth-child(4) {
-  left: 400px;
   animation-delay: 5s;
+  left: 400px;
 }
+
 .message:nth-child(5) {
-  left: 700px;
   animation-delay: 2s;
+  left: 700px;
 }
+
 .message:nth-child(6) {
-  left: 800px;
   animation-delay: 10s;
+  left: 800px;
 }
+
 .message:nth-child(7) {
-  left: 60px;
   animation-delay: 9s;
+  left: 60px;
 }
+
 .message:nth-child(8) {
-  left: 1200px;
   animation-delay: 1s;
+  left: 1200px;
 }
+
 .message:nth-child(9) {
-  left: 1000px;
   animation-delay: 10.8s;
+  left: 1000px;
 }
+
 @keyframes move {
   0% {
     bottom: -50px;
@@ -175,13 +199,14 @@ export default {
     bottom: 100%;
   }
 }
+
 @keyframes fadeIn {
-    0% {
-        opacity:0;
-    }
-    100% {
-        opacity:1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .message:hover {
@@ -189,12 +214,13 @@ export default {
 }
 
 h1 span {
-  z-index: 30;
-  font: 120px 'Arvo', serif;
   color: #fff;
-  height: 600px;
-  position: absolute;
+  font: 120px 'Arvo', serif;
   font-weight: bold;
+  height: 600px;
+  letter-spacing: 0.01em;
+  line-height: 0.9em;
+  position: absolute;
   text-shadow:
     -3px -3px 0  rgb(59, 59, 59),
     3px -3px 0  rgb(59, 59, 59),
@@ -204,40 +230,50 @@ h1 span {
     5px 5px 0 #fff,
     6px 6px 0 #fff,
     7px 7px 0 #fff;
-  line-height: 0.9em;
-  letter-spacing: 0.01em;  width: 20px;
-  transform: scaleY(0.7);
   -webkit-transform: scaleY(0.7);
   -moz-transform: scaleY(0.7);
+  transform: scaleY(0.7);
   transform-origin: bottom center;
+  width: 20px;
+  z-index: 30;
 }
+
 .char1 {
   transform: rotate(-40deg);
 }
+
 .char2 {
   transform: rotate(-30deg);
 }
+
 .char3 {
   transform: rotate(-24deg);
 }
+
 .char4 {
   transform: rotate(-18deg);
 }
+
 .char5 {
   transform: rotate(-4deg);
 }
+
 .char6 {
   transform: rotate(-5deg);
 }
+
 .char7 {
   transform: rotate(7deg);
 }
+
 .char8 {
   transform: rotate(14.3deg);
 }
+
 .char9 {
   transform: rotate(22.5deg);
 }
+
 .char10 {
   transform: rotate(32deg);
 }
@@ -250,26 +286,26 @@ h1 span {
 } */
 
 #login {
-  z-index: 90;
+  background-color: #fff;
+  border-bottom: 4px solid #434a52;
+  border-top: 4px solid #434a52;
+  margin: 250px auto 0 auto;
+  padding: 40px 0;
   position: relative;
   width: 40%;
-  border-top: 4px solid #434a52;
-  border-bottom: 4px solid #434a52;
-  padding: 40px 0;
-  margin: 250px auto 0 auto;
-  background-color: #fff;
+  z-index: 90;
 }
 
 .loginTable {
-  z-index: 50;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
-  text-transform: uppercase;
-  text-align: center;
   color: rgb(82, 82, 82);
-  margin: 20px 0;
-  letter-spacing: 4px;
   font: normal 43px/1 Helvetica, Arial, sans-serif;
+  letter-spacing: 4px;
+  margin: 20px 0;
   position: relative;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7), 0 2px 0 rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  z-index: 50;
 }
 
 /* h1:after,
@@ -291,107 +327,113 @@ h1:before {
 } */
 
 #input {
-  z-index: 80;
-  width: 70%;
-  padding:25px 12px 15px 12px;
   margin: 0 auto;
+  padding: 25px 12px 15px 12px;
   position: relative;
+  width: 70%;
+  z-index: 80;
 }
 
 #validate {
-  font-size: 13pt;
-  display: inline;
   color: rgb(233, 0, 0);
+  display: inline;
+  font-size: 13pt;
 }
 
 #icon_email {
-  position:absolute;
-  left:8px;
-  top:25px;
-  background:none;
-  color:#666;
-  border:none;
-  font-size:28px;
+  background: none;
+  background-color: #ddd;
+  border: none;
+  color: #666;
+  font-size: 28px;
+  left: 8px;
   padding: 6px 7px;
-  background-color: #dddddd;
+  position: absolute;
+  top: 25px;
 }
 
 #iconMail {
   display: inline-block;
-  width: 8%;
   float: left;
+  width: 8%;
 }
 
 #email {
-  cursor : pointer;
-  padding: 10px ;
+  border: solid 1px #666;
+  cursor: pointer;
   display: inline-block;
-  width: 100%;
   font-size: 1em;
   font-weight: 400;
-  border: solid 1px #666;
   margin-bottom: 5px;
+  padding: 10px;
+  width: 100%;
 }
 
 #icon_lock {
-  position:absolute;
-  left:8px;/*アイコン左右の位置調整*/
-  top:96px;
-  background:none;
-  color:#666;
-  border:none;
-  font-size:29px;/*アイコンサイズ*/
+  background: none;
+  background-color: #ddd;
+  border: none;
+  color: #666;
+  font-size: 29px;
+  left: 8px;
   padding: 4.6px 8px;
-  background-color: #dddddd;
+  position: absolute;
+  top: 96px;
+
+  /* アイコン左右の位置調整 */
+
+  /* アイコンサイズ */
 }
 
 #iconPassword {
   display: inline-block;
-  width: 8%;
   float: left;
   margin-bottom: 5px;
+  width: 8%;
 }
 
 #password {
-  cursor : pointer;
-  padding: 9px 10px ;
+  border: solid 1px #666;
+  cursor: pointer;
   display: block;
-  width: 100%;
   font-size: 1em;
   font-weight: 400;
-  border: solid 1px #666;
-  margin-top: 40px;
   margin-bottom: 5px;
+  margin-top: 40px;
+  padding: 9px 10px;
+  width: 100%;
 }
 
 #action {
-  width: 200px;
   margin-left: auto;
+  width: 200px;
 }
 
 #submit {
-  z-index: 80;
-  cursor : pointer;
-  font-size: 9pt;
-  position: relative;
-  display: inline-block;
-  padding: 0.6em 1.5em 0.6em 1.5em;
-  margin: 8px;
-  text-decoration: none;
-  color: #FFF;
   /* 背景色 */
   background: #fd9535;
-  /*少し濃い目の色*/
+
+  /* 少し濃い目の色 */
   border: solid 2px #f59402;
-  /*角の丸みをもたせる*/
+
+  /* 角の丸みをもたせる */
   border-radius: 4px;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 9pt;
   font-weight: bold;
+  margin: 8px;
+  padding: 0.6em 1.5em 0.6em 1.5em;
+  position: relative;
+  text-decoration: none;
+  z-index: 80;
 }
 
 #submit:active {
   border-bottom: solid 2px #fd9535;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30)
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
 #signUp {
@@ -402,9 +444,10 @@ h1:before {
 #signUp:hover {
   color: #ff7043;
 }
+
 .loginRegister {
-  z-index: 100;
-  position: relative;
   font-family: 'M PLUS Rounded 1c', sans-serif;
+  position: relative;
+  z-index: 100;
 }
 </style>
