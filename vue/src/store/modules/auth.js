@@ -5,11 +5,7 @@ export default {
   state: {
     userId: '',
     token: '',
-<<<<<<< Updated upstream
     isLoginError: false
-=======
-    message: true
->>>>>>> Stashed changes
   },
   mutations: {
     create (state, data) {
@@ -43,11 +39,7 @@ export default {
       const url = '/api/auth/login'
       await Axios.post(url, data)
         .then(res => commit('create', res.data))
-<<<<<<< Updated upstream
         .catch(() => commit('loginError'))
-=======
-        .catch(err => commit('errorMessage', err))
->>>>>>> Stashed changes
     },
     logout ({ commit }) {
       commit('logout')
