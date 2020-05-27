@@ -13,6 +13,10 @@ export default {
       state.token = data.accessToken
       state.isLoginError = false
     },
+    // エラーメッセージ表示
+    errorMessage (state) {
+      state.message = !state.message
+    },
     // destroy (state) {
     //   state.userId = ''
     //   state.token = ''

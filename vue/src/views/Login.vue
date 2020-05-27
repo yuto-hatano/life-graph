@@ -96,10 +96,11 @@ export default {
     account (newAccount) {
       this.$router.push('/top')
     }
-    // tokenの状態を監視して、tokenが更新されたらtop画面に遷移する
-    // token (newToken) {
-    //   this.$router.push('/top')
-    // }
+  },
+  mounted () {
+    if (this.$store.state.auth.token) {
+      this.$router.push('/top')
+    }
   },
 
   created () {
@@ -450,4 +451,26 @@ h1:before {
   position: relative;
   z-index: 100;
 }
+
+.loginAlert{
+  background-color: #FADBDA;
+  border: none;
+  color: #666;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  height: 16px;
+  transition: border-color 0.3s;
+  width: 280px;
+  display: inline-block;
+  text-align: center;
+  padding: 4px 0px 0px 0px;
+  border-radius:0px;
+}
+.loginNoAlert{
+  display: block;
+  text-align: center;
+  margin: 0px 0px 0px 0px;
+  height: 16px;
+}
+
 </style>
