@@ -89,10 +89,10 @@
                 <!-- <tr v-for="user in eventedAction" :key="user.id"> -->
                 <!-- 非表示 -->
                 <td hidden>
-                  {{ user.id }}
+                  {{ user.user_id }}
                 </td>
                 <td>
-                  {{ user.name }}
+                  {{ user.username }}
                 </td>
                 <td>
                   {{ user.created_at | moment }}
@@ -281,7 +281,7 @@ export default {
     },
     reference (index) {
       this.editIndex = index
-      const id = this.users[index].id
+      const id = this.users[index].user_id
       this.$store.dispatch(
         'refchart/create', id
       )
