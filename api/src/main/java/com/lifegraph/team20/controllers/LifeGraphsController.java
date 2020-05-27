@@ -26,6 +26,7 @@ import com.lifegraph.team20.models.ChildGraph;
 import com.lifegraph.team20.models.LifeGraphData;
 import com.lifegraph.team20.models.SearchGraph;
 import com.lifegraph.team20.service.LifeGraphsService;
+import com.lifegraph.team20.utils.DateUtil;
 
 @RestController
 public class LifeGraphsController {
@@ -100,8 +101,9 @@ public class LifeGraphsController {
       // SearchGraph.javaの中にそれぞれのデータを入れている
       // その後にRowMapper<SearchGraph>に返却される
       public SearchGraph mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new SearchGraph(rs.getString("username"), rs.getInt("user_id"), rs.getTimestamp("updated_at"),
-            rs.getTimestamp("created_at"));
+        return new SearchGraph(rs.getString("username"), rs.getInt("user_id"),
+            DateUtil.toJSTLocalDateTime(rs.getString("updated_at")),
+            DateUtil.toJSTLocalDateTime(rs.getString("created_at")));
         // 取得したidをl.33のSearchGraphに返す
         // さらにそのSearchGraphをl.24のselectSearchGraphに返す。
       }
