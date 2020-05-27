@@ -22,7 +22,7 @@
         </div>
         <div v-if="isOpenUser">
           <ValidationObserver v-slot="{ invalid }" @active.prevent="active()">
-            <validation-provider v-slot="{ errors }" name="ユーザー名" rules="required">
+            <validation-provider v-slot="{ errors }" name="テキスト" rules="required">
               <input id="search_name" v-model="searchUser" type="text" placeholder="ユーザー名">
               <span id="validate">{{ errors[0] }}</span>
             </validation-provider>
@@ -312,6 +312,8 @@ export default {
 #searchSection {
   background-color: #ffffff;
   background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
+  min-height: 100vh;
+  position: relative;
 }
 h1 {
   font-family: 'Roboto Slab', serif;
@@ -330,7 +332,7 @@ h1 {
 #field {
   border: dashed 2px #666f7a;
   border-radius: 30px;
-  margin: 40px auto;
+  margin: 110px auto 130px auto;
   width: 50%;
   padding: 30px 0;
   background-color: #fffcf5;
@@ -359,6 +361,7 @@ p {
 #searchUserName {
   cursor: pointer;
   font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1em;
   position: relative;
   display: inline-block;
   padding: 0.6em 2em 0.6em 2em;
@@ -382,9 +385,11 @@ p {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   position: relative;
   display: inline-block;
+  font-size: 1em;
   padding: 0.6em 2.1em 0.6em 2.1em;
   margin-left: 30px;
   margin-right: 30px;
+  margin-bottom: 30px;
   text-decoration: none;
   color: #FFF;
   /* 背景色 */
@@ -426,6 +431,7 @@ p {
   position: relative;
   display: inline-block;
   padding: 0.6em 1em 0.6em 1em;
+  margin-top: 15px;
   margin-left: 30px;
   margin-right: 30px;
   text-decoration: none;
@@ -534,6 +540,7 @@ td {
   /*角の丸みをもたせる*/
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 
 #reset {
@@ -554,5 +561,6 @@ td {
   /*角の丸みをもたせる*/
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
 }
 </style>

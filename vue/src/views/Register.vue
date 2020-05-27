@@ -9,14 +9,24 @@
     <div class="message_2">
       You can register or edit your "LifeGraph".
     </div>
-    <button id="mainButton" @click="addButton()">
-      登録
-    </button>
-    <button id="mainButton" @click="editButton()">
-      編集
-    </button>
+    <div v-if="isButton" id="button">
+      <button id="mainButton" @click="addButton()">
+        登録
+      </button>
+      <button id="mainButton" @click="editButton()">
+        編集
+      </button>
+    </div>
     <!-- 登録画面 -->
     <div v-if="isAddTable">
+      <div id="registerButton">
+        <button id="mainButton" @click="addButton()">
+          登録
+        </button>
+        <button id="mainButton" @click="editButton()">
+          編集
+        </button>
+      </div>
       <ValidationObserver v-slot="{ invalid }" @add.prevent="add()">
         <div id="input">
           <h2>登録</h2>
@@ -72,6 +82,14 @@
     </div>
     <!-- 編集画面 -->
     <div v-if="isEditTable">
+      <div id="registerButton">
+        <button id="mainButton" @click="addButton()">
+          登録
+        </button>
+        <button id="mainButton" @click="editButton()">
+          編集
+        </button>
+      </div>
       <ValidationObserver v-slot="{ invalid }" @add.prevent="edit_1()">
         <div id="input">
           <h2>編集</h2>
@@ -164,9 +182,7 @@
         </tbody>
       </table>
     </div>
-    <div id="footer">
-      <Footer />
-    </div>
+    <Footer />
   </div>
 </template>
 
@@ -187,6 +203,7 @@ export default {
       age: '',
       score: '',
       comment: '',
+      isButton: true,
       isActive: false,
       isAddTable: false,
       isEditTable: false,
@@ -250,6 +267,7 @@ export default {
       this.isActive = false
       this.isAddTable = true
       this.isEditTable = false
+      this.isButton = false
       this.age = ''
       this.score = ''
       this.comment = ''
@@ -264,6 +282,7 @@ export default {
       this.score = ''
       this.comment = ''
       this.isActive = true
+      this.isButton = false
       this.isAddTable = false
       this.isEditTable = false
     },
@@ -323,8 +342,8 @@ export default {
 #registerSection {
   background-color: #ffffff;
   background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
-  height: 700px;
-  margin: 0;
+  min-height: 100vh;
+  position: relative;
 }
 
 h1 {
@@ -345,7 +364,7 @@ h1 {
 
 #mainButton {
   cursor: pointer;
-  font-size: 25px;
+  /* font-size: em; */
   background-color: #fd9535;
   color: #fff;
   border: solid 2px #f59402;
@@ -353,7 +372,7 @@ h1 {
   padding: 10px 15px;
   margin: 30px 20px 0 20px;
   box-shadow: 1px 2px #dddddd;
-  font-size: 60pt;
+  /* font-size: 100pt; */
   padding: 50px;
 }
 
@@ -383,6 +402,15 @@ h1 {
   top: 2px;
   border: solid 2px #f59402;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+#button {
+  border: dashed 2px #666f7a;
+  border-radius: 30px;
+  width: 60%;
+  margin: 70px auto 140px auto;
+  background-color: #fffcf5;
+  padding: 50px 0 80px 0;
 }
 
 #update {
@@ -625,10 +653,6 @@ table {
   position: relative;
   border: solid 2px #f59402;
   top: 2px;
-}
-
-#footer {
-  margin-top: 313px;
 }
 
 </style>
